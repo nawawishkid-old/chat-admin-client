@@ -2,6 +2,7 @@ import React from "react";
 import auth from "../../services/auth/index";
 import { Redirect } from "react-router-dom";
 import { Input, Button, Checkbox } from "antd";
+import LoginForm from "../../components/forms/Login";
 
 class Login extends React.Component {
   constructor(props) {
@@ -49,25 +50,26 @@ class Login extends React.Component {
     return auth.auth() ? (
       <Redirect to="/" />
     ) : (
-      <div>
-        <Input
-          name="username"
-          id="username"
-          placeholder="Username"
-          onChange={this.inputHandler}
-        />
-        <Input
-          name="password"
-          id="password"
-          placeholder="Password"
-          onChange={this.inputHandler}
-        />
-        <Checkbox name="remember" id="remember" onChange={this.inputHandler}>
-          Remember me
-        </Checkbox>
-        <br />
-        <Button onClick={this.login}>Log in</Button>
-      </div>
+      <LoginForm />
+      // <div>
+      //   <Input
+      //     name="username"
+      //     id="username"
+      //     placeholder="Username"
+      //     onChange={this.inputHandler}
+      //   />
+      //   <Input
+      //     name="password"
+      //     id="password"
+      //     placeholder="Password"
+      //     onChange={this.inputHandler}
+      //   />
+      //   <Checkbox name="remember" id="remember" onChange={this.inputHandler}>
+      //     Remember me
+      //   </Checkbox>
+      //   <br />
+      //   <Button onClick={this.login}>Log in</Button>
+      // </div>
     );
   }
 }

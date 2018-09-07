@@ -4,15 +4,15 @@ import { Button } from "antd";
 // import * as auth from "../../services/auth/jwt";
 import { Layout, AuthRoute } from "../../components/index";
 import { Templates, Info, Profile } from "./scenes/index";
-// import LogoutButton from '../../components/buttons/Logout/index';
+import LogoutButton from "../../components/buttons/Logout/index";
 // import logger from "../../services/loggers/scene";
 import { sceneLogger as logger } from "../../services/loggers/index";
 
-const Header = ({ onClick }) => (
+const Header = () => (
   <div>
     <span style={{ color: "white" }}>Hello, Nawawish!</span>
     <div style={{ float: "right" }}>
-      <Button onClick={onClick}>Log out</Button>
+      <LogoutButton />
     </div>
   </div>
 );
@@ -85,7 +85,7 @@ class Admin extends React.Component {
     return (
       <Layout
         menus={this.getMenus()}
-        header={<Header onClick={this.logout} />}
+        header={<Header />}
         style={{ minHeight: "100vh" }}
       >
         <Route path={this.routes.templates} component={Templates} />

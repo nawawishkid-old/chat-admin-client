@@ -5,15 +5,20 @@ const AuthContext = React.createContext();
 const AuthConsumer = AuthContext.Consumer;
 
 class AuthProvider extends React.Component {
-  // state = { isAuth: undefined };
+  state = { isAuth: undefined };
 
-  login(data, callback) {
-    auth.login(data, callback);
-  }
+  login = (data, callback = () => {}) => {
+    auth.login(data, (err, res) => {
+      callback();
+      this.setState({ isAuth: auth.auth() });
+    });
+  };
 
-  logout() {
+  logout = () => {
+    console.log("logout!");
     auth.logout();
-  }
+    this.setState({ isAuth: auth.auth() });
+  };
 
   render() {
     return (
