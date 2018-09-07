@@ -90,6 +90,7 @@ class Admin extends React.Component {
       >
         <Route path={this.routes.templates} component={Templates} />
         <Route path={this.routes.info} component={Info} />
+        <AuthRoute path={this.routes.profile} component={Profile} />
         <Route path={this.routes.profile} component={Profile} />
       </Layout>
     );

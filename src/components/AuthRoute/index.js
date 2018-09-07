@@ -18,14 +18,15 @@ class AuthRoute extends React.Component {
       );
   };
 
-  auth() {
+  componentDidUpdate() {
+    console.log("AuthRoute.componentDidUpdate()");
     const { attempt } = this.state;
 
     if (auth.auth() || attempt > 0) {
       return true;
     }
 
-    auth.refresh().then(res =>
+    auth.refresh().then(() =>
       this.setState({
         isLoggedin: auth.auth(),
         attempt: attempt + 1,
@@ -34,14 +35,16 @@ class AuthRoute extends React.Component {
     );
   }
 
-  componentDidUpdate() {
-    console.log("AuthRoute.componentDidUpdate()");
-    this.auth();
-  }
-
   componentDidMount() {
     console.log("AuthRoute.componentDidMount()");
-    this.auth();
+    if (auth.auth()) {
+      this.setState({ isLoggedin: true, isLoaded: true });
+      return;
+    }
+
+    auth
+      .refresh()
+      .then(() => this.setState({ isLoggedin: auth.auth(), isLoaded: true }));
   }
 
   render() {
