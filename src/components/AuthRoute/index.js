@@ -5,7 +5,8 @@ import { Route, Redirect } from "react-router-dom";
 class AuthRoute extends React.Component {
   state = {
     isLoaded: false,
-    isLoggedin: undefined
+    isLoggedin: undefined,
+    attempt: 0
   };
 
   routeRender = (Component, redirect) => {
@@ -18,9 +19,19 @@ class AuthRoute extends React.Component {
   };
 
   auth() {
-    auth
-      .ensureAuth()
-      .then(res => this.setState({ isLoggedin: res, isLoaded: true }));
+    const { attempt } = this.state;
+
+    if (auth.auth() || attempt > 0) {
+      return true;
+    }
+
+    auth.refresh().then(res =>
+      this.setState({
+        isLoggedin: auth.auth(),
+        attempt: attempt + 1,
+        isLoaded: true
+      })
+    );
   }
 
   componentDidUpdate() {

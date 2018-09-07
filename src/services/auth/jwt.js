@@ -92,7 +92,14 @@ const refresh = async () => {
       }
     )
     .then(res => {
-      saveToken(res.data.token);
+      const { data } = res;
+
+      if (typeof data.token !== "string") {
+        logger.warn("Unauthenticated");
+        return false;
+      }
+
+      saveToken(data.token);
 
       return true;
     })
@@ -202,23 +209,22 @@ export const auth = () => (check() < 3 ? false : true);
  *
  * @returns {Boolean}
  */
-export const ensureAuth = async () => {
-  logger.debug("jwt.ensureAuth()");
-  const authCode = check();
-  logger.debug("-- authCode: " + authCode);
+// export const ensureAuth = async () => {
+//   logger.debug("jwt.ensureAuth()");
+//   const authCode = check();
 
-  if (authCode === 1) {
-    return false;
-  }
+//   if (authCode === 3) {
+//     return true;
+//   }
 
-  if (authCode === 3) {
-    return true;
-  }
+//   if (authCode === 1) {
+//     return false;
+//   }
 
-  logger.info("Trying auth again...");
-  // Get new token.
-  await refresh();
+//   logger.info("Trying auth again...");
+//   // Get new token.
+//   await refresh();
 
-  // Check if authenticated again.
-  return auth();
-};
+//   // Check if authenticated again.
+//   return auth();
+// };

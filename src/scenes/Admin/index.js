@@ -22,7 +22,8 @@ class Admin extends React.Component {
     logger.debug("Home.constructor()");
     super(props);
     this.state = {
-      isLoggedin: undefined
+      isLoggedin: undefined,
+      attempt: 0
     };
     this.routes = {
       templates: `${props.match.url}/templates`,
@@ -40,10 +41,10 @@ class Admin extends React.Component {
   logout = () => {
     logger.debug("Home.logout()");
     auth.logout();
-    auth.ensureAuth().then(res => {
-      console.log("-- " + res);
-      this.setState({ isLoggedin: res });
-    });
+    // auth.ensureAuth().then(res => {
+    //   console.log("-- " + res);
+    this.setState({ isLoggedin: false });
+    // });
   };
 
   getMenus = () => {
@@ -58,10 +59,17 @@ class Admin extends React.Component {
   // Lifecycles
   componentDidMount() {
     logger.debug("Home.componentDidMount()");
-    auth.ensureAuth().then(res => {
-      logger.debug("isAuth: " + res);
-      this.setState({ isLoggedin: res });
-    });
+
+    if (auth.auth()) {
+      this.setState({ isLoggedin: true });
+      return;
+    }
+
+    auth.refresh().then(() => this.setState({ isLoggedin: auth.auth() }));
+    // auth.ensureAuth().then(res => {
+    //   logger.debug("isAuth: " + res);
+    //   this.setState({ isLoggedin: res });
+    // });
   }
 
   render() {
@@ -82,7 +90,6 @@ class Admin extends React.Component {
       >
         <Route path={this.routes.templates} component={Templates} />
         <Route path={this.routes.info} component={Info} />
-        <AuthRoute path={this.routes.profile} component={Profile} />
         <Route path={this.routes.profile} component={Profile} />
       </Layout>
     );
