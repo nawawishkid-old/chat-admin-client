@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import * as auth from "../../services/auth/jwt";
+import auth from "../../services/auth/jwt";
 
 class Home extends React.Component {
   // state = {

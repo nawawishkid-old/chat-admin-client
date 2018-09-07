@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Link, Redirect } from "react-router-dom";
 import { Button } from "antd";
-import * as auth from "../../services/auth/jwt";
+// import * as auth from "../../services/auth/jwt";
 import { Layout, AuthRoute } from "../../components/index";
 import { Templates, Info, Profile } from "./scenes/index";
 // import LogoutButton from '../../components/buttons/Logout/index';
@@ -38,14 +38,14 @@ class Admin extends React.Component {
     ];
   }
 
-  logout = () => {
-    logger.debug("Home.logout()");
-    auth.logout();
-    // auth.ensureAuth().then(res => {
-    //   console.log("-- " + res);
-    this.setState({ isLoggedin: false });
-    // });
-  };
+  // logout = () => {
+  //   logger.debug("Home.logout()");
+  //   auth.logout();
+  //   // auth.ensureAuth().then(res => {
+  //   //   console.log("-- " + res);
+  //   this.setState({ isLoggedin: false });
+  //   // });
+  // };
 
   getMenus = () => {
     logger.debug("Home.getMenus()");
@@ -57,30 +57,30 @@ class Admin extends React.Component {
   };
 
   // Lifecycles
-  componentDidMount() {
-    logger.debug("Home.componentDidMount()");
+  // componentDidMount() {
+  //   logger.debug("Home.componentDidMount()");
 
-    if (auth.auth()) {
-      this.setState({ isLoggedin: true });
-      return;
-    }
+  //   if (auth.auth()) {
+  //     this.setState({ isLoggedin: true });
+  //     return;
+  //   }
 
-    auth.refresh().then(() => this.setState({ isLoggedin: auth.auth() }));
-    // auth.ensureAuth().then(res => {
-    //   logger.debug("isAuth: " + res);
-    //   this.setState({ isLoggedin: res });
-    // });
-  }
+  //   auth.refresh().then(() => this.setState({ isLoggedin: auth.auth() }));
+  //   // auth.ensureAuth().then(res => {
+  //   //   logger.debug("isAuth: " + res);
+  //   //   this.setState({ isLoggedin: res });
+  //   // });
+  // }
 
   render() {
     logger.debug("Home.render()");
-    if (typeof this.state.isLoggedin === "undefined") {
-      return <h1>Loading...</h1>;
-    }
+    // if (typeof this.state.isLoggedin === "undefined") {
+    //   return <h1>Loading...</h1>;
+    // }
 
-    if (!this.state.isLoggedin) {
-      return <Redirect to="/" />;
-    }
+    // if (!this.state.isLoggedin) {
+    //   return <Redirect to="/" />;
+    // }
 
     return (
       <Layout
@@ -90,7 +90,6 @@ class Admin extends React.Component {
       >
         <Route path={this.routes.templates} component={Templates} />
         <Route path={this.routes.info} component={Info} />
-        <AuthRoute path={this.routes.profile} component={Profile} />
         <Route path={this.routes.profile} component={Profile} />
       </Layout>
     );

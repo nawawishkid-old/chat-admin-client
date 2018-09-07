@@ -1,7 +1,7 @@
 import React from "react";
 import auth from "../../services/auth/index";
 import { Redirect } from "react-router-dom";
-import { Input, Button } from "antd";
+import { Input, Button, Checkbox } from "antd";
 
 class Login extends React.Component {
   constructor(props) {
@@ -20,9 +20,9 @@ class Login extends React.Component {
 
   login = () => {
     console.log("Login.login()");
-    const { username, password } = this.state;
+    const { username, password, remember } = this.state;
 
-    auth.authenticate(username, password, (err, data) => {
+    auth.login({ username, password, remember }, (err, data) => {
       if (err) {
         // logger.error(err);
         return;
@@ -39,6 +39,7 @@ class Login extends React.Component {
   // }
 
   render() {
+    console.log("auth: ", auth);
     // const { isLoggedin, isLoaded } = this.state;
 
     // if (!isLoaded) {
@@ -61,6 +62,10 @@ class Login extends React.Component {
           placeholder="Password"
           onChange={this.inputHandler}
         />
+        <Checkbox name="remember" id="remember" onChange={this.inputHandler}>
+          Remember me
+        </Checkbox>
+        <br />
         <Button onClick={this.login}>Log in</Button>
       </div>
     );
