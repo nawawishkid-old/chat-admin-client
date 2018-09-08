@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Form as AntdForm, Icon, Input, Button, Checkbox } from "antd";
+import { Form as AntdForm, Button } from "antd";
 import { AuthConsumer } from "../contexts/Auth";
 import { withConsumer } from "../contexts/utils";
+import {
+  usernameDecorator,
+  passwordDecorator,
+  checkBoxDecorator
+} from "../forms/decorator";
 
 const FormItem = AntdForm.Item;
 const Form = styled(AntdForm)`
@@ -34,13 +39,17 @@ class LoginForm extends React.Component {
     });
   };
 
+  getDecorator = decorObject => {
+    const Component = decorObject.component;
+
+    return this.props.form.getFieldDecorator(
+      decorObject.id,
+      decorObject.options || null
+    )(<Component />);
+  };
+
   render() {
-    const {
-      getFieldDecorator,
-      getFieldsError,
-      getFieldError,
-      isFieldTouched
-    } = this.props.form;
+    const { getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
     // Only show error after a field is touched.
     const usernameError =
@@ -54,34 +63,15 @@ class LoginForm extends React.Component {
           validateStatus={usernameError ? "error" : ""}
           help={usernameError || ""}
         >
-          {getFieldDecorator("username", {
-            rules: [
-              {
-                required: true,
-                message: "Please input your username!"
-              }
-            ]
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-              placeholder="Username"
-            />
-          )}
+          {this.getDecorator(usernameDecorator)}
         </FormItem>
         <FormItem
           validateStatus={passwordError ? "error" : ""}
           help={passwordError || ""}
         >
-          {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-              type="password"
-              placeholder="Password"
-            />
-          )}
+          {this.getDecorator(passwordDecorator)}
         </FormItem>
+        <FormItem>{this.getDecorator(checkBoxDecorator)}</FormItem>
         <FormItem>
           <Button
             type="primary"
