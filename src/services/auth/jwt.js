@@ -10,7 +10,7 @@ const AUTHENTICATED = 3;
 class JWTAuth {
   constructor(options) {
     this.settings = {
-      storageType: "session",
+      storageType: "local",
       storageTokenKey: undefined,
       storagePayloadKey: undefined,
       ...options
@@ -47,10 +47,10 @@ class JWTAuth {
    * @param {String} token JWT Token
    * @param {Boolean} isPersisted Remember user or not.
    */
-  saveToken = (token, isPersisted = false) => {
+  saveToken = token => {
     this.clearStorage();
 
-    this.settings.storageType = isPersisted ? "local" : "session";
+    // this.settings.storageType = isPersisted ? "local" : "session";
 
     const payload = JSON.stringify(this.parseTokenPayload(token));
     const { storageTokenKey, storagePayloadKey } = this.settings;
@@ -230,7 +230,7 @@ class JWTAuth {
           return false;
         }
 
-        this.saveToken(data.token, remember);
+        this.saveToken(data.token);
 
         callback(null, data);
 
