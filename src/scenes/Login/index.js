@@ -1,7 +1,7 @@
 import React from "react";
 import auth from "../../services/auth/index";
 import { Redirect } from "react-router-dom";
-import { Input, Button, Checkbox } from "antd";
+// import { Input, Button, Checkbox } from "antd";
 import LoginForm from "../../components/forms/Login";
 
 class Login extends React.Component {

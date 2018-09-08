@@ -8,6 +8,7 @@ class AuthProvider extends React.Component {
   state = { isAuth: undefined };
 
   login = (data, callback = () => {}) => {
+    console.log("login!");
     auth.login(data, (err, res) => {
       callback();
       this.setState({ isAuth: auth.auth() });

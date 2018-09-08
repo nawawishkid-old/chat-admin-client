@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { Form as AntdForm, Button } from "antd";
 import { AuthConsumer } from "../contexts/Auth";
@@ -87,8 +88,14 @@ class LoginForm extends React.Component {
 }
 
 const WrappedLoginForm = AntdForm.create()(LoginForm);
-const WithAuthConsumer = withConsumer(AuthConsumer, ({ login }) => (
-  <WrappedLoginForm onSubmit={formData => login(formData)} />
-));
+const WithAuthConsumer = withConsumer(
+  AuthConsumer,
+  ({ isAuth, login }) =>
+    isAuth ? (
+      <Redirect to="/" />
+    ) : (
+      <WrappedLoginForm onSubmit={formData => login(formData)} />
+    )
+);
 
 export default WithAuthConsumer;

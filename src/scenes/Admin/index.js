@@ -1,12 +1,9 @@
 import React from "react";
 import { Route, Link, Redirect } from "react-router-dom";
-import { Button } from "antd";
-// import * as auth from "../../services/auth/jwt";
-import { Layout, AuthRoute } from "../../components/index";
+// import { Button } from "antd";
+import { Layout } from "../../components/index";
 import { Templates, Info, Profile } from "./scenes/index";
 import LogoutButton from "../../components/buttons/Logout/index";
-// import logger from "../../services/loggers/scene";
-import { sceneLogger as logger } from "../../services/loggers/index";
 
 const Header = () => (
   <div>
@@ -19,7 +16,6 @@ const Header = () => (
 
 class Admin extends React.Component {
   constructor(props) {
-    logger.debug("Home.constructor()");
     super(props);
     this.state = {
       isLoggedin: undefined,
@@ -39,7 +35,7 @@ class Admin extends React.Component {
   }
 
   // logout = () => {
-  //   logger.debug("Home.logout()");
+
   //   auth.logout();
   //   // auth.ensureAuth().then(res => {
   //   //   console.log("-- " + res);
@@ -48,7 +44,6 @@ class Admin extends React.Component {
   // };
 
   getMenus = () => {
-    logger.debug("Home.getMenus()");
     return this.menus.map(item => (
       <Link to={item.to} className="nav-link">
         {item.txt}
@@ -58,7 +53,6 @@ class Admin extends React.Component {
 
   // Lifecycles
   // componentDidMount() {
-  //   logger.debug("Home.componentDidMount()");
 
   //   if (auth.auth()) {
   //     this.setState({ isLoggedin: true });
@@ -67,13 +61,12 @@ class Admin extends React.Component {
 
   //   auth.refresh().then(() => this.setState({ isLoggedin: auth.auth() }));
   //   // auth.ensureAuth().then(res => {
-  //   //   logger.debug("isAuth: " + res);
+
   //   //   this.setState({ isLoggedin: res });
   //   // });
   // }
 
   render() {
-    logger.debug("Home.render()");
     // if (typeof this.state.isLoggedin === "undefined") {
     //   return <h1>Loading...</h1>;
     // }

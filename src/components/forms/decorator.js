@@ -1,19 +1,6 @@
 import React from "react";
 import { Icon, Input, Button, Checkbox } from "antd";
 
-/**
- * Create parameter object for Ant.design's getFieldDecorator
- *
- * @param {String} id Field's ID
- * @param {Object} options Options object
- * @param {React.Component} Component
- */
-// export const makeDecoratorPattern = (id, options = null, Component) => ({
-//   id,
-//   options,
-//   component: props => <Component {...props} />
-// });
-
 export const usernameDecorator = {
   id: "username",
   options: {
@@ -32,6 +19,7 @@ export const usernameDecorator = {
     />
   )
 };
+
 export const checkBoxDecorator = {
   id: "remember",
   options: {
@@ -39,6 +27,7 @@ export const checkBoxDecorator = {
   },
   component: props => <Checkbox {...props}>Remember me</Checkbox>
 };
+
 export const passwordDecorator = {
   id: "password",
   options: {
