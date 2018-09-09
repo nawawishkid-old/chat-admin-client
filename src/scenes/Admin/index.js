@@ -1,13 +1,27 @@
 import React from "react";
 import { Route, Link, Redirect } from "react-router-dom";
 // import { Button } from "antd";
-import { Layout } from "../../components/index";
+import { Layout as CustomLayout } from "../../components/index";
 import { Templates, Info, Profile } from "./scenes/index";
-// import { Menu, Layout } from "antd";
 import LogoutButton from "../../components/buttons/Logout/index";
+import {
+  AdminSidebar,
+  AdminMenu,
+  AdminHeader,
+  AdminContent
+} from "./components/index";
+import { Layout, Row, Col, Menu } from "antd";
 
-// const { Header, Sider, Content } = Layout;
-// const SubMenu = Menu.SubMenu;
+const { Sider, Header, Content } = Layout;
+const SubMenu = Menu.SubMenu;
+
+// const TemplatesMenu = props => (
+//   <SubMenu {...props} title="Templates">
+//     <Menu.Item key="1">
+//       <Link>New</Link>
+//     </Menu.Item>
+//   </SubMenu>
+// );
 
 const HeaderContent = () => (
   <div>
@@ -21,21 +35,35 @@ const HeaderContent = () => (
 class Admin extends React.Component {
   constructor(props) {
     super(props);
-    this.routes = {
-      templates: `${props.match.url}/templates`,
-      info: `${props.match.url}/info`,
-      profile: `${props.match.url}/profile`
-    };
-    this.menus = [
-      { to: "/", txt: "Home" },
-      { to: this.routes.templates, txt: "Templates" },
-      { to: this.routes.info, txt: "Info" },
-      { to: this.routes.profile, txt: "Profile" }
+    // this.routes = {
+    //   templates: `${props.match.url}/templates`,
+    //   info: `${props.match.url}/info`,
+    //   profile: `${props.match.url}/profile`
+    // };
+    this.pages = [
+      {
+        name: "Templates",
+        path: `${props.match.url}/templates`,
+        component: Templates
+      },
+      { name: "Info", path: `${props.match.url}/info`, component: Info },
+      {
+        name: "Profile",
+        path: `${props.match.url}/profile`,
+        component: Profile
+      }
     ];
+    // this.menus = [
+    //   { to: "/", txt: "Home" },
+    //   { to: this.routes.templates, txt: "Templates" },
+    //   { to: this.routes.info, txt: "Info" },
+    //   { to: this.routes.profile, txt: "Profile" }
+    // ];
   }
 
   state = {
-    collapsed: true
+    isCollapsed: true,
+    collapsedWitdh: 0
   };
 
   onCollapse = collapsed => {
@@ -55,58 +83,39 @@ class Admin extends React.Component {
     ));
   };
 
+  __temp = () => (
+    <CustomLayout
+      menus={this.getMenus()}
+      header={<HeaderContent />}
+      style={{ minHeight: "100vh" }}
+    >
+      <Route path={this.routes.templates} component={Templates} />
+      <Route path={this.routes.info} component={Info} />
+      <Route path={this.routes.profile} component={Profile} />
+    </CustomLayout>
+  );
+
   render() {
+    const { isCollapsed } = this.state;
+
     return (
-      <Layout
-        menus={this.getMenus()}
-        header={<HeaderContent />}
-        style={{ minHeight: "100vh" }}
-      >
-        <Route path={this.routes.templates} component={Templates} />
-        <Route path={this.routes.info} component={Info} />
-        <Route path={this.routes.profile} component={Profile} />
+      <Layout>
+        <AdminSidebar>
+          <AdminMenu pages={this.pages} />
+        </AdminSidebar>
+        <Layout style={{ height: "100vh" }}>
+          <Header>
+            <HeaderContent />
+          </Header>
+          <Content>
+            {this.pages.map(page => (
+              <Route path={page.path} component={page.component} />
+            ))}
+          </Content>
+        </Layout>
       </Layout>
     );
   }
 }
-
-// const TemplatesMenu = props => (
-//   <SubMenu {...props} title="Templates">
-//     <Menu.Item key="1">Option 1</Menu.Item>
-//   </SubMenu>
-// );
-// const AdminLayout = props => (
-//   <Layout>
-//     <Sider
-//       collapsible
-//       onCollapse={this.onCollapse}
-//       collapsed={this.state.collapsed}
-//       style={{ height: "100vh" }}
-//     >
-//       <Menu
-//         onClick={this.handleClick}
-//         // style={{ width: 256 }}
-//         defaultSelectedKeys={["1"]}
-//         defaultOpenKeys={["sub1"]}
-//         mode="inline"
-//         theme="dark"
-//       >
-//         <TemplatesMenu key="sub1" />
-//         <Menu.Item key="3">Info</Menu.Item>
-//         <Menu.Item key="4">Profile</Menu.Item>
-//       </Menu>
-//     </Sider>
-//     <Layout style={{ height: "100vh" }}>
-//       <Header>
-//         <HeaderContent />
-//       </Header>
-//       <Content style={{ height: "100vh", overflowY: "scroll" }}>
-//         <Route path={this.routes.templates} component={Templates} />
-//         <Route path={this.routes.info} component={Info} />
-//         <Route path={this.routes.profile} component={Profile} />
-//       </Content>
-//     </Layout>
-//   </Layout>
-// );
 
 export default Admin;

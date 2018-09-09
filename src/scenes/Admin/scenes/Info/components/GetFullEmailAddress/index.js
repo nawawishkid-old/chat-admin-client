@@ -4,8 +4,6 @@ import ServiceForm, {
 } from "../../../../../../components/ServiceForm/index";
 import { Input } from "antd";
 
-import "antd/dist/antd.css";
-
 const SFWithApiHandling = withApiHandling(ServiceForm);
 const EmailInput = <Input name="email_user" placeholder="Email user" />;
 

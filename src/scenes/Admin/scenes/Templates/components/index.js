@@ -1,8 +1,5 @@
 import React from "react";
 import { InputNumber, Select } from "antd";
-import ChatTemplateForm from "./ChatTemplateForm/index";
-
-import "antd/dist/antd.css";
 
 const province = (
   <Select name="area" defaultValue="non_bkk">
@@ -29,40 +26,28 @@ const priceInput = (
   />
 );
 
-export const GetAskBillingInfo = (
-  <ChatTemplateForm
-    title="ask billing info"
-    serviceSlug="get-ask-billing-info"
-  />
-);
+export const GetAskBillingInfo = {
+  title: "ask billing info",
+  serviceSlug: "get-ask-billing-info"
+};
 
-export const GetAskForProductImage = (
-  <ChatTemplateForm
-    title="ask for product image"
-    serviceSlug="get-ask-for-product-image"
-  />
-);
+export const GetAskForProductImage = {
+  title: "ask for product image",
+  serviceSlug: "get-ask-for-product-image"
+};
 
-export const GetGreeting = (
-  <ChatTemplateForm title="greeting" serviceSlug="get-greeting" />
-);
+export const GetGreeting = { title: "greeting", serviceSlug: "get-greeting" };
 
-export const GetOrderCompletion = (
-  <ChatTemplateForm
-    title="order completion"
-    inputs={[province, orderNumber]}
-    serviceSlug="get-order-completion"
-  />
-);
+export const GetOrderCompletion = {
+  title: "order completion",
+  inputs: [province, orderNumber],
+  serviceSlug: "get-order-completion"
+};
 
-export const GetPrice = (
-  <ChatTemplateForm
-    title="price"
-    inputs={[priceInput]}
-    serviceSlug="get-price"
-  />
-);
+export const GetPrice = {
+  title: "price",
+  inputs: [priceInput],
+  serviceSlug: "get-price"
+};
 
-export const GetResend = (
-  <ChatTemplateForm title="resend" serviceSlug="get-resend" />
-);
+export const GetResend = { title: "resend", serviceSlug: "get-resend" };

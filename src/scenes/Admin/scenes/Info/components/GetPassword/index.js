@@ -3,8 +3,6 @@ import ServiceForm, {
   withApiHandling
 } from "../../../../../../components/ServiceForm/index";
 
-import "antd/dist/antd.css";
-
 const SFWithApiHandling = withApiHandling(ServiceForm);
 
 const GetFullEmailAddress = (
