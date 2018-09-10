@@ -6,7 +6,9 @@ const BaseForm = props => {
 
   return (
     <Form {...rest}>
-      {React.Children.map(children, item => <Form.Item>{item}</Form.Item>)}
+      {React.Children.map(children, item => (
+        <Form.Item>{item}</Form.Item>
+      ))}
     </Form>
   );
 };

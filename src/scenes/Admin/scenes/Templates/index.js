@@ -10,9 +10,8 @@ import {
   GetAskForProductImage
 } from "./components/index";
 import OldChatTemplateForm from "./components/ChatTemplateForm/index";
-import ChatTemplateForm, {
-  Input as ChatTemplateFormInput
-} from "~/src/components/forms/chat-templates";
+import ChatTemplateForm from "~/src/components/forms/chat-templates";
+import TemplateInputBuilder from "~/src/components/TemplateInputBuilder";
 
 const forms = [
   GetPrice,
@@ -90,6 +89,7 @@ const Templates = () => (
     <h1>Templates!</h1>
     <ServicePanel>
       {PriceForm}
+      <TemplateInputBuilder />
       {forms.map((form, index) => (
         <OldChatTemplateForm key={index} {...form} />
       ))}
