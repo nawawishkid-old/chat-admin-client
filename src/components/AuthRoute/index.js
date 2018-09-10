@@ -3,8 +3,6 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { AuthConsumer } from "../contexts/Auth";
 
-console.log("comsumer: ", AuthConsumer);
-
 const AuthRoute = ({ component: Component, ...rest }) => (
   <AuthConsumer>
     {({ isAuth }) => (
@@ -17,6 +15,8 @@ const AuthRoute = ({ component: Component, ...rest }) => (
     )}
   </AuthConsumer>
 );
+
+export { AuthRoute };
 
 export default AuthRoute;
 

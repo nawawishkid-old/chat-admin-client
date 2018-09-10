@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 // import { Button } from "antd";
 import { Layout as CustomLayout } from "../../components/index";
 import { Templates, Info, Profile } from "./scenes/index";
@@ -11,6 +11,7 @@ import {
   AdminContent
 } from "./components/index";
 import { Layout, Row, Col, Menu } from "antd";
+import NotFound from "~/src/scenes/NotFound/index";
 
 const { Sider, Header, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -108,14 +109,28 @@ class Admin extends React.Component {
             <HeaderContent />
           </Header>
           <Content>
-            {this.pages.map(page => (
-              <Route path={page.path} component={page.component} />
-            ))}
+            <Switch>
+              {this.pages.map((page, index) => (
+                <Route
+                  key={index}
+                  path={page.path}
+                  component={page.component}
+                />
+              ))}
+              {/* <Route key={this.pages.length} component={NotFound} /> */}
+              <Route
+                render={() => (
+                  <h1 style={{ textAlign: "center" }}>Page Not Found.</h1>
+                )}
+              />
+            </Switch>
           </Content>
         </Layout>
       </Layout>
     );
   }
 }
+
+export { Admin };
 
 export default Admin;

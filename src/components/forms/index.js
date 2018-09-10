@@ -1,2 +1,2 @@
-export SignupForm from "./Signup/index";
-export Login from "./Login";
+export { SignupForm } from "./Signup/index";
+export { LoginForm } from "./Login";

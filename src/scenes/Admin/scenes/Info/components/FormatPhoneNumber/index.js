@@ -1,8 +1,6 @@
 import React from "react";
-import { Presentation } from "../../../../../../components/ServiceForm/index";
+import { Presentation } from "~/src/components/ServiceForm/index";
 import { Button, Input } from "antd";
-
-import "antd/dist/antd.css";
 
 // Use copiable output from Container,
 // but write your own phone number formatting algo to handle 'Get' button

@@ -1,11 +1,11 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import { Layout, Menu, Icon } from "antd";
+import { Layout as AntdLayout, Menu, Icon } from "antd";
 
-const { Header, Content, Sider, Footer } = Layout;
+const { Header, Content, Sider, Footer } = AntdLayout;
 // const SubMenu = Menu.SubMenu;
 
-class Main extends React.Component {
+class Layout extends React.Component {
   state = {
     collapsed: true
   };
@@ -21,7 +21,7 @@ class Main extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <AntdLayout>
         <Sider
           collapsible
           onCollapse={this.onCollapse}
@@ -32,16 +32,17 @@ class Main extends React.Component {
             {React.Children.map(this.props.menus, this.getMenuItem)}
           </Menu>
         </Sider>
-        <Layout style={{ height: "100vh" }}>
+        <AntdLayout style={{ height: "100vh" }}>
           <Header>{this.props.header}</Header>
           <Content style={{ height: "100vh", overflowY: "scroll" }}>
             {this.props.children}
           </Content>
           <Footer>{this.props.footer}</Footer>
-        </Layout>
-      </Layout>
+        </AntdLayout>
+      </AntdLayout>
     );
   }
 }
 
-export default Main;
+export { Layout };
+export default Layout;

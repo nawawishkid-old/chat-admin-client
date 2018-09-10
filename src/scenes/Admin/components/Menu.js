@@ -19,4 +19,6 @@ const AdminMenu = ({ pages, ...rest }) => (
   </Menu>
 );
 
+export { AdminMenu };
+
 export default AdminMenu;

@@ -5,4 +5,6 @@ const { Header } = Layout;
 
 const AdminHeader = props => <Header>{props.children}</Header>;
 
+export { AdminHeader };
+
 export default AdminHeader;

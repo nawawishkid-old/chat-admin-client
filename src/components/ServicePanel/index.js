@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 
-import "antd/dist/antd.css";
-
 class ServicePanel extends React.Component {
   getDummyData = () => {
     return Array(20)
@@ -51,5 +49,7 @@ class ServicePanel extends React.Component {
 }
 
 ServicePanel.propTypes = {};
+
+export { ServicePanel };
 
 export default ServicePanel;

@@ -1,5 +1,5 @@
 import React from "react";
-import ServicePanel from "/src/components/ServicePanel/index";
+import ServicePanel from "~/src/components/ServicePanel";
 import { Form, Row, Col } from "antd";
 import {
   GetPrice,
@@ -9,12 +9,10 @@ import {
   GetAskBillingInfo,
   GetAskForProductImage
 } from "./components/index";
-import ChatTemplateForm from "./components/ChatTemplateForm/index";
-import CTF from "../../../../components/forms/chat-templates/ChatTemplate";
-import {
-  withDecorators,
-  makeInputDecorator
-} from "../../../../components/forms/chat-templates/utils";
+import OldChatTemplateForm from "./components/ChatTemplateForm/index";
+import ChatTemplateForm, {
+  Input as ChatTemplateFormInput
+} from "~/src/components/forms/chat-templates";
 
 const forms = [
   GetPrice,
@@ -27,13 +25,13 @@ const forms = [
 
 // Pattern to create template input,
 // similar to Ant Design's Form's getFieldDecorator()
-const genderSchema = {
+const genderScheme = {
+  label: "Gender",
   id: "gender",
   options: {
-    rules: [],
     initialValue: "male"
   },
-  component: {
+  componentScheme: {
     type: "select",
     options: [
       { name: "Male", value: "male" },
@@ -41,38 +39,64 @@ const genderSchema = {
     ]
   }
 };
-// const priceSchema = {
-//   id: "price",
-//   options: {},
-//   component: {
-//     type: "number",
-//     props: {
-//       placeholder: "Price",
-//       min: 0,
-//       step: 10
-//     }
-//   }
-// };
+const priceScheme = {
+  label: "Price",
+  id: "price",
+  options: {
+    rules: [{ required: true, message: "Price is required" }]
+  },
+  componentScheme: {
+    type: "number",
+    props: {
+      placeholder: "Price",
+      min: 0,
+      step: 10
+    }
+  }
+};
+const shopNameScheme = {
+  label: "Shop Name",
+  id: "shopName",
+  options: {
+    rules: [{ required: true, message: "Shop name is required" }]
+  },
+  componentScheme: {
+    type: "text",
+    props: {
+      placeholder: "Shop name"
+    }
+  }
+};
 
-// // Usage
-const genderDecorator = makeInputDecorator(genderSchema);
-// const priceDecorator = makeInputDecorator(priceSchema);
-
-const PriceForm = props => <CTF title="Get price template" {...props} />;
-console.log("withDecorators: ", withDecorators(PriceForm, genderDecorator));
-
-const WrappedPriceForm = Form.create()(
-  withDecorators(PriceForm, genderDecorator)
+const PriceForm = (
+  <ChatTemplateForm
+    title="Get price template"
+    inputSchemes={[genderScheme, priceScheme, shopNameScheme]}
+  >
+    {/* {[genderScheme, priceScheme, shopNameScheme].map((item, index) => (
+      <ChatTemplateFormInput
+        label={item.title}
+        id={item.id}
+        options={item.options || {}}
+        componentScheme={item.componentScheme}
+        key={index}
+      />
+    ))} */}
+  </ChatTemplateForm>
 );
 
 const Templates = () => (
   <div>
     <h1>Templates!</h1>
     <ServicePanel>
-      <WrappedPriceForm />
-      {forms.map(form => <ChatTemplateForm {...form} />)}
+      {PriceForm}
+      {forms.map((form, index) => (
+        <OldChatTemplateForm key={index} {...form} />
+      ))}
     </ServicePanel>
   </div>
 );
+
+export { Templates };
 
 export default Templates;

@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { Form as AntdForm, Button } from "antd";
 import { AuthConsumer } from "../contexts/Auth";
-import { withConsumer } from "../contexts/utils";
 import {
   usernameDecorator,
   passwordDecorator,
@@ -12,9 +11,9 @@ import {
 
 const FormItem = AntdForm.Item;
 const Form = styled(AntdForm)`
-  && { 
+  && {
     padding: 1em;
-    border: .5px solid #ccc
+    border: 0.5px solid #ccc;
   }
 `;
 
@@ -22,7 +21,7 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class LoginForm extends React.Component {
+class Login extends React.Component {
   componentDidMount() {
     // To disabled submit button at the beginning.
     this.props.form.validateFields();
@@ -87,15 +86,19 @@ class LoginForm extends React.Component {
   }
 }
 
-const WrappedLoginForm = AntdForm.create()(LoginForm);
-const WithAuthConsumer = withConsumer(
-  AuthConsumer,
-  ({ isAuth, login }) =>
-    isAuth ? (
-      <Redirect to="/" />
-    ) : (
-      <WrappedLoginForm onSubmit={formData => login(formData)} />
-    )
+const WrappedLogin = AntdForm.create()(Login);
+const LoginForm = () => (
+  <AuthConsumer>
+    {({ isAuth, login }) =>
+      isAuth ? (
+        <Redirect to="/" />
+      ) : (
+        <WrappedLogin onSubmit={formData => login(formData)} />
+      )
+    }
+  </AuthConsumer>
 );
 
-export default WithAuthConsumer;
+export { LoginForm };
+
+export default LoginForm;

@@ -1,49 +1,66 @@
 import React from "react";
 import { Input, InputNumber, Select } from "antd";
 
-const withDecorators = (TemplateForm, ...decorators) => {
+/**
+ * Attach `antd` field decorators to the component
+ *
+ * @param {React.Component} TemplateForm Component to be attached
+ * @param {Object} decorators `antd` filed decorator arguments object
+ * @return {React.Component} The decorators-attached component
+ */
+const withAntdFieldDecorators = (TemplateForm, ...decorators) => {
   return props => <TemplateForm {...props} decorators={decorators} />;
 };
 
-const makeInputDecorator = pattern => {
-  const { id, component } = pattern;
-  const { type } = component;
-  const props = component.props === undefined ? {} : component.props;
+/**
+ * Create `antd` filed decorator from specific data structure
+ *
+ * @param {Object} scheme
+ * @param {String} scheme.id ID of template form's filed
+ * @param {Object} scheme.options Optional configuration of the field, uses for `antd` filed decorator
+ * @param {Object} scheme.component Object contains data for generating React.Component
+ * @returns {Object} `antd` field's decorator object
+ */
+const makeAntdFieldDecorator = scheme => {
+  const { id, componentScheme } = scheme;
+  const props =
+    componentScheme.props === undefined ? {} : componentScheme.props;
   const decorator = {
     id,
-    options: pattern.options,
-    component: <Input />
+    options: scheme.options || {}
   };
-  // let selectOptions = null,
-  //   TheInput;
+  let selectOptions = null,
+    TheInput;
 
-  // switch (type) {
-  //   case "number":
-  //     TheInput = InputNumber;
-  //     break;
-  //   case "select":
-  //     TheInput = Select;
-  //     break;
-  //   default:
-  //     TheInput = Input;
-  // }
+  switch (componentScheme.type) {
+    case "number":
+      TheInput = InputNumber;
+      break;
+    case "select":
+      TheInput = Select;
+      break;
+    default:
+      TheInput = Input;
+  }
 
-  // if (Array.isArray(component.options)) {
-  //   selectOptions = component.options.map(item => (
-  //     <Select.Option value={item.value}>{item.name}</Select.Option>
-  //   ));
-  // }
+  if (Array.isArray(componentScheme.options)) {
+    selectOptions = componentScheme.options.map((item, index) => (
+      <Select.Option value={item.value} key={index}>
+        {item.name}
+      </Select.Option>
+    ));
+  }
 
   // console.log("props: ", props);
 
-  // if (props.defaultValue !== undefined) {
-  //   decorator.options.initialValue = props.defaultValue;
-  //   delete props.defaultValue;
-  // }
+  if (props.defaultValue !== undefined) {
+    decorator.options.initialValue = props.defaultValue;
+    delete props.defaultValue;
+  }
 
-  // decorator.component = <TheInput {...props}>{selectOptions}</TheInput>;
+  decorator.component = <TheInput {...props}>{selectOptions}</TheInput>;
 
   return decorator;
 };
 
-export { withDecorators, makeInputDecorator };
+export { withAntdFieldDecorators, makeAntdFieldDecorator };

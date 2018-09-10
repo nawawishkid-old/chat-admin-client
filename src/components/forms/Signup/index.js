@@ -4,9 +4,9 @@ import { Form as AntdForm, Icon, Input, Button, Checkbox } from "antd";
 
 const FormItem = AntdForm.Item;
 const Form = styled(AntdForm)`
-  && { 
+  && {
     padding: 1em;
-    border: .5px solid #ccc
+    border: 0.5px solid #ccc;
   }
 `;
 
@@ -14,7 +14,7 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class SignupForm extends React.Component {
+class Signup extends React.Component {
   componentDidMount() {
     // To disabled submit button at the beginning.
     this.props.form.validateFields();
@@ -96,6 +96,8 @@ class SignupForm extends React.Component {
   }
 }
 
-const WrappedSignupForm = AntdForm.create()(SignupForm);
+const SignupForm = AntdForm.create()(Signup);
 
-export default WrappedSignupForm;
+export { SignupForm };
+
+export default SignupForm;

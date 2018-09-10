@@ -11,18 +11,24 @@ class NotFound extends React.Component {
   }
 
   countdown = () => {
-    setTimeout(
-      () => this.setState({ countdown: this.state.countdown - 1 }),
-      1000
-    );
+    setTimeout(() => {
+      if (this._isMounted) {
+        this.setState({ countdown: this.state.countdown - 1 });
+      }
+    }, 1000);
   };
 
   componentDidMount = () => {
+    this._isMounted = true;
     this.countdown();
   };
 
   componentDidUpdate = () => {
     this.countdown();
+  };
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
   };
 
   render() {
@@ -48,5 +54,7 @@ NotFound.defaultProps = {
 NotFound.propTypes = {
   countdown: PropTypes.number
 };
+
+export { NotFound };
 
 export default NotFound;

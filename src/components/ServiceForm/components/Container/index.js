@@ -31,7 +31,7 @@ class ServiceFormContainer extends React.Component {
    */
   modifyInputComponents = () => {
     return this.props.inputs.map((input, index) => {
-      console.log(input);
+      // console.log(input);
       const props = {
         onKeyPress: this.getInputOnKeyPressListener(input),
         onChange: this.getInputOnChangeListener(input)
@@ -68,7 +68,7 @@ class ServiceFormContainer extends React.Component {
         input.props.onKeyPress(value);
       }
 
-      console.log(currentKeys);
+      // console.log(currentKeys);
 
       if (currentKeys[0] === 16 && currentKeys[1] === 13) {
         this.copyOutputText();
@@ -127,7 +127,7 @@ class ServiceFormContainer extends React.Component {
 
     new Api(method, url, this.state.params)
       .then(data => {
-        console.log(data);
+        // console.log(data);
         const userStates = onSuccess(data, this);
         const states = {
           ...this.state,
@@ -234,7 +234,7 @@ class ServiceFormContainer extends React.Component {
         onChange={event => this.setState({ output: event.target.value })}
         ref={this.output}
         onCopy={event => {
-          console.log("I'm copied!!!");
+          // console.log("I'm copied!!!");
         }}
       />
     );

@@ -7,20 +7,19 @@ import LoginForm from "../../components/forms/Login";
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // isLoaded: false,
-      // isLoggedin: undefined,
-      username: undefined,
-      password: undefined
-    };
   }
+
+  state = {
+    username: undefined,
+    password: undefined
+  };
 
   inputHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   login = () => {
-    console.log("Login.login()");
+    // console.log("Login.login()");
     const { username, password, remember } = this.state;
 
     auth.login({ username, password, remember }, (err, data) => {
@@ -40,7 +39,7 @@ class Login extends React.Component {
   // }
 
   render() {
-    console.log("auth: ", auth);
+    // console.log("auth: ", auth);
     // const { isLoggedin, isLoaded } = this.state;
 
     // if (!isLoaded) {
@@ -73,5 +72,7 @@ class Login extends React.Component {
     );
   }
 }
+
+export { Login };
 
 export default Login;

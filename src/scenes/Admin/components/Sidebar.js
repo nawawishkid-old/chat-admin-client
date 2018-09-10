@@ -3,7 +3,7 @@ import { Layout } from "antd";
 
 const { Sider } = Layout;
 
-class Sidebar extends React.Component {
+class AdminSidebar extends React.Component {
   state = {
     isCollapsed: true
   };
@@ -31,4 +31,6 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export { AdminSidebar };
+
+export default AdminSidebar;

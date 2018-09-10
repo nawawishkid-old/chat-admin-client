@@ -4,6 +4,8 @@ import Presentation from "./components/Presentation/index";
 // import WithGenderInput from "./components/WithGenderInput/index";
 import { withGenderInput, withApiHandling } from "./extensions/index";
 
-export default Container;
+const ServiceForm = Container;
 
-export { Container, Presentation, withGenderInput, withApiHandling };
+export { ServiceForm, Container, Presentation, withGenderInput, withApiHandling };
+
+export default ServiceForm;

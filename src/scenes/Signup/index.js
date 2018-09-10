@@ -1,6 +1,8 @@
 import React from "react";
 import { SignupForm } from "../../components/index";
 
-const Scene = props => <SignupForm />;
+const Signup = props => <SignupForm />;
 
-export default Scene;
+export { Signup };
+
+export default Signup;

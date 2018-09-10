@@ -5,4 +5,6 @@ const { Content } = Layout;
 
 const AdminContent = props => <Content>{props.children}</Content>;
 
+export { AdminContent };
+
 export default AdminContent;

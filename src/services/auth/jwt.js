@@ -72,10 +72,6 @@ class JWTAuth {
     const payload2 = this.parseTokenPayload(this.getToken());
     const payload = payload1 || payload2;
 
-    // console.log("payload1: ", payload1);
-    // console.log("payload2: ", payload2);
-    console.log("payload: ", payload);
-
     return payload;
   };
 
@@ -95,8 +91,6 @@ class JWTAuth {
     if (typeof payload.exp === "number") {
       payload.lifespan = payload.exp - payload.iat;
     }
-
-    // console.log(payload);
 
     return payload;
   };
@@ -134,28 +128,23 @@ class JWTAuth {
   check = () => {
     const payload = this.getParsedTokenPayload();
 
-    console.log("check() payload: ", payload);
-
     if (!payload) {
-      console.warn("Unauthenticated");
+      // console.warn("Unauthenticated");
       return UNAUTHENTICATED;
     }
 
     if (typeof payload.lifespan === "undefined") {
-      console.info("Authenticated");
+      // console.info("Authenticated");
       return AUTHENTICATED;
     }
 
     const tokenAge = Math.floor(Date.now() / 1000) - payload.iat;
     const result = tokenAge < payload.lifespan;
 
-    console.log("-- tokenAge: ", tokenAge);
-    console.log("-- lifespan: ", payload.lifespan);
-
     if (result) {
-      console.info("Authenticated");
+      // console.info("Authenticated");
     } else {
-      console.warn("Unauthenticated");
+      // console.warn("Unauthenticated");
     }
 
     return result ? AUTHENTICATED : EXPIRED;
@@ -165,7 +154,7 @@ class JWTAuth {
    * Refresh the expired token
    */
   /*refresh = async () => {
-    console.log("Refresh token");
+    
     const oldToken = this.getToken();
 
     if (typeof oldToken !== "string") {
@@ -193,7 +182,7 @@ class JWTAuth {
 
         return true;
       })
-      .catch(err => console.error(err));
+      // .catch(err => console.error(err));
   };*/
 
   /**
@@ -205,7 +194,7 @@ class JWTAuth {
    */
   login = async (credential, callback) => {
     const { username, password, remember } = credential;
-    console.log("username: ", username, "password: ", password);
+
     if (!username || !password) {
       return false;
     }
@@ -221,8 +210,6 @@ class JWTAuth {
         password: password
       })
       .then(res => {
-        console.log("response: ", res);
-
         const { data } = res;
 
         if (typeof data === "undefined") {
@@ -235,8 +222,8 @@ class JWTAuth {
         callback(null, data);
 
         return data;
-      })
-      .catch(err => console.error(err));
+      });
+    // .catch(err => console.error(err));
   };
 }
 
