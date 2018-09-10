@@ -1,12 +1,12 @@
 import React from "react";
 import AdminPage from "~/src/scenes/Admin/components/Page";
 
-const Profile = () => (
+const Trash = () => (
   <AdminPage>
-    <h1>User's profile</h1>
+    <h1>This is input trash!</h1>
   </AdminPage>
 );
 
-export { Profile };
+export { Trash };
 
-export default Profile;
+export default Trash;

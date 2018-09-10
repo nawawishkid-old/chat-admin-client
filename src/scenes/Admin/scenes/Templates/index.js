@@ -1,4 +1,5 @@
 import React from "react";
+import AdminPage from "~/src/scenes/Admin/components/Page";
 import ServicePanel from "~/src/components/ServicePanel";
 import { Form, Row, Col } from "antd";
 import {
@@ -85,7 +86,7 @@ const PriceForm = (
 );
 
 const Templates = () => (
-  <div>
+  <AdminPage>
     <h1>Templates!</h1>
     <ServicePanel>
       {PriceForm}
@@ -94,7 +95,7 @@ const Templates = () => (
         <OldChatTemplateForm key={index} {...form} />
       ))}
     </ServicePanel>
-  </div>
+  </AdminPage>
 );
 
 export { Templates };

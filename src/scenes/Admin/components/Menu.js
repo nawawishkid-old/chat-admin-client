@@ -27,12 +27,16 @@ const AdminMenu = ({ match, ...rest }) => {
     >
       {pages.map(
         page =>
-          Array.isArray(page.children) ? (
-            <SubMenu title={page.name} key={"sub" + ++subMenuKey}>
-              {page.children.map(child => (
+          page.menu.type === "sub" ? (
+            <SubMenu
+              title={page.menu.title || "untitled"}
+              key={"sub" + ++subMenuKey}
+            >
+              {<MenuItem prefix={match.url} page={page} key={++menuItemKey} />}
+              {page.menu.items.map(item => (
                 <MenuItem
                   prefix={match.url + page.path}
-                  page={child}
+                  page={item}
                   key={++menuItemKey}
                 />
               ))}

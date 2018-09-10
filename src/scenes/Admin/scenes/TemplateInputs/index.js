@@ -1,7 +1,10 @@
 import React from "react";
+import AdminPage from "~/src/scenes/Admin/components/Page";
 
 const TemplateInputs = () => (
-  <h1>This is a page for showing all template's input</h1>
+  <AdminPage>
+    <h1>This is a page for showing all template's input</h1>
+  </AdminPage>
 );
 
 export { TemplateInputs };

@@ -6,25 +6,33 @@ import NotFound from "~/src/scenes/NotFound";
 
 const { Content } = Layout;
 
-// Render recursively
-const renderer = (pages, prefix, key) =>
-  pages.map(page => {
+const pagesReducer = (accumulator, pages, prefix, key) => {
+  return [accumulator, ...pages].reduce((acc, page) => {
     const realPrefix = prefix + page.path;
 
-    if (Array.isArray(page.children)) {
-      return renderer(page.children, realPrefix, key);
+    // Push submenu's item before pushing the submenu,
+    // because `react-router-dom`'s <Switch> behaviour
+    // that loads the first matched <Route>'s path immediately.
+    // e.g. push `/inputs/new` before `/inputs`.
+    if (page.menu.type === "sub") {
+      pagesReducer(acc, page.menu.items, realPrefix, key);
     }
 
-    return <Route path={realPrefix} component={page.component} key={++key} />;
+    acc.push(
+      <Route path={realPrefix} component={page.component} key={++key} />
+    );
+
+    return acc;
   });
+};
 
 const AdminContent = ({ match }) => {
   let key = 0;
 
   return (
-    <Content>
+    <Content style={{ height: "100vh", overflowY: "auto" }}>
       <Switch>
-        {renderer(pages, match.url, key)}
+        {pagesReducer([], pages, match.url, key)}
         <Route key={++key} component={NotFound} />
       </Switch>
     </Content>

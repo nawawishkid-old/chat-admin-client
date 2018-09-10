@@ -4,7 +4,7 @@ import TemplateInputBuilder from "~/src/components/TemplateInputBuilder";
 
 const New = () => (
   <AdminPage>
-    <h1>Create new template's input</h1>
+    <h1>Create new template (Mock)</h1>
     <TemplateInputBuilder />
   </AdminPage>
 );
