@@ -1,4 +1,4 @@
-const prefixId = "TemplateInputBuilder_";
+const prefixId = "input_";
 const requireMsg = "This field is required";
 const idFieldScheme = {
   label: "ID",
@@ -26,9 +26,9 @@ const labelFieldScheme = {
     }
   }
 };
-const componentTypeFieldScheme = {
+const componentSchemeTypeFieldScheme = {
   label: "Component Type",
-  id: prefixId + "componentType",
+  id: prefixId + "componentScheme_type",
   options: {
     rules: [{ required: true, message: requireMsg }],
     initialValue: "text"
@@ -46,4 +46,4 @@ const componentTypeFieldScheme = {
   }
 };
 
-export { idFieldScheme, labelFieldScheme, componentTypeFieldScheme };
+export { idFieldScheme, labelFieldScheme, componentSchemeTypeFieldScheme };

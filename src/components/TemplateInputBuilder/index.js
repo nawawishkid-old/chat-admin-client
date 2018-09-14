@@ -4,9 +4,11 @@ import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/ut
 import {
   idFieldScheme,
   labelFieldScheme,
-  componentTypeFieldScheme
+  componentSchemeTypeFieldScheme
 } from "./field-schemes";
-import { minScheme, maxScheme } from "./component-props-schemes/number";
+import numberPropsScheme from "./component-props-schemes/number";
+import textPropsScheme from "./component-props-schemes/text";
+// import * as selectProps from "./component-props-schemes/select";
 
 const schemes = [idFieldScheme, labelFieldScheme];
 
@@ -15,7 +17,13 @@ const getComponentPropsFieldSchemes = type => {
 
   switch (type) {
     case "number":
-      schemes = [minScheme, maxScheme];
+      schemes = numberPropsScheme;
+      break;
+    case "text":
+      schemes = textPropsScheme;
+      break;
+    case "select":
+      schemes = [];
       break;
 
     default:
@@ -24,25 +32,11 @@ const getComponentPropsFieldSchemes = type => {
 
   return schemes;
 };
-// const getComponentPropsFieldDecorators = type => {
-//   let schemes;
-
-//   switch (type) {
-//     case "number":
-//       schemes = [minScheme, maxScheme];
-//       break;
-
-//     default:
-//       break;
-//   }
-
-//   return schemes.map(scheme => makeAntdFieldDecorator(scheme));
-// };
 
 const ComponentTypeField = ({ form, type, onChange, ...rest }) => {
-  componentTypeFieldScheme.options.initialValue = type;
+  componentSchemeTypeFieldScheme.options.initialValue = type;
 
-  const decorator = makeAntdFieldDecorator(componentTypeFieldScheme);
+  const decorator = makeAntdFieldDecorator(componentSchemeTypeFieldScheme);
   const component = React.cloneElement(decorator.component, { onChange });
 
   return (
@@ -57,7 +51,7 @@ const ComponentTypeField = ({ form, type, onChange, ...rest }) => {
 const ComponentFieldsPropsPanel = ({ form, type }) => {
   const schemes = getComponentPropsFieldSchemes(type);
 
-  return (
+  return schemes.length === 0 ? null : (
     <div>
       <p>Component's properties</p>
       <div>
@@ -78,10 +72,37 @@ const ComponentFieldsPropsPanel = ({ form, type }) => {
 class TemplateInputBuilder extends React.Component {
   state = { componentType: "number" };
 
+  parseFieldNameToScheme = values => {
+    const scheme = {};
+    const componentScheme = { props: {} };
+
+    for (let key in values) {
+      const split = key.split("_");
+
+      split.shift();
+
+      if (split.length === 1) {
+        scheme[split[0]] = values[key];
+        continue;
+      }
+
+      if (split[0] === "componentScheme" && split[1] === "props") {
+        componentScheme.props[split[2]] = values[key];
+      }
+    }
+
+    scheme.componentScheme = componentScheme;
+
+    return scheme;
+  };
+
   handleSubmit = e => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("submit!");
+        console.log("values: ", values);
+        console.log("parsed value: ", this.parseFieldNameToScheme(values));
+        // API here!
       }
     });
   };
@@ -105,7 +126,10 @@ class TemplateInputBuilder extends React.Component {
         <ComponentTypeField
           form={form}
           type={this.state.componentType}
-          onChange={e => this.setState({ componentType: e.target.value })}
+          onChange={value => {
+            console.log("value: ", value);
+            this.setState({ componentType: value });
+          }}
         />
         <ComponentFieldsPropsPanel
           form={form}

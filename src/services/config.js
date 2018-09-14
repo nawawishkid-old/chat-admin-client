@@ -3,6 +3,10 @@ export const REFRESH_TOKEN_API_PATH = "http://localhost:11112/auth/refresh";
 export const LOCAL_STORAGE_ACCESS_TOKEN_NAME = "accessToken";
 export const LOCAL_STORAGE_ACCESS_TOKEN_PAYLOAD_NAME = "accessTokenPayload";
 
+export const SERVER_HOST = "localhost";
+export const SERVER_PORT = "11112";
+export const SERVER_PROTOCAL = "http";
+
 /**
  * trace,
  * debug,

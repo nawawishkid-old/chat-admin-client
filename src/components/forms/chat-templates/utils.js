@@ -44,14 +44,14 @@ const makeAntdFieldDecorator = scheme => {
   }
 
   if (Array.isArray(componentScheme.options)) {
-    selectOptions = componentScheme.options.map((item, index) => (
-      <Select.Option value={item.value} key={index}>
-        {item.name}
-      </Select.Option>
-    ));
+    selectOptions = componentScheme.options.map((item, index) => {
+      return (
+        <Select.Option value={item.value} key={index}>
+          {item.name}
+        </Select.Option>
+      );
+    });
   }
-
-  // console.log("props: ", props);
 
   if (props.defaultValue !== undefined) {
     decorator.options.initialValue = props.defaultValue;

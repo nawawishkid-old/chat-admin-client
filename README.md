@@ -22,9 +22,9 @@
         /
         /new
         /trash
-        /input
-            /
-            /new
-            /trash
+    /inputs
+        /
+        /new
+        /trash
     /profile
 ```
