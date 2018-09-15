@@ -1,9 +1,11 @@
 import { TemplateInputs, Templates, Profile, Info } from "./scenes";
 import {
+  All as TemplateAll,
   New as TemplateNew,
   Trash as TemplateTrash
 } from "./scenes/Templates/scenes";
 import {
+  All as InputAll,
   New as InputNew,
   Trash as InputTrash
 } from "./scenes/TemplateInputs/scenes";
@@ -32,7 +34,7 @@ const templates = {
   },
   name: "All",
   path: `/templates`,
-  component: Templates
+  component: TemplateAll
 };
 const templateInputs__new = {
   menu: {
@@ -58,7 +60,7 @@ const templateInputs = {
   },
   name: "All",
   path: `/inputs`,
-  component: TemplateInputs
+  component: InputAll
 };
 // temporary
 const info = {

@@ -51,9 +51,24 @@ class ApiModel {
 
     axios(axiosOptions)
       .then(res => callback(res.data))
-      .catch(err => console.log("Axios error: ", err));
+      .catch(err => {
+        console.log("Request error...");
+        if (err.response) {
+          const { data, status, headers } = err.response;
+          console.log(`[${status}] ${data.msg}`, data.err.message);
+          // console.log(err.response.status);
+          // console.log(err.response.headers);
+        } else if (err.request) {
+          console.log(err.request);
+        } else {
+          console.log("Error", err.message);
+        }
+      });
   };
 
+  /**
+   * For future refactoring
+   */
   _resolveCallback = arg =>
     arg.constructor.name === "Function" ? arg : () => {};
 }

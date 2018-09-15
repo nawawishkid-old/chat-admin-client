@@ -2,15 +2,17 @@ import React from "react";
 import { Form, Button } from "antd";
 import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/utils";
 import {
-  idFieldScheme,
+  nameFieldScheme,
   labelFieldScheme,
   componentSchemeTypeFieldScheme
 } from "./field-schemes";
 import numberPropsScheme from "./component-props-schemes/number";
 import textPropsScheme from "./component-props-schemes/text";
+import templateInputApi from "~/src/services/api/templateInput";
+import auth from "~/src/services/auth";
 // import * as selectProps from "./component-props-schemes/select";
 
-const schemes = [idFieldScheme, labelFieldScheme];
+const schemes = [nameFieldScheme, labelFieldScheme];
 
 const getComponentPropsFieldSchemes = type => {
   let schemes;
@@ -72,6 +74,12 @@ const ComponentFieldsPropsPanel = ({ form, type }) => {
 class TemplateInputBuilder extends React.Component {
   state = { componentType: "number" };
 
+  /**
+   * Transform form's filed values object to input scheme object (specific object structure)
+   *
+   * @param {Object} values Form's field values from `antd` form.validateFields()
+   * @returns {Object} Input scheme object
+   */
   parseFieldNameToScheme = values => {
     const scheme = {};
     const componentScheme = { props: {} };
@@ -79,6 +87,7 @@ class TemplateInputBuilder extends React.Component {
     for (let key in values) {
       const split = key.split("_");
 
+      // remove 'input_' prefix
       split.shift();
 
       if (split.length === 1) {
@@ -86,8 +95,12 @@ class TemplateInputBuilder extends React.Component {
         continue;
       }
 
-      if (split[0] === "componentScheme" && split[1] === "props") {
-        componentScheme.props[split[2]] = values[key];
+      if (split[0] === "componentScheme") {
+        if (split[1] === "props") {
+          componentScheme.props[split[2]] = values[key];
+        } else {
+          componentScheme[split[1]] = values[key];
+        }
       }
     }
 
@@ -101,8 +114,12 @@ class TemplateInputBuilder extends React.Component {
       if (!err) {
         console.log("submit!");
         console.log("values: ", values);
-        console.log("parsed value: ", this.parseFieldNameToScheme(values));
+        const inputScheme = this.parseFieldNameToScheme(values);
+        console.log("parsed value: ", inputScheme);
         // API here!
+        templateInputApi.exec("create", { data: inputScheme }, res => {
+          console.log("res: ", res);
+        });
       }
     });
   };
@@ -126,10 +143,7 @@ class TemplateInputBuilder extends React.Component {
         <ComponentTypeField
           form={form}
           type={this.state.componentType}
-          onChange={value => {
-            console.log("value: ", value);
-            this.setState({ componentType: value });
-          }}
+          onChange={value => this.setState({ componentType: value })}
         />
         <ComponentFieldsPropsPanel
           form={form}

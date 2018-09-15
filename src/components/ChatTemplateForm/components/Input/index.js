@@ -3,13 +3,14 @@ import React from "react";
 import { Form } from "antd";
 import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/utils";
 
-const Input = ({ form, label, _id, options, componentScheme, ...rest }) => {
+const Input = props => {
+  const { form, label, id, options, componentScheme, ...rest } = props;
   const fieldDecorator = makeAntdFieldDecorator({
-    _id,
+    _id: id,
     options,
     componentScheme
   });
-  console.log("fieldDecorator: ", fieldDecorator);
+  // console.log("fieldDecorator: ", fieldDecorator);
   const layout = {
     labelCol: {
       span: 24,

@@ -28,3 +28,16 @@
         /trash
     /profile
 ```
+
+## AntDesign Form maker
+
+```javascript
+const form = {
+  onSubmit: (err, values) => {
+    if (!err) {
+      /* Submit here! */
+    }
+  },
+  submitButton: <Button>Submit</Button> // Automatically add onClick event handler (onSubmit)
+};
+```

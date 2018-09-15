@@ -1,8 +1,8 @@
-const prefixId = "componentScheme_props_text";
+const prefixId = "input_componentScheme_props_";
 
 const defaultValueScheme = {
   label: "Default value",
-  id: prefixId + "defaultValue",
+  _id: prefixId + "defaultValue",
   componentScheme: {
     type: "text",
     props: {

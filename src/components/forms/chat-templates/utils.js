@@ -22,11 +22,12 @@ const withAntdFieldDecorators = (TemplateForm, ...decorators) => {
  * @returns {Object} `antd` field's decorator object
  */
 const makeAntdFieldDecorator = scheme => {
-  const { id, componentScheme } = scheme;
-  const props =
-    componentScheme.props === undefined ? {} : componentScheme.props;
+  const { _id, componentScheme } = scheme;
+  const props = componentScheme.hasOwnProperty("props")
+    ? componentScheme.props
+    : {};
   const decorator = {
-    id,
+    id: _id,
     options: scheme.options || {}
   };
   let selectOptions = null,

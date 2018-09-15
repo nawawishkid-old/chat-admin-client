@@ -2,7 +2,7 @@ const prefixId = "input_";
 const requireMsg = "This field is required";
 const nameFieldScheme = {
   label: "Name",
-  id: prefixId + "name",
+  _id: prefixId + "name",
   options: {
     rules: [{ required: true, message: requireMsg }]
   },
@@ -15,7 +15,7 @@ const nameFieldScheme = {
 };
 const contentFieldScheme = {
   label: "Content",
-  id: prefixId + "content",
+  _id: prefixId + "content",
   options: {
     rules: [{ required: true, message: requireMsg }]
   },
@@ -28,7 +28,7 @@ const contentFieldScheme = {
 };
 const openTagFieldScheme = {
   label: "Open tag",
-  id: prefixId + "openTag",
+  _id: prefixId + "openTag",
   options: {
     rules: [{ required: true, message: requireMsg }]
   },
@@ -41,7 +41,7 @@ const openTagFieldScheme = {
 };
 const closingTagFieldScheme = {
   label: "Closing tag",
-  id: prefixId + "closingTag",
+  _id: prefixId + "closingTag",
   options: {
     rules: [{ required: true, message: requireMsg }]
   },
@@ -54,7 +54,7 @@ const closingTagFieldScheme = {
 };
 const inputsFieldScheme = {
   label: "Inputs",
-  id: prefixId + "inputs",
+  _id: prefixId + "inputs",
   options: {
     rules: [{ required: true, message: requireMsg }]
   },
@@ -73,3 +73,10 @@ export {
   closingTagFieldScheme,
   inputsFieldScheme
 };
+
+export default [
+  nameFieldScheme,
+  contentFieldScheme,
+  openTagFieldScheme,
+  closingTagFieldScheme
+];

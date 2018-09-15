@@ -1,21 +1,21 @@
 const prefixId = "input_";
 const requireMsg = "This field is required";
-const idFieldScheme = {
-  label: "ID",
-  id: prefixId + "id",
+const nameFieldScheme = {
+  label: "Name",
+  _id: prefixId + "name",
   options: {
     rules: [{ required: true, message: requireMsg }]
   },
   componentScheme: {
     type: "text",
     props: {
-      placeholder: "Input ID"
+      placeholder: "Input name"
     }
   }
 };
 const labelFieldScheme = {
   label: "Label",
-  id: prefixId + "label",
+  _id: prefixId + "label",
   options: {
     rules: [{ required: true, message: requireMsg }]
   },
@@ -28,7 +28,7 @@ const labelFieldScheme = {
 };
 const componentSchemeTypeFieldScheme = {
   label: "Component Type",
-  id: prefixId + "componentScheme_type",
+  _id: prefixId + "componentScheme_type",
   options: {
     rules: [{ required: true, message: requireMsg }],
     initialValue: "text"
@@ -46,4 +46,10 @@ const componentSchemeTypeFieldScheme = {
   }
 };
 
-export { idFieldScheme, labelFieldScheme, componentSchemeTypeFieldScheme };
+export { nameFieldScheme, labelFieldScheme, componentSchemeTypeFieldScheme };
+
+export default [
+  nameFieldScheme,
+  labelFieldScheme,
+  componentSchemeTypeFieldScheme
+];

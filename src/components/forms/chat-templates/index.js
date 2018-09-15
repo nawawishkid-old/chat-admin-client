@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Form, Input as AntdInput, Button } from "antd";
 import { Input } from "./components/Input";
+import templateParserApi from "~/src/services/api/templateParser";
+import queryString from "querystring";
 
 const Wrapper = styled.div`
   padding: 1em;
@@ -17,17 +19,25 @@ class ChatTemplateForm extends React.Component {
    */
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    const { form, templateId } = this.props;
+    form.validateFields((err, values) => {
       console.log("handleSubmit!");
       if (!err) {
         console.log("Received values of form: ", values);
         // Mock output value
-        setTimeout(() => {
-          const output = "paresssssssssssssssssssssssssssseseses!";
-          console.log("Fetched!");
-          this.setState({ output });
-        }, 500);
+        // setTimeout(() => {
+        //   const output = "paresssssssssssssssssssssssssssseseses!";
+        //   console.log("Fetched!");
+        //   this.setState({ output });
+        // }, 500);
         // Fetch API and setState here!
+        const query = queryString.stringify(values);
+        const path = templateId + "?" + query;
+        console.log("path: ", path);
+        templateParserApi.exec("get", { path }, data => {
+          console.log("data: ", data);
+          this.setState({ output: data.content });
+        });
       }
     });
   };
@@ -53,12 +63,13 @@ class ChatTemplateForm extends React.Component {
    */
   getInputs = () =>
     this.props.inputSchemes.map((scheme, index) => {
-      const { label, id, options, componentScheme } = scheme;
+      console.log("scheme: ", scheme);
+      const { label, name, options, componentScheme } = scheme;
 
       return (
         <Input
           label={label}
-          id={id}
+          _id={name}
           options={options}
           componentScheme={componentScheme}
           form={this.props.form}
@@ -68,12 +79,19 @@ class ChatTemplateForm extends React.Component {
     });
 
   render() {
-    const { title, children, form, inputSchemes, ...rest } = this.props;
+    const {
+      title,
+      children,
+      form,
+      inputSchemes,
+      templateId,
+      ...rest
+    } = this.props;
 
     return (
       <Wrapper className="chat-template-form__wrapper">
         <p className="chat-template-form__title">{title}</p>
-        <Form layout='horizontal' {...rest}>
+        <Form layout="horizontal" {...rest}>
           <div className="chat-template-form__sec-inputs">
             {this.getInputs()}
             {/* {React.Children.map(children, (child, index) => {

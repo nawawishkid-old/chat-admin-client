@@ -6,7 +6,7 @@ import NotFound from "~/src/scenes/NotFound";
 
 const { Content } = Layout;
 
-const pagesReducer = (accumulator, pages, prefix, key) => {
+const makeRoutes = (accumulator, pages, prefix, key) => {
   return [accumulator, ...pages].reduce((acc, page) => {
     const realPrefix = prefix + page.path;
 
@@ -15,7 +15,7 @@ const pagesReducer = (accumulator, pages, prefix, key) => {
     // that loads the first matched <Route>'s path immediately.
     // e.g. push `/inputs/new` before `/inputs`.
     if (page.menu.type === "sub") {
-      pagesReducer(acc, page.menu.items, realPrefix, key);
+      makeRoutes(acc, page.menu.items, realPrefix, key);
     }
 
     acc.push(
@@ -32,7 +32,7 @@ const AdminContent = ({ match }) => {
   return (
     <Content style={{ height: "100vh", overflowY: "auto" }}>
       <Switch>
-        {pagesReducer([], pages, match.url, key)}
+        {makeRoutes([], pages, match.url, key)}
         <Route key={++key} component={NotFound} />
       </Switch>
     </Content>

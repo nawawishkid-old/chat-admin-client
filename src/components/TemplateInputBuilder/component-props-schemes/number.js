@@ -2,7 +2,7 @@ const prefixId = "input_componentScheme_props_";
 
 const minScheme = {
   label: "Min",
-  id: prefixId + "min",
+  _id: prefixId + "min",
   options: {},
   componentScheme: {
     type: "number",
@@ -14,7 +14,7 @@ const minScheme = {
 
 const maxScheme = {
   label: "Max",
-  id: prefixId + "max",
+  _id: prefixId + "max",
   options: {},
   componentScheme: {
     type: "number",
@@ -26,7 +26,7 @@ const maxScheme = {
 
 const defaultValueScheme = {
   label: "Default value",
-  id: prefixId + "defaultValue",
+  _id: prefixId + "defaultValue",
   componentScheme: {
     type: "number",
     props: {
@@ -37,7 +37,7 @@ const defaultValueScheme = {
 
 const stepScheme = {
   label: "Step",
-  id: prefixId + "step",
+  _id: prefixId + "step",
   componentScheme: {
     type: "number",
     props: {
