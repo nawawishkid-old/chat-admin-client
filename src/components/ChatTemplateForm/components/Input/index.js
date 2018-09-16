@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 // import styled from "styled-components";
 import { Form } from "antd";
 import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/utils";
@@ -31,6 +32,14 @@ const Input = props => {
       )}
     </Form.Item>
   );
+};
+
+Input.propTypes = {
+  form: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  options: PropTypes.object,
+  componentScheme: PropTypes.object.isRequired
 };
 
 export { Input };

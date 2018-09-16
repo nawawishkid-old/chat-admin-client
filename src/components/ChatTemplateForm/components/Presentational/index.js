@@ -7,6 +7,11 @@ const Wrapper = styled(Card)`
   max-width: 250px;
   padding: 1em;
 `;
+const InputWrapper = styled.div`
+  padding-top: 1em;
+`;
+const OutputWrapper = InputWrapper;
+const ControllerWrapper = InputWrapper;
 
 const ChatTemplateForm = props => {
   const {
@@ -28,10 +33,12 @@ const ChatTemplateForm = props => {
         <Icon type="ellipsis" />
       ]}
     >
-      <p className="chat-template-form__title">{title}</p>
+      <h3 className="chat-template-form__title">{title}</h3>
       <Form layout="horizontal" {...rest}>
-        <div className="chat-template-form__sec-inputs">{children}</div>
-        <div className="chat-template-form__sec-output">
+        <InputWrapper className="chat-template-form__sec-inputs">
+          {children}
+        </InputWrapper>
+        <OutputWrapper className="chat-template-form__sec-output">
           <Form.Item>
             <Input.TextArea
               name="ChatTemplateOutput"
@@ -40,11 +47,11 @@ const ChatTemplateForm = props => {
               onChange={handleOutputChange}
             />
           </Form.Item>
-        </div>
-        <div className="chat-template-form__sec-controller">
+        </OutputWrapper>
+        <ControllerWrapper className="chat-template-form__sec-controller">
           <Button onClick={handleSubmit}>Get</Button>
           <Button onClick={handleCopyText}>Copy</Button>
-        </div>
+        </ControllerWrapper>
       </Form>
     </Wrapper>
   );
@@ -52,10 +59,14 @@ const ChatTemplateForm = props => {
 
 ChatTemplateForm.propTypes = {
   title: PropTypes.string.isRequired,
-  output: PropTypes.string.isRequired,
+  output: PropTypes.string,
   handleSubmit: PropTypes.func,
   handleCopyText: PropTypes.func,
-  handleOutputChange: PropTypes.func
+  handleOutputChange: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]).isRequired
 };
 
 export default ChatTemplateForm;

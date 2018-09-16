@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "antd";
 import ChatTemplateFormInput from "./components/Input";
 import queryString from "querystring";
-import Presentation from "~/src/components/presentationals/ChatTemplateForm";
+import Presentation from "./components/Presentational";
 import { withApi } from "~/src/services/api/utils";
 
 class ChatTemplateForm extends React.Component {
@@ -17,7 +17,12 @@ class ChatTemplateForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { form, templateId } = this.props;
+    const { form, templateId, api } = this.props;
+
+    if (!form) {
+      console.warn("No `form` prop given.");
+      return;
+    }
 
     form.validateFields((err, values) => {
       // console.log("handleSubmit!");
@@ -27,7 +32,12 @@ class ChatTemplateForm extends React.Component {
         const path = templateId + "?" + query;
         // console.log("path: ", path);
 
-        this.props.api.exec("get", { path }, data => {
+        if (!api) {
+          console.warn("No `api` prop given.");
+          return;
+        }
+
+        api.exec("get", { path }, data => {
           // console.log("data: ", data);
           this.setState({ output: data.content });
         });
@@ -93,10 +103,11 @@ class ChatTemplateForm extends React.Component {
 }
 
 ChatTemplateForm.propTypes = {
-  inputSchemes: PropTypes.arrayOf(PropTypes.object),
-  form: PropTypes.object,
-  templateId: PropTypes.string,
-  title: PropTypes.string
+  inputSchemes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  form: PropTypes.object.isRequired,
+  templateId: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  api: PropTypes.object
 };
 
 const FunctionalChatTemplateForm = Form.create()(
