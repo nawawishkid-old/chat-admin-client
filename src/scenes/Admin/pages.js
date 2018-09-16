@@ -34,7 +34,7 @@ const templates = {
   },
   name: "All",
   path: `/templates`,
-  component: TemplateAll
+  component: TemplateAll // Templates // TemplateAll
 };
 const templateInputs__new = {
   menu: {

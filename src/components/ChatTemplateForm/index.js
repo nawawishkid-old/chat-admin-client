@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "antd";
 import ChatTemplateFormInput from "./components/Input";
-import templateParserApi from "~/src/services/api/templateParser";
 import queryString from "querystring";
 import Presentation from "~/src/components/presentationals/ChatTemplateForm";
+import { withApi } from "~/src/services/api/utils";
 
 class ChatTemplateForm extends React.Component {
   state = {
@@ -27,7 +27,7 @@ class ChatTemplateForm extends React.Component {
         const path = templateId + "?" + query;
         // console.log("path: ", path);
 
-        templateParserApi.exec("get", { path }, data => {
+        this.props.api.exec("get", { path }, data => {
           // console.log("data: ", data);
           this.setState({ output: data.content });
         });
@@ -99,6 +99,8 @@ ChatTemplateForm.propTypes = {
   title: PropTypes.string
 };
 
-const FunctioningChatTemplateForm = Form.create()(ChatTemplateForm);
+const FunctionalChatTemplateForm = Form.create()(
+  withApi("templateParser")(ChatTemplateForm)
+);
 
-export default FunctioningChatTemplateForm;
+export default FunctionalChatTemplateForm;

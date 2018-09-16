@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Form, Input, Button, Card, Skeleton, Icon } from "antd";
 
@@ -47,6 +48,14 @@ const ChatTemplateForm = props => {
       </Form>
     </Wrapper>
   );
+};
+
+ChatTemplateForm.propTypes = {
+  title: PropTypes.string.isRequired,
+  output: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func,
+  handleCopyText: PropTypes.func,
+  handleOutputChange: PropTypes.func
 };
 
 export default ChatTemplateForm;
