@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Form, Button } from "antd";
 import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/utils";
 import {
@@ -8,9 +9,7 @@ import {
 } from "./field-schemes";
 import numberPropsScheme from "./component-props-schemes/number";
 import textPropsScheme from "./component-props-schemes/text";
-import templateInputApi from "~/src/services/api/templateInput";
-import auth from "~/src/services/auth";
-// import * as selectProps from "./component-props-schemes/select";
+import { withApi } from "~/src/services/api/utils";
 
 const schemes = [nameFieldScheme, labelFieldScheme];
 
@@ -110,14 +109,16 @@ class TemplateInputBuilder extends React.Component {
   };
 
   handleSubmit = e => {
-    this.props.form.validateFields((err, values) => {
+    const { form, api } = this.props;
+
+    form.validateFields((err, values) => {
       if (!err) {
         console.log("submit!");
         console.log("values: ", values);
         const inputScheme = this.parseFieldNameToScheme(values);
         console.log("parsed value: ", inputScheme);
         // API here!
-        templateInputApi.exec("create", { data: inputScheme }, res => {
+        api.templateInput.exec("create", { data: inputScheme }, res => {
           console.log("res: ", res);
         });
       }
@@ -157,4 +158,9 @@ class TemplateInputBuilder extends React.Component {
   }
 }
 
-export default Form.create()(TemplateInputBuilder);
+TemplateInputBuilder.propTypes = {
+  form: PropTypes.object,
+  api: PropTypes.object
+};
+
+export default Form.create()(withApi("templateInput")(TemplateInputBuilder));

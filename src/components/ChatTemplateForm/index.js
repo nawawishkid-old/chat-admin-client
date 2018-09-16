@@ -32,12 +32,12 @@ class ChatTemplateForm extends React.Component {
         const path = templateId + "?" + query;
         // console.log("path: ", path);
 
-        if (!api) {
-          console.warn("No `api` prop given.");
+        if (!api.templateParser) {
+          console.warn("No `api.templateParser` prop given.");
           return;
         }
 
-        api.exec("get", { path }, data => {
+        api.templateParser.exec("get", { path }, data => {
           // console.log("data: ", data);
           this.setState({ output: data.content });
         });

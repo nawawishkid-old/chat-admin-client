@@ -28,8 +28,10 @@ const ChatTemplateForm = props => {
     <Wrapper
       className="chat-template-form__wrapper"
       actions={[
-        <Icon type="setting" />,
-        <Icon type="edit" />,
+        <Button onClick={() => console.log("CLICKED!")}>
+          <Icon type="setting" />
+        </Button>,
+        <Icon type="edit" onClick={() => console.log("Icon clicked!")} />,
         <Icon type="ellipsis" />
       ]}
     >
