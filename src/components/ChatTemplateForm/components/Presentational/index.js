@@ -61,11 +61,11 @@ const ActiveView = props => {
   );
 };
 
-const EditView = withRouter(() => {
+const EditView = ({ templateId }) => {
   // console.log("props: ", props);
-  // return <Redirect to="/admin/template/edit" />;
-  return <pre>{"<EditView /> here!"}</pre>;
-});
+  return <Redirect to={"/admin/template/edit/" + templateId} />;
+  // return <pre>{"<EditView /> here!"}</pre>;
+};
 
 const DeleteView = ({ handleCancelDelete, handleDelete }) => {
   return (
@@ -104,7 +104,8 @@ const findView = (mode, props) => {
   }
 
   if (mode === EDIT_MODE) {
-    return <EditView {...props} />;
+    const { templateId } = props;
+    return <EditView templateId={templateId} />;
   }
 
   if (mode === DELETE_MODE) {
@@ -141,6 +142,8 @@ const ChatTemplateForm = props => {
 ChatTemplateForm.propTypes = {
   title: PropTypes.string.isRequired,
   output: PropTypes.string,
+  templateId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   handleSubmit: PropTypes.func,
   handleCopyText: PropTypes.func,
   handleOutputChange: PropTypes.func,

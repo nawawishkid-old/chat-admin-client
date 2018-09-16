@@ -14,7 +14,7 @@ const makeRoutes = (accumulator, pages, prefix, key) => {
     // because `react-router-dom`'s <Switch> behaviour
     // that loads the first matched <Route>'s path immediately.
     // e.g. push `/inputs/new` before `/inputs`.
-    if (page.menu.type === "sub") {
+    if (page.hasOwnProperty("menu") && page.menu.type === "sub") {
       makeRoutes(acc, page.menu.items, realPrefix, key);
     }
 

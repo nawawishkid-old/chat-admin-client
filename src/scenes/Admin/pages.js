@@ -2,6 +2,7 @@ import { TemplateInputs, Templates, Profile, Info } from "./scenes";
 import {
   All as TemplateAll,
   New as TemplateNew,
+  Edit as TemplateEdit,
   Trash as TemplateTrash
 } from "./scenes/Templates/scenes";
 import {
@@ -12,11 +13,20 @@ import {
 
 const templates__new = {
   menu: {
-    type: "item"
+    type: "item" // <Menu.Item>
   },
   name: "New",
   path: `/new`,
   component: TemplateNew
+};
+const templates__edit = {
+  // Do not display menu
+  // menu: {
+  //   type: "item"
+  // },
+  name: "Edit",
+  path: `/edit/:templateId`,
+  component: TemplateEdit
 };
 const templates__trash = {
   menu: {
@@ -28,9 +38,9 @@ const templates__trash = {
 };
 const templates = {
   menu: {
-    type: "sub",
+    type: "sub", // <Menu.SubMenu>
     title: "Templates",
-    items: [templates__new, templates__trash]
+    items: [templates__new, templates__edit, templates__trash]
   },
   name: "All",
   path: `/templates`,
