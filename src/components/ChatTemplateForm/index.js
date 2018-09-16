@@ -6,9 +6,14 @@ import queryString from "querystring";
 import Presentation from "./components/Presentational";
 import { withApi } from "~/src/services/api/utils";
 
+const ACTIVE_MODE = 1;
+const EDIT_MODE = 2;
+const DELETE_MODE = 3;
+
 class ChatTemplateForm extends React.Component {
   state = {
-    output: ""
+    output: "",
+    mode: ACTIVE_MODE
   };
 
   /**
@@ -63,6 +68,15 @@ class ChatTemplateForm extends React.Component {
     this.setState({ output: e.target.value });
   };
 
+  handleEditButton = () =>
+    console.log("handleEditButton()") || this.setState({ mode: EDIT_MODE });
+
+  handleDeleteButton = () =>
+    console.log("handleDeleteButton()") || this.setState({ mode: DELETE_MODE });
+
+  handleCancelDelete = () =>
+    console.log("handleCancelDelete()") || this.setState({ mode: ACTIVE_MODE });
+
   /**
    * Generate and return template's input field from given `inputSchemes` props
    *
@@ -88,13 +102,20 @@ class ChatTemplateForm extends React.Component {
   render() {
     const { title } = this.props;
 
+    /**
+     * Should utilize React.createContext() API
+     */
     return (
       <Presentation
+        mode={this.state.mode}
         title={title}
         output={this.state.output}
         handleSubmit={this.handleSubmit}
         handleCopyText={this.handleCopyText}
         handleOutputChange={this.handleOutputChange}
+        handleEditButton={this.handleEditButton}
+        handleDeleteButton={this.handleDeleteButton}
+        handleCancelDelete={this.handleCancelDelete}
       >
         {this.renderInputComponents()}
       </Presentation>

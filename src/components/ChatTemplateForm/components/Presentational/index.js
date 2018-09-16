@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { Redirect, withRouter } from "react-router-dom";
 import { Form, Input, Button, Card, Skeleton, Icon } from "antd";
+
+const ACTIVE_MODE = 1;
+const EDIT_MODE = 2;
+const DELETE_MODE = 3;
 
 const Wrapper = styled(Card)`
   max-width: 250px;
@@ -13,30 +18,27 @@ const InputWrapper = styled.div`
 const OutputWrapper = InputWrapper;
 const ControllerWrapper = InputWrapper;
 
-const ChatTemplateForm = props => {
+const EditButton = ({ handleClick }) => (
+  <Icon type="edit" onClick={handleClick} />
+);
+const DeleteButton = ({ handleClick }) => (
+  <Icon type="delete" onClick={handleClick} />
+);
+
+const ActiveView = props => {
   const {
     title,
     output,
     handleSubmit,
     handleCopyText,
     handleOutputChange,
-    children,
-    ...rest
+    children
   } = props;
 
   return (
-    <Wrapper
-      className="chat-template-form__wrapper"
-      actions={[
-        <Button onClick={() => console.log("CLICKED!")}>
-          <Icon type="setting" />
-        </Button>,
-        <Icon type="edit" onClick={() => console.log("Icon clicked!")} />,
-        <Icon type="ellipsis" />
-      ]}
-    >
+    <div>
       <h3 className="chat-template-form__title">{title}</h3>
-      <Form layout="horizontal" {...rest}>
+      <Form layout="horizontal">
         <InputWrapper className="chat-template-form__sec-inputs">
           {children}
         </InputWrapper>
@@ -55,6 +57,83 @@ const ChatTemplateForm = props => {
           <Button onClick={handleCopyText}>Copy</Button>
         </ControllerWrapper>
       </Form>
+    </div>
+  );
+};
+
+const EditView = withRouter(() => {
+  // console.log("props: ", props);
+  // return <Redirect to="/admin/template/edit" />;
+  return <pre>{"<EditView /> here!"}</pre>;
+});
+
+const DeleteView = ({ handleCancelDelete, handleDelete }) => {
+  return (
+    <div>
+      <h3>Are you sure, you want to delete this template?</h3>
+      <p>
+        <Button onClick={handleCancelDelete}>Cancel</Button>
+        <Button onClick={handleDelete}>Delete</Button>
+      </p>
+    </div>
+  );
+};
+
+const findView = (mode, props) => {
+  if (mode === ACTIVE_MODE) {
+    const {
+      title,
+      output,
+      handleSubmit,
+      handleCopyText,
+      handleOutputChange,
+      children
+    } = props;
+
+    return (
+      <ActiveView
+        title={title}
+        output={output}
+        handleSubmit={handleSubmit}
+        handleCopyText={handleCopyText}
+        handleOutputChange={handleOutputChange}
+      >
+        {children}
+      </ActiveView>
+    );
+  }
+
+  if (mode === EDIT_MODE) {
+    return <EditView {...props} />;
+  }
+
+  if (mode === DELETE_MODE) {
+    const { handleCancelDelete, handleDelete } = props;
+    return (
+      <DeleteView
+        handleCancelDelete={handleCancelDelete}
+        handleDelete={handleDelete}
+      />
+    );
+  }
+
+  return "Error occured!";
+};
+
+const ChatTemplateForm = props => {
+  const { mode, handleEditButton, handleDeleteButton, ...rest } = props;
+  const actions =
+    mode === ACTIVE_MODE
+      ? [
+          <EditButton handleClick={handleEditButton} />,
+          <DeleteButton handleClick={handleDeleteButton} />
+        ]
+      : null;
+  let view = findView(mode, rest);
+
+  return (
+    <Wrapper className="chat-template-form__wrapper" actions={actions}>
+      {view}
     </Wrapper>
   );
 };

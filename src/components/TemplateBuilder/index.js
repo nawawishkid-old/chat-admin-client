@@ -1,9 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "antd";
-// import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/utils";
-// import InputsSelector from "./components/InputsSelector";
-// import schemes from "./field-schemes";
 import Presentational from "./components/Presentational";
 import { withApi } from "~/src/services/api/utils";
 
