@@ -5,12 +5,12 @@ import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/ut
 import InputsSelector from "../components/InputsSelector";
 import schemes from "../field-schemes";
 
-const TemplateEditor = ({ form, handleSubmit, ...rest }) => (
+const PureTemplateEditor = ({ form, handleSubmit, templateData, ...rest }) => (
   <Form {...rest}>
     {schemes.map((scheme, index) => {
-      const decorator = makeAntdFieldDecorator(
-        scheme({ defaultValue: "55555" })
-      );
+      console.log("PureTemplateEditor -- scheme: ", scheme);
+      scheme.options.initialValue = templateData[scheme.name];
+      const decorator = makeAntdFieldDecorator(scheme);
 
       return (
         <Form.Item key={index} label={scheme.label}>
@@ -27,9 +27,9 @@ const TemplateEditor = ({ form, handleSubmit, ...rest }) => (
   </Form>
 );
 
-TemplateEditor.propTypes = {
+PureTemplateEditor.propTypes = {
   form: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func
 };
 
-export default TemplateEditor;
+export default PureTemplateEditor;

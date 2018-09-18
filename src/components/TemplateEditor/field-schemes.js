@@ -1,11 +1,10 @@
 const prefixId = "input_";
 const requireMsg = "This field is required";
-const nameFieldScheme = (options = {}) => ({
+const nameFieldScheme = {
   label: "Name",
-  _id: prefixId + "name",
+  name: "name",
   options: {
-    rules: [{ required: true, message: requireMsg }],
-    initialValue: options.defaultValue || undefined
+    rules: [{ required: true, message: requireMsg }]
   },
   componentScheme: {
     type: "text",
@@ -13,13 +12,12 @@ const nameFieldScheme = (options = {}) => ({
       placeholder: "Template name"
     }
   }
-});
-const contentFieldScheme = (options = {}) => ({
+};
+const contentFieldScheme = {
   label: "Content",
-  _id: prefixId + "content",
+  name: "content",
   options: {
-    rules: [{ required: true, message: requireMsg }],
-    initialValue: options.defaultValue || undefined
+    rules: [{ required: true, message: requireMsg }]
   },
   componentScheme: {
     type: "text",
@@ -27,13 +25,12 @@ const contentFieldScheme = (options = {}) => ({
       placeholder: "Content"
     }
   }
-});
-const openTagFieldScheme = (options = {}) => ({
+};
+const openTagFieldScheme = {
   label: "Open tag",
-  _id: prefixId + "openTag",
+  name: "openTag",
   options: {
-    rules: [{ required: true, message: requireMsg }],
-    initialValue: options.defaultValue || undefined
+    rules: [{ required: true, message: requireMsg }]
   },
   componentScheme: {
     type: "text",
@@ -41,13 +38,12 @@ const openTagFieldScheme = (options = {}) => ({
       placeholder: "Open tag"
     }
   }
-});
-const closingTagFieldScheme = (options = {}) => ({
+};
+const closingTagFieldScheme = {
   label: "Closing tag",
-  _id: prefixId + "closingTag",
+  name: "closingTag",
   options: {
-    rules: [{ required: true, message: requireMsg }],
-    initialValue: options.defaultValue || undefined
+    rules: [{ required: true, message: requireMsg }]
   },
   componentScheme: {
     type: "text",
@@ -55,13 +51,12 @@ const closingTagFieldScheme = (options = {}) => ({
       placeholder: "Closing tag"
     }
   }
-});
-const inputsFieldScheme = (options = {}) => ({
+};
+const inputsFieldScheme = {
   label: "Inputs",
-  _id: prefixId + "inputs",
+  name: "inputs",
   options: {
-    rules: [{ required: true, message: requireMsg }],
-    initialValue: options.defaultValue || undefined
+    rules: [{ required: true, message: requireMsg }]
   },
   componentScheme: {
     type: "select",
@@ -69,7 +64,7 @@ const inputsFieldScheme = (options = {}) => ({
       placeholder: "Inputs"
     }
   }
-});
+};
 
 export {
   nameFieldScheme,

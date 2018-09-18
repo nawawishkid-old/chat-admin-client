@@ -31,6 +31,8 @@ class ApiModel {
     const endpoint = this.endpoints[name];
     const userOpts = userOptions || {};
 
+    console.log('userOpts: ', userOpts);
+
     if (!endpoint) {
       throw new Error("Unknown API endpoint name: " + name);
     }
@@ -41,6 +43,8 @@ class ApiModel {
       url: this.basePath + path + (userOpts.path || "")
     };
 
+    console.log('axiosOptions: ', axiosOptions)
+
     if (endpoint.options.auth) {
       axiosOptions.headers = { Authorization: "Bearer " + auth.getToken() };
     }
@@ -50,9 +54,12 @@ class ApiModel {
     }
 
     axios(axiosOptions)
-      .then(res => callback(res.data))
+      .then(res => callback(null, res.data))
       .catch(err => {
         console.log("Request error...");
+
+        callback(err, null);
+
         if (err.response) {
           const { data, status, headers } = err.response;
           console.log(`[${status}] ${data.msg}`, data.err.message);

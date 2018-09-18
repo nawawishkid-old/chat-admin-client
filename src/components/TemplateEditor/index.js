@@ -3,10 +3,30 @@ import PropTypes from "prop-types";
 import { Form } from "antd";
 import Pure from "./Pure";
 import { withApi } from "~/src/services/api/utils";
+import { withRouter } from "react-router-dom";
 
 class TemplateEditor extends React.Component {
   state = {
-    created: false
+    created: false,
+    templateData: null
+  };
+
+  componentDidMount = () => {
+    const { api, match } = this.props;
+    const options = { path: match.params.templateId };
+    const handleApiResponse = (err, res) => {
+      if (err || !res.data) {
+        console.log("Error: ", err);
+        return;
+      }
+
+      console.log("api res: ", res);
+      this.setState({ templateData: data });
+    };
+
+    console.log("options: ", options);
+
+    api.template.exec("get", options, handleApiResponse);
   };
 
   handleSubmit = e => {
@@ -22,16 +42,18 @@ class TemplateEditor extends React.Component {
         }
 
         const data = {
-          name: values.input_name,
-          content: values.input_content,
-          openTag: values.input_openTag,
-          closingTag: values.input_closingTag,
-          inputs: values.input_inputs
+          name: values.name,
+          content: values.content,
+          openTag: values.openTag,
+          closingTag: values.closingTag,
+          inputs: values.inputs
         };
 
-        api.template.exec("create", { data }, data => {
-          console.log("data: ", data);
-          this.setState({ created: true });
+        api.template.exec("create", { data }, (err, data) => {
+          if (!err) {
+            console.log("data: ", data);
+            this.setState({ created: true });
+          }
         });
       }
     });
@@ -39,14 +61,26 @@ class TemplateEditor extends React.Component {
 
   render() {
     const { form } = this.props;
+    const { templateData } = this.state;
 
-    return <Pure form={form} handleSubmit={this.handleSubmit} />;
+    if (!templateData) {
+      return <p>Loading...</p>;
+    }
+
+    return (
+      <Pure
+        form={form}
+        handleSubmit={this.handleSubmit}
+        templateData={this.state.templateData}
+      />
+    );
   }
 }
 
 TemplateEditor.propTypes = {
   form: PropTypes.object.isRequired,
-  api: PropTypes.object
+  api: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
-export default Form.create()(withApi("template")(TemplateEditor));
+export default Form.create()(withApi("template")(withRouter(TemplateEditor)));
