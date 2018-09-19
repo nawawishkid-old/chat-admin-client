@@ -213,7 +213,6 @@ class JWTAuth {
         const { data } = res;
 
         if (typeof data === "undefined") {
-          callback(data.err);
           return false;
         }
 
@@ -222,8 +221,11 @@ class JWTAuth {
         callback(null, data);
 
         return data;
+      })
+      .catch(err => {
+        console.error(err);
+        callback(err, null);
       });
-    // .catch(err => console.error(err));
   };
 }
 

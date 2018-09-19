@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "antd";
-import LogoutButton from "~/src/components/buttons/Logout/index";
+import LogoutButton from "~/src/components/buttons/Logout";
 
 const { Header } = Layout;
 

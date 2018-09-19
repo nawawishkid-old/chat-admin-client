@@ -31,7 +31,7 @@ class ApiModel {
     const endpoint = this.endpoints[name];
     const userOpts = userOptions || {};
 
-    console.log('userOpts: ', userOpts);
+    // console.log('userOpts: ', userOpts);
 
     if (!endpoint) {
       throw new Error("Unknown API endpoint name: " + name);
@@ -43,7 +43,7 @@ class ApiModel {
       url: this.basePath + path + (userOpts.path || "")
     };
 
-    console.log('axiosOptions: ', axiosOptions)
+    // console.log('axiosOptions: ', axiosOptions)
 
     if (endpoint.options.auth) {
       axiosOptions.headers = { Authorization: "Bearer " + auth.getToken() };
