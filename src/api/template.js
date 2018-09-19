@@ -1,4 +1,4 @@
-import ApiModel from "./ApiModel";
+import ApiModel from "~/src/services/api/ApiModel";
 
 const templateModel = new ApiModel("/api/template");
 const options = { auth: true };

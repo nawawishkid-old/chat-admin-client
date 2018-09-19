@@ -1,6 +1,2 @@
-import templateFieldSchemes from "./field-schemes";
-
-export const templateFormScheme = {
-  fields: templateFieldSchemes,
-  handleSubmit: () => console.log("HANDLE SUBMIT!")
-};
+export { templateBuilderFormScheme } from "./template-form";
+export { loginFormScheme } from "./login";

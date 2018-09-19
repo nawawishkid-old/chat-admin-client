@@ -1,11 +1,19 @@
 import React from "react";
+import { Layout } from "antd";
 import Page from "~/src/components/Page";
-import AdminContent from "./Content";
+import PageAdminContent from "./Content";
+import PageAdminHeader from "./Header";
+import PageAdminSidebar from "./Sidebar";
 
 const PageAdmin = () => (
-  <Page title="Please, login">
-    {/* <AdminContent /> */}
-    Hello
+  <Page title="Admin">
+    <Layout>
+    <PageAdminSidebar />
+    <Layout>
+      <PageAdminHeader />
+      <PageAdminContent />
+    </Layout>
+    </Layout>
   </Page>
 );
 

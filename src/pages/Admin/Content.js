@@ -1,7 +1,16 @@
 import React from "react";
-import adminRouter from "~/src/data/routes/admin";
+import { Layout } from "antd";
+import styled from "styled-components";
 import { renderRoutes } from "~/src/services/route";
+import adminRouter from "~/src/data/routes/admin";
 
-const AdminContent = () => <div>{renderRoutes(adminRouter.routes)}</div>;
+const { Content } = Layout;
+const StyledContent = styled(Content)`
+  padding: 2em 1em;
+`;
+const PageAdminContent = () => <StyledContent>{renderRoutes(adminRouter.routes)}</StyledContent>;
 
-export default AdminContent;
+export { PageAdminContent };
+
+export default PageAdminContent;
+

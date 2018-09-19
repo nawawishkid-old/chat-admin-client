@@ -12,7 +12,6 @@ const options = {
   permission: "write"
 };
 
-// adminRouter.add("", PageAdmin);
 adminRouter.add("/templates", PageTemplateAll, {
   ...options,
   permission: "read"
@@ -20,5 +19,7 @@ adminRouter.add("/templates", PageTemplateAll, {
 adminRouter.add("/template/new", PageTemplateNew, options);
 adminRouter.add("/template/edit/:templateId", PageTemplateEdit, options);
 adminRouter.default(Page404);
+
+export { adminRouter };
 
 export default adminRouter;

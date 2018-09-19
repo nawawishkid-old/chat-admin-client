@@ -10,7 +10,8 @@ export const usernameFieldScheme = {
     type: "text",
     props: {
       placeholder: "Username"
-    }
+    },
+    icon: 'user'
   }
 };
 
@@ -21,10 +22,11 @@ export const passwordFieldScheme = {
     rules: [required]
   },
   componentScheme: {
-    type: "text",
+    type: "password",
     props: {
       placeholder: "Password"
-    }
+    },
+    icon: 'lock'
   }
 };
 
