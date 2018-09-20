@@ -85,9 +85,10 @@ class APICaller extends EventEmitter {
    */
   getHandleAxiosResponse = callback => res => {
     const { status, data } = res;
+    const args = [null, data, status];
 
-    callback(status, null, data);
-    this.emit(status, status, data).emit("all", status, data);
+    callback(...args);
+    this.emit(status, ...args).emit("all", ...args);
   };
 
   /**
@@ -103,9 +104,10 @@ class APICaller extends EventEmitter {
 
     if (err.response) {
       const { data, status } = err.response;
+      const args = [response, null, status];
 
-      callback(status, response, null);
-      this.emit(status, status, response).emit("all", status, data);
+      callback(args);
+      this.emit(status, ...args).emit("all", ...args);
     } else if (err.request) {
       console.error(err.request);
     } else {
