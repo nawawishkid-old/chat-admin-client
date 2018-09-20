@@ -1,3 +1,4 @@
+import React from 'react';
 import { Router } from "~/src/services/route";
 import {
   PageTemplateAll,
@@ -5,6 +6,7 @@ import {
   PageTemplateEdit
 } from "~/src/pages/Template";
 import { Page404, PageAdmin } from "../../pages";
+import { Redirect } from 'react-router-dom';
 
 const adminRouter = new Router("/admin");
 const options = {
@@ -14,11 +16,15 @@ const options = {
 
 adminRouter.add("/templates", PageTemplateAll, {
   ...options,
-  permission: "read"
+  permission: "read",
+  exact: true
 });
-adminRouter.add("/template/new", PageTemplateNew, options);
-adminRouter.add("/template/edit/:templateId", PageTemplateEdit, options);
-adminRouter.default(Page404);
+adminRouter.add("/templates/new", PageTemplateNew, {
+  ...options,
+  exact: true
+});
+adminRouter.add("/templates/:templateId(\d+)/edit", PageTemplateEdit, options);
+//adminRouter.default(() => <Redirect to="/notfound" />);
 
 export { adminRouter };
 
