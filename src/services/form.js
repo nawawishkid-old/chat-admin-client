@@ -1,8 +1,10 @@
 import React from "react";
-import { Input, InputNumber, Select, Icon } from "antd";
+import { Form, Input, InputNumber, Select, Icon } from "antd";
 import { CommonForm, CommonField } from "~/src/components/common/form";
 
-export class FormBuilder {
+const withForm = Component => Form.create()(Component);
+
+class FormBuilder {
   static build = formScheme => {
     const { fields } = formScheme;
 
@@ -20,7 +22,7 @@ export class FormBuilder {
 
     // Remove props.defaultValue then assign to options.initialValue.
     // The way Ant Design's field decorator works.
-    if (props.hasOwnProperty('defaultValue')) {
+    if (props.hasOwnProperty("defaultValue")) {
       theOptions.initialValue = props.defaultValue;
       delete props.defaultValue;
     }
@@ -28,12 +30,12 @@ export class FormBuilder {
     const theChild = FormBuilder.makeChildOfField(componentScheme);
 
     return (
-      <CommonField 
-        name={name} 
-        label={label} 
-        key={name} 
-        form={form} 
-        options={theOptions} 
+      <CommonField
+        name={name}
+        label={label}
+        key={name}
+        form={form}
+        options={theOptions}
         {...rest}
       >
         {theChild}
@@ -54,8 +56,8 @@ export class FormBuilder {
       ));
     }
 
-    if (typeof icon === 'string') {
-      props.prefix = <Icon type={icon} />
+    if (typeof icon === "string") {
+      props.prefix = <Icon type={icon} />;
     }
 
     return <TheComponent {...props}>{children}</TheComponent>;
@@ -90,6 +92,10 @@ export class FormBuilder {
   };
 }
 
-const makePasswordInput = () => props => <Input type="password" {...props} />
+const makePasswordInput = () => props => <Input type="password" {...props} />;
 
-export default FormBuilder;
+const form = { withForm, FormBuilder };
+
+export { withForm, FormBuilder, form };
+
+export default form;
