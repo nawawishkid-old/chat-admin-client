@@ -9,7 +9,7 @@ import {
 } from "./field-schemes";
 import numberPropsScheme from "./component-props-schemes/number";
 import textPropsScheme from "./component-props-schemes/text";
-import { withApi } from "~/src/services/api/utils";
+import { withApi } from "~/src/services/api";
 
 const schemes = [nameFieldScheme, labelFieldScheme];
 

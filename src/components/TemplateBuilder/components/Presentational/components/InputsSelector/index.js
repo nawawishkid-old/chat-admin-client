@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Form, Select } from "antd";
-import { withApi } from "~/src/services/api/utils";
+import { withApi } from "~/src/services/api";
 
 const PureInputSelector = ({ form, inputSchemes }) => (
   <Form.Item label="Inputs">

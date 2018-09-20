@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "antd";
 import Pure from "./Pure";
-import { withApi } from "~/src/services/api/utils";
+import { withApi } from "~/src/services/api";
 import { withRouter } from "react-router-dom";
 
 class TemplateEditor extends React.Component {

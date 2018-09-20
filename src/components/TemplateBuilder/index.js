@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "antd";
 import Presentational from "./components/Presentational";
-import { withApi } from "~/src/services/api/utils";
+import { withApi } from "~/src/services/api";
 
 class TemplateBuilder extends React.Component {
   state = {

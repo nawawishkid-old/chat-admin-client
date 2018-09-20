@@ -4,7 +4,7 @@ import { Form } from "antd";
 import ChatTemplateFormInput from "./components/Input";
 import queryString from "querystring";
 import Presentation from "./components/Presentational";
-import { withApi } from "~/src/services/api/utils";
+import { withApi } from "~/src/services/api";
 
 const ACTIVE_MODE = 1;
 const EDIT_MODE = 2;
