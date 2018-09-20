@@ -1,9 +1,18 @@
 import APIGroup from "~/src/services/api/Model";
 
-const authModel = new APIGroup("/auth");
+const authGroup = new APIGroup("/auth");
 const options = { auth: true };
 
-authModel.add("getToken", "post", "/token");
-authModel.add("getRefreshToken", "post", "/refresh", options);
+authGroup.add("getToken", "post", "/token");
+authGroup.add("getRefreshToken", "post", "/refresh", options);
 
-export default authModel;
+authGroup.on("all", (err, res, status) => {
+  if (err) {
+    console.error(`${status}: ${err.msg}`);
+    return;
+  }
+
+  console.log(`${status}: ${res.msg}`);
+});
+
+export default authGroup;

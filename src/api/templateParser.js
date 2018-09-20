@@ -1,10 +1,19 @@
-import ApiModel from "./ApiModel";
+import APIGroup from "~/src/services/api/Model";
 
-const templateParserModel = new ApiModel("/api/template/parser");
+const templateParserGroup = new APIGroup("/api/template/parser");
 const options = { auth: true };
 
-templateParserModel.add("get", "get", "/", options);
-// templateParserModel.add("create", "post", "/", options);
-// templateParserModel.add("update", "post", "/update", options);
+templateParserGroup.add("get", "get", "/", options);
+// templateParserGroup.add("create", "post", "/", options);
+// templateParserGroup.add("update", "post", "/update", options);
 
-export default templateParserModel;
+templateParserGroup.on("all", (err, res, status) => {
+  if (err) {
+    console.error(`${status}: ${err.msg}`);
+    return;
+  }
+
+  console.log(`${status}: ${res.msg}`);
+});
+
+export default templateParserGroup;

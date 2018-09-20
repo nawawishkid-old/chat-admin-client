@@ -1,10 +1,19 @@
-import ApiModel from "./ApiModel";
+import APIGroup from "~/src/services/api/Model";
 
-const templateInputModel = new ApiModel("/api/template/input");
+const templateInputGroup = new APIGroup("/api/template/input");
 const options = { auth: true };
 
-templateInputModel.add("get", "get", "/", options);
-templateInputModel.add("create", "post", "/", options);
-templateInputModel.add("update", "post", "/update", options);
+templateInputGroup.add("get", "get", "/", options);
+templateInputGroup.add("create", "post", "/", options);
+templateInputGroup.add("update", "post", "/update", options);
 
-export default templateInputModel;
+templateInputGroup.on("all", (err, res, status) => {
+  if (err) {
+    console.error(`${status}: ${err.msg}`);
+    return;
+  }
+
+  console.log(`${status}: ${res.msg}`);
+});
+
+export default templateInputGroup;
