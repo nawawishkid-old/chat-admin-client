@@ -4,7 +4,7 @@ import Page from "~/src/components/Page";
 import ButtonLogout from "../components/buttons/Logout"; // using `~/src` is not working... :(
 import { withAuth } from "~/src/services/auth";
 
-const PageHome = ({ isAuth }) => (
+const NoAuthPageHome = ({ isAuth }) => (
   <Page title="Homeeeeeeeeeee">
     <h1>Chat Admin</h1>
     <small>An app by Nawawish Samerpark</small>
@@ -25,6 +25,8 @@ const PageHome = ({ isAuth }) => (
   </Page>
 );
 
+const PageHome = withAuth(NoAuthPageHome);
+
 export { PageHome };
 
-export default withAuth(PageHome);
+export default PageHome;
