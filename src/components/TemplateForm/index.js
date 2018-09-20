@@ -1,4 +1,4 @@
 import { FormBuilder } from "~/src/services/form";
-import { templateBuilderFormScheme } from "~/src/data/form-schemes/template-form";
+import { templateFormBuilderScheme } from "~/src/data/form-schemes/template-form/builder";
 
-export const TemplateFormBuilder = FormBuilder.build(templateBuilderFormScheme);
+export const TemplateFormBuilder = FormBuilder.build(templateFormBuilderScheme);
