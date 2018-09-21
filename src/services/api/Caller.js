@@ -47,13 +47,15 @@ class APICaller extends EventEmitter {
    */
   getAxiosOptions = userOptions => {
     const { method, uri, options } = this;
-    const { data, path } = userOptions;
+    const { data, path, params } = userOptions;
     const { auth } = options;
     const axiosOptions = {
       method,
-      url: uri + (path || ""),
-      headers: {}
+      url: this.makeUrl(path, params),
+      headers: {},
     };
+
+    console.log("axiosOptions: ", axiosOptions);
 
     if (auth) {
       this.setAxiosAuthHeader(axiosOptions);
@@ -104,7 +106,7 @@ class APICaller extends EventEmitter {
 
     if (err.response) {
       const { data, status } = err.response;
-      const args = [response, null, status];
+      const args = [err.response, null, status];
 
       callback(args);
       this.emit(status, ...args).emit("all", ...args);
@@ -123,8 +125,9 @@ class APICaller extends EventEmitter {
    * @see JWTAuth "~/src/services/auth/JWTAuth"
    * @param {Object} axiosOptions Options object for Axios instance
    */
-  setAxiosAuthHeader = axiosOptions =>
-    (axiosOptions.headers["Authorization"] = "Bearer " + jwtAuth.getToken());
+  setAxiosAuthHeader = axiosOptions => {
+    axiosOptions.headers["Authorization"] = "Bearer " + jwtAuth.getToken();
+  };
 
   /**
    * Resolve arguments for this.call() method
@@ -148,11 +151,44 @@ class APICaller extends EventEmitter {
       callback = arg1;
     } else {
       throw new Error(
-        "Invalid argument supplied to APICaller.prototype.call()"
+        "Invalid argument supplied to APICaller.prototype.call()",
       );
     }
 
     return { callback, userOptions };
+  };
+
+  /**
+   * Compose completed API URL
+   *
+   * @private
+   * @param {String} path Additional URL path e.g. path parameter
+   * @param {Object} params Object of query parameters
+   * @returns {String} Completed API URL
+   */
+  makeUrl = (path, params) => {
+    const queryString = params ? "?" + this.makeQueryString(params) : "";
+
+    return this.uri + (path || "") + queryString;
+  };
+
+  /**
+   * Make query string from given object
+   *
+   * @private
+   * @param {Object} obj Object to be serialized
+   * @returns {String} Query string
+   */
+  makeQueryString = obj => {
+    const str = [];
+
+    for (let p in obj) {
+      if (obj.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      }
+    }
+
+    return str.join("&");
   };
 }
 
