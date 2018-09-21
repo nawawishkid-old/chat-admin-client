@@ -24,7 +24,10 @@ adminRouter.add("/templates/new", PageTemplateNew, {
   ...options,
   exact: true
 });
-adminRouter.add("/templates/:templateId([a-zA-Z0-9]+)/edit", PageTemplateEdit, options);
+adminRouter.add("/templates/:templateId([a-f0-9]{24})/edit", PageTemplateEdit, options);
+// Could not set 404 page for /admin route group
+// If set, the <Router> always switch to 404 page.
+// If not, <Router> always display /admin page (PageAdmin)
 //adminRouter.default(() => <Redirect to="/notfound" />);
 
 export { adminRouter };
