@@ -14,6 +14,7 @@ const options = {
   permission: "write"
 };
 
+adminRouter.add('/', () => <Redirect to="/admin/templates" />, { ...options, exact: true });
 adminRouter.add("/templates", PageTemplateAll, {
   ...options,
   permission: "read",
@@ -23,7 +24,7 @@ adminRouter.add("/templates/new", PageTemplateNew, {
   ...options,
   exact: true
 });
-adminRouter.add("/templates/:templateId(d+)/edit", PageTemplateEdit, options);
+adminRouter.add("/templates/:templateId([a-zA-Z0-9]+)/edit", PageTemplateEdit, options);
 //adminRouter.default(() => <Redirect to="/notfound" />);
 
 export { adminRouter };

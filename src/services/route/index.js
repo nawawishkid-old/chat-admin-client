@@ -6,7 +6,6 @@ import RouteGroup from "./Group";
 const renderRoutes = routes =>
   routes.map((route, index) => {
     const { path, component, options } = route;
-    console.log("options: ", options);
     const { auth, redirect, ...rest } = options;
     const TheRoute = auth ? RouteAuth : Route;
 
