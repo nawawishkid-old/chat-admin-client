@@ -8,9 +8,11 @@ class UnwrappedCommonForm extends React.Component {
 
     form.validateFields((err, values) => {
       if (err) {
-        // console.error(err);
+        console.log('err: ', err);
         return;
       }
+
+			console.log('form.values: ', values);
 
       handleSubmit(this.props, values);
     });

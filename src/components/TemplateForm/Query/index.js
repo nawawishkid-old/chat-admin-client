@@ -11,11 +11,28 @@ class NoFormTemplateFormQuery extends React.Component {
 
   handleSubmit = () => {
     console.log("handleSubmit()");
-    // templateParserApi.exec('get', null, (err, res) => {
-    //   if (err) { console.log(err); return; }
-    //   console.log('res: ', res);
-    //   this.setState({ output: res.data })
-    // });
+    const { form, templateId } = this.props;
+
+    form.validateFields((err, values) => {
+      if (err) {
+        console.log("validateFields.err: ", err);
+        return;
+      }
+
+      console.log("values: ", values);
+
+      const options = {
+        path: templateId,
+        params: values,
+      };
+
+      templateParserApi.get("get").call(options, (err, res, status) => {
+        if (res) {
+          console.log("res: ", res);
+          this.setState({ output: res.data });
+        }
+      });
+    });
   };
 
   handleCopy = () => {
@@ -40,6 +57,8 @@ class NoFormTemplateFormQuery extends React.Component {
 
     const { form, fieldSchemes, templateId, ...rest } = this.props;
 
+		console.log('output: ', this.state.output);
+
     return (
       <TemplateFormQueryView
         form={form}
@@ -53,7 +72,7 @@ class NoFormTemplateFormQuery extends React.Component {
           <ActionDelete
             templateId={templateId}
             handleDeleted={this.handleDeleted}
-          />
+          />,
         ]}
         {...rest}
       />
@@ -65,7 +84,7 @@ NoFormTemplateFormQuery.propTypes = {
   form: PropTypes.object.isRequired,
   fieldSchemes: PropTypes.array.isRequired,
   templateId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired
+    .isRequired,
 };
 
 const TemplateFormQuery = withForm(NoFormTemplateFormQuery);

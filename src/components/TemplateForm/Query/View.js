@@ -24,7 +24,7 @@ const TemplateFormQueryView = props => {
           {children}
         </div>
         <div className="output">
-          <Input.TextArea defaultValue={output} onChange={handleOutputChange} />
+          <Input.TextArea value={output} onChange={handleOutputChange} />
         </div>
         <div className="controller">
           <p>
