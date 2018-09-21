@@ -9,6 +9,9 @@ import ActionEdit from "./ActionEdit";
 class NoFormTemplateFormQuery extends React.Component {
   state = { output: "" };
 
+	/**
+	 * Handle form submission
+	 */
   handleSubmit = () => {
     console.log("handleSubmit()");
     const { form, templateId } = this.props;
@@ -46,8 +49,14 @@ class NoFormTemplateFormQuery extends React.Component {
     textArea.remove();
   };
 
+	/**
+	 * Handle output component (textarea of the form) on change
+	 */
   handleOutputChange = e => this.setState({ output: e.target.value });
 
+	/**
+	 * Handle after delete operation
+	 */
   handleDeleted = () => this.setState({ deleted: true });
 
   render() {
