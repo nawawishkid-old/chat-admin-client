@@ -15,7 +15,7 @@ class Router {
     console.log(this.basePath + path, component.constructor.name) ||
     this.routes.push({ path: this.basePath + path, component, options });
 
-  default = component => this.routes.push({ component });
+  default = component => this.routes.push({ component, options: {} });
 }
 
 /*
