@@ -5,10 +5,10 @@ import {
   PageLogin,
   PageSignup
 } from "~/src/pages";
-import { Router } from "~/src/services/route";
+import { RouteGroup } from "~/src/services/route";
 import adminRouter from "./admin";
 
-const rootRouter = new Router("/");
+const rootRouter = new RouteGroup("/");
 
 rootRouter.add("/", PageHome, { exact: true });
 rootRouter.add("/admin", PageAdmin, { auth: true });

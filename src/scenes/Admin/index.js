@@ -8,7 +8,7 @@ import {
 import { Layout } from "antd";
 
 /**
- * Uses in `react-router-dom`'s <Router />
+ * Uses in `react-router-dom`'s <RouteGroup />
  */
 const Admin = ({ match }) => (
   <Layout>

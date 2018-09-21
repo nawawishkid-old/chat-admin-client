@@ -1,12 +1,12 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import RouteAuth from "./Auth";
-import Router from "./Router";
+import RouteGroup from "./Group";
 
 const renderRoutes = routes =>
   routes.map((route, index) => {
     const { path, component, options } = route;
-    console.log('options: ', options);
+    console.log("options: ", options);
     const { auth, redirect, ...rest } = options;
     const TheRoute = auth ? RouteAuth : Route;
 
@@ -20,8 +20,8 @@ const renderRoutes = routes =>
     );
   });
 
-const route = { renderRoutes, RouteAuth, Router };
+const route = { renderRoutes, RouteAuth, RouteGroup };
 
-export { renderRoutes, RouteAuth, Router, route };
+export { renderRoutes, RouteAuth, RouteGroup, route };
 
 export default route;

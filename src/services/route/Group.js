@@ -1,7 +1,7 @@
 /**
  * Should rename to RouteGroup
  */
-class Router {
+class RouteGroup {
   routes = [];
 
   constructor(basePath) {
@@ -27,6 +27,6 @@ options = {
 }
 */
 
-export { Router };
+export { RouteGroup };
 
-export default Router;
+export default RouteGroup;

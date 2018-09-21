@@ -1,14 +1,14 @@
-import React from 'react';
-import { Router } from "~/src/services/route";
+import React from "react";
+import { RouteGroup } from "~/src/services/route";
 import {
   PageTemplateAll,
   PageTemplateNew,
   PageTemplateEdit
 } from "~/src/pages/Template";
 import { Page404, PageAdmin } from "../../pages";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 
-const adminRouter = new Router("/admin");
+const adminRouter = new RouteGroup("/admin");
 const options = {
   auth: true,
   permission: "write"
@@ -23,7 +23,7 @@ adminRouter.add("/templates/new", PageTemplateNew, {
   ...options,
   exact: true
 });
-adminRouter.add("/templates/:templateId(\d+)/edit", PageTemplateEdit, options);
+adminRouter.add("/templates/:templateId(d+)/edit", PageTemplateEdit, options);
 //adminRouter.default(() => <Redirect to="/notfound" />);
 
 export { adminRouter };
