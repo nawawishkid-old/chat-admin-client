@@ -1,10 +1,10 @@
 import React from "react";
-import { TemplateFormBuilder } from "~/src/components/TemplateForm";
+import TemplateFormEditor from '~/src/components/TemplateForm/Editor';
 
 export const PageTemplateEdit = () => (
   <div>
     <h1>Edit template</h1>
-    <TemplateFormBuilder />
+    <TemplateFormEditor />
   </div>
 );
 
