@@ -27,7 +27,8 @@ class TemplateFormEditorView extends React.Component {
     const editedFieldSchemes = originalFieldSchemes.map(field => {
       console.log("data: ", field.name, "value: ", data[field.name]);
       if (field.name === "inputs") {
-				field.options.initialValue = '';
+        console.log("options: ", field.options);
+        field.options.initialValue = "";
         return field;
       }
       field.options.initialValue = data[field.name]; // "5555 " + templateId;
@@ -57,8 +58,6 @@ TemplateFormEditorView.propTypes = {
 
 const TemplateFormEditor = withForm(TemplateFormEditorView);
 
-// const Wait = () => <h1>Loadin...</h1>;
-// const Timeout = () => <h1>Timeout!</h1>;
 const handleLoad = (load, props) => {
   console.log("loadProps: ", props);
   const { templateId } = props.match.params;
@@ -73,16 +72,11 @@ const handleLoad = (load, props) => {
     }
   });
 };
-// const WithRouter = withRouter(TemplateFormEditor);
-// console.log("WithRouter: ", WithRouter);
 const Loadable = loadable(({ data, ...rest }) => (
   <TemplateFormEditor data={data} {...rest} />
 ));
-// const TheTemplate = () => <Loadable limit={5000} />;
 const WR = withRouter(({ match }) => (
   <Loadable match={match} handleLoad={handleLoad} />
 ));
 
 export default WR;
-// export default TheTemplate;
-// export default withRouter(withForm(TemplateFormEditorView));
