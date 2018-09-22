@@ -6,6 +6,7 @@ const options = { auth: true };
 templateGroup.add("get", "get", "/", options);
 templateGroup.add("create", "post", "/", options);
 templateGroup.add("update", "post", "/update", options);
+templateGroup.add("delete", "post", "/delete", options);
 
 templateGroup.on("all", (err, res, status) => {
   if (err) {

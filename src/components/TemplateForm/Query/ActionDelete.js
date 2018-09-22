@@ -3,22 +3,12 @@ import templateApi from "~/src/api/template";
 import { Popconfirm, message, Icon } from "antd";
 
 const getHandleDelete = (templateId, handleDeleted) => () => {
-  // templateApi.exec("delete", { path: templateId }, (err, res) => {
-  //   if (err) {
-  //     console.log(err);
-  //     return;
-  //   }
-
-  //   handleDeleted()
-
-  //   message.success("Template deleted!");
-  // });
-
-  // Mock
-  setTimeout(() => {
-    message.success("Template deleted!");
-    handleDeleted();
-  }, 500);
+  templateApi.get("delete").call({ path: templateId }, (err, res) => {
+    if (res) {
+      message.success("Template deleted!");
+      handleDeleted();
+    }
+  });
 };
 
 const ActionDelete = ({ templateId, handleDeleted }) => (
@@ -26,8 +16,7 @@ const ActionDelete = ({ templateId, handleDeleted }) => (
     title="Are you sure to delete this template?"
     okText="Delete"
     cancelText="Cancel"
-    onConfirm={getHandleDelete(templateId, handleDeleted)}
-  >
+    onConfirm={getHandleDelete(templateId, handleDeleted)}>
     <Icon type="delete" />
   </Popconfirm>
 );
