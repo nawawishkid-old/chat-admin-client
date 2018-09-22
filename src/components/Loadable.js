@@ -26,7 +26,6 @@ class Loadable extends React.Component {
   };
 
   componentDidMount() {
-    console.log("Loadable.componentDidMount()");
     const { limit, handleLoad } = this.props;
 
     setTimeout(() => this.setState({ timeout: true }), limit);
