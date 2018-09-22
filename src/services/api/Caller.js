@@ -167,9 +167,10 @@ class APICaller extends EventEmitter {
    * @returns {String} Completed API URL
    */
   makeUrl = (path, params) => {
+		const thePath = path ? '/' + path : '';
     const queryString = params ? "?" + this.makeQueryString(params) : "";
 
-    return this.uri + (path || "") + queryString;
+    return this.uri + thePath + queryString;
   };
 
   /**
