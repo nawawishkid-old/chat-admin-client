@@ -4,8 +4,9 @@ import { withRouter } from "react-router-dom";
 import { withForm, FormBuilder } from "~/src/services/form";
 import templateFormBuilderScheme from "~/src/data/form-schemes/template-form/builder";
 import { CommonForm } from "~/src/components/common/form";
-import templateApi from "~/src/api/template";
+import { templateApi, templateInputApi } from "~/src/api";
 import loadable from "~/src/components/Loadable";
+import TemplateInputSelector from './TemplateInputSelector';
 
 class TemplateFormEditorView extends React.Component {
   handleSubmit = (formProps, values) => {
@@ -22,21 +23,22 @@ class TemplateFormEditorView extends React.Component {
   };
 
   getFields = () => {
-    const { data } = this.props;
+    const { data, form } = this.props;
     const originalFieldSchemes = templateFormBuilderScheme.fields;
     const editedFieldSchemes = originalFieldSchemes.map(field => {
-      console.log("data: ", field.name, "value: ", data[field.name]);
-      if (field.name === "inputs") {
-        console.log("options: ", field.options);
-        field.options.initialValue = "";
-        return field;
-      }
       field.options.initialValue = data[field.name]; // "5555 " + templateId;
 
       return field;
     });
     const fields = editedFieldSchemes.map(
       field => console.log("field: ", field) || FormBuilder.makeField(field),
+    );
+
+    // Special component for displaying templates' inputs
+    const initValue = data.inputs.map(item => item._id);
+
+    fields.push(
+      <TemplateInputSelector form={form} initialValue={initValue} key="hahaha" />,
     );
 
     return fields;
@@ -53,7 +55,6 @@ class TemplateFormEditorView extends React.Component {
 
 TemplateFormEditorView.propTypes = {
   form: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
 };
 
 const TemplateFormEditor = withForm(TemplateFormEditorView);
