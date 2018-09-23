@@ -16,6 +16,7 @@ class FormBuilder {
   };
 
   static makeField = (fieldScheme, form) => {
+    console.log("form.makeField()");
     const { name, label, componentScheme, options, ...rest } = fieldScheme;
     const theOptions = options || {};
     const { props } = componentScheme;
@@ -27,7 +28,11 @@ class FormBuilder {
       delete props.defaultValue;
     }
 
+    // console.log('form.componentScheme: ', componentScheme);
+
     const theChild = FormBuilder.makeChildOfField(componentScheme);
+
+    // console.log('theChild: ', theChild);
 
     return (
       <CommonField
@@ -36,25 +41,31 @@ class FormBuilder {
         key={name}
         form={form}
         options={theOptions}
-        {...rest}
-      >
+        {...rest}>
         {theChild}
       </CommonField>
     );
   };
 
   static makeChildOfField = componentScheme => {
+    console.log("form.makeChildOfField()");
     const { type, props, options, icon } = componentScheme;
     const TheComponent = FormBuilder.getAntdComponent(type);
     let children = null;
 
+    // console.log('child.options: ', options);
+
     if (type === "select" && Array.isArray(options)) {
-      children = options.map((option, index) => (
-        <Select.Option value={option.value} key={index}>
-          {option.text}
+			const { Option } = Select;
+      children = options.map((optionScheme, index) => (
+        <Select.Option value={optionScheme._id}>
+          {optionScheme.label}
         </Select.Option>
       ));
     }
+
+    console.log('children: ', children);
+    // console.log('props: ', props);
 
     if (typeof icon === "string") {
       props.prefix = <Icon type={icon} />;
