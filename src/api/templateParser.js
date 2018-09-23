@@ -16,4 +16,6 @@ templateParserApi.on("all", (err, res, status) => {
   console.log(`${status}: ${res.msg}`);
 });
 
+export { templateParserApi };
+
 export default templateParserApi;

@@ -1,13 +1,13 @@
 import APIGroup from "~/src/services/api/Model";
 
-const templateInputGroup = new APIGroup("/api/template/input");
+const templateInputApi = new APIGroup("/api/template/input");
 const options = { auth: true };
 
-templateInputGroup.add("get", "get", "/", options);
-templateInputGroup.add("create", "post", "/", options);
-templateInputGroup.add("update", "post", "/update", options);
+templateInputApi.add("get", "get", "/", options);
+templateInputApi.add("create", "post", "/", options);
+templateInputApi.add("update", "post", "/update", options);
 
-templateInputGroup.on("all", (err, res, status) => {
+templateInputApi.on("all", (err, res, status) => {
   if (err) {
     console.error(`${status}: ${err.msg}`);
     return;
@@ -16,4 +16,6 @@ templateInputGroup.on("all", (err, res, status) => {
   console.log(`${status}: ${res.msg}`);
 });
 
-export default templateInputGroup;
+export { templateInputApi };
+
+export default templateInputApi;

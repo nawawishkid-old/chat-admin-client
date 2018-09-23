@@ -1,14 +1,14 @@
 import APIGroup from "~/src/services/api/Model";
 
-const templateGroup = new APIGroup("/api/template");
+const templateApi = new APIGroup("/api/template");
 const options = { auth: true };
 
-templateGroup.add("get", "get", "/", options);
-templateGroup.add("create", "post", "/", options);
-templateGroup.add("update", "post", "/update", options);
-templateGroup.add("delete", "post", "/delete", options);
+templateApi.add("get", "get", "/", options);
+templateApi.add("create", "post", "/", options);
+templateApi.add("update", "post", "/update", options);
+templateApi.add("delete", "post", "/delete", options);
 
-templateGroup.on("all", (err, res, status) => {
+templateApi.on("all", (err, res, status) => {
   if (err) {
     console.error(`${status}: ${err.msg}`);
     return;
@@ -17,4 +17,6 @@ templateGroup.on("all", (err, res, status) => {
   console.log(`${status}: ${res.msg}`);
 });
 
-export default templateGroup;
+export { templateApi };
+
+export default templateApi;
