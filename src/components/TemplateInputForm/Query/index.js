@@ -42,7 +42,7 @@ const TemplateInputFormQuery = ({ input, ...rest }) =>
 const LoadableTemplateInputFormQuery = loadable(({ data }) => (
   <div>
     {data.map((item, index) => (
-      <TemplateInputFormQuery input={item} />
+      <TemplateInputFormQuery input={item} key={index} />
     ))}
   </div>
 ));
