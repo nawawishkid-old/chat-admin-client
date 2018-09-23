@@ -6,7 +6,7 @@ import templateFormBuilderScheme from "~/src/data/form-schemes/template-form/bui
 import { CommonForm } from "~/src/components/common/form";
 import { templateApi, templateInputApi } from "~/src/api";
 import loadable from "~/src/components/Loadable";
-import TemplateInputSelector from './TemplateInputSelector';
+import TemplateInputSelector from '../TemplateInputSelector';
 
 class TemplateFormEditorView extends React.Component {
   handleSubmit = (formProps, values) => {
