@@ -20,7 +20,7 @@ class APICaller extends EventEmitter {
   constructor(method, uri, options) {
     super();
 
-    this.uri = uri;
+    this.uri = uri[uri.length - 1] === "/" ? uri.slice(0, -1) : uri;
     this.method = method;
     this.options = options;
   }
@@ -167,10 +167,15 @@ class APICaller extends EventEmitter {
    * @returns {String} Completed API URL
    */
   makeUrl = (path, params) => {
-		const thePath = path ? '/' + path : '';
+    const thePath = path ? "/" + path : "";
     const queryString = params ? "?" + this.makeQueryString(params) : "";
+    const url = this.uri + thePath + queryString;
 
-    return this.uri + thePath + queryString;
+    console.log("this.uri: ", this.uri);
+    console.log("path: ", path);
+    console.log("request url: ", url);
+
+    return url;
   };
 
   /**

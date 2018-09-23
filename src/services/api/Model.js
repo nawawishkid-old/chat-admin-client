@@ -15,7 +15,7 @@ class APIGroup {
   on = (eventName, callback) => {
     // Attach event listener to all endpoints
     Object.keys(this.endpoints).forEach(key =>
-      this.get(key).on(eventName, callback)
+      this.get(key).on(eventName, callback),
     );
   };
 
@@ -23,7 +23,7 @@ class APIGroup {
     this.endpoints[endpointName] = new APICaller(
       method,
       this.basePath + path,
-      options
+      options,
     );
   };
 
