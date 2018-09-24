@@ -45,7 +45,7 @@ TemplateInputFormEditorView.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   componentType: PropTypes.string.isRequired,
   onComponentTypeChange: PropTypes.func.isRequired,
-  initialValues: PropTypes.object,
+  initialValues: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   fieldSchemes: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.element
 };

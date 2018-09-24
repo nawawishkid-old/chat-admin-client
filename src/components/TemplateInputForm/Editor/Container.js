@@ -16,6 +16,7 @@ class TemplateInputFormEditorContainer extends React.Component {
   makeComponentScheme = values => {
     const scheme = {};
     const schemeProps = {};
+    const schemeOptions = [];
 
     for (let key in values) {
       const value = values[key];
@@ -33,6 +34,34 @@ class TemplateInputFormEditorContainer extends React.Component {
         continue;
       }
 
+      // Assign scheme.componentScheme.options (for component type 'select' only)
+      // pattern is options_[label,value]_<id>
+      // e.g. options_label_1, options_value_1, options_label_2, ...
+      if (splittedKey[0] === "options") {
+        const optionId = splittedKey[2];
+
+        if (typeof schemeOptions[optionId] !== "undefined") {
+          continue;
+        }
+
+        const labelKey = [splittedKey[0], "label", optionId].join("_");
+        const valueKey = [splittedKey[0], "value", optionId].join("_");
+        const defaultKey = [splittedKey[0], "default", optionId].join("_");
+
+        const label = values[labelKey];
+        const value = values[valueKey];
+				const isDefault = values[defaultKey];
+
+				// Set default value
+				if (isDefault) {
+					schemeProps.defaultValue = value;
+				}
+
+        schemeOptions.push({ label, value, isDefault });
+
+        continue;
+      }
+
       // Assign scheme.props
       if (splittedKey[0] === "props") {
         schemeProps[splittedKey[1]] = value;
@@ -41,6 +70,10 @@ class TemplateInputFormEditorContainer extends React.Component {
 
     if (Object.keys(schemeProps).length > 0) {
       scheme.props = schemeProps;
+    }
+
+    if (schemeOptions.length > 0) {
+      scheme.options = schemeOptions;
     }
 
     return scheme;
@@ -92,12 +125,13 @@ class TemplateInputFormEditorContainer extends React.Component {
   render() {
     const { componentType } = this.state;
     const { data } = this.props;
+		const { componentScheme } = data;
 
     return (
       <TemplateInputFormEditorView
         fieldSchemes={this.getFieldSchemes()}
         componentType={componentType}
-        initialValues={data.componentScheme.props}
+        initialValues={componentType === 'select' ? componentScheme.options : componentScheme.props}
         handleSubmit={this.handleSubmit}
         onComponentTypeChange={value => this.setState({ componentType: value })}
       />

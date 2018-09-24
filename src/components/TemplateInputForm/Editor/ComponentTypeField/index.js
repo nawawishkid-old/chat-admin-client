@@ -5,6 +5,7 @@ import { FormBuilder, makeAntdFieldDecorator } from "~/src/services/form";
 import { componentSchemeTypeFieldScheme } from "../field-schemes";
 import numberPropsScheme from "./props-schemes/number";
 import textPropsScheme from "./props-schemes/text";
+import OptionAdder from "~/src/components/TemplateInputForm/components/Option/Adder";
 
 const getComponentPropsFieldSchemes = type => {
   let schemes;
@@ -48,6 +49,10 @@ const ComponentTypeSelector = ({ form, type, onChange, ...rest }) => {
  * Display component's properties panel based on type of component
  */
 const ComponentPropsPanel = ({ form, componentType, initialValues }) => {
+  if (componentType === "select") {
+    return <OptionAdder form={form} options={initialValues} />;
+  }
+
   const schemes = getComponentPropsFieldSchemes(componentType);
 
   return schemes.length === 0 ? null : (
@@ -82,7 +87,7 @@ const ComponentPropsPanel = ({ form, componentType, initialValues }) => {
 ComponentPropsPanel.propTypes = {
   form: PropTypes.object,
   componentType: PropTypes.string.isRequired,
-  initialValues: PropTypes.object
+  initialValues: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
 export { ComponentTypeSelector, ComponentPropsPanel };
