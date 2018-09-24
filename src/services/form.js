@@ -10,11 +10,22 @@ class FormBuilder {
 
     return props => (
       <CommonForm {...props}>
+        {/**
+         * No need to add 'form' as a second argument to makeField(),
+         * <CommonField> will add it to every child passed in
+         */}
         {fields.map(field => FormBuilder.makeField(field))}
       </CommonForm>
     );
   };
 
+  /**
+   * Make 'antd' form's field
+   *
+   * @param {Object} fieldScheme Object of field scheme
+   * @param {Object} form Object of 'antd' form to be supplied to <CommonField>
+   * @returns {React.Component} <CommonFiled>
+   */
   static makeField = (fieldScheme, form) => {
     // console.log("fieldScheme: ", fieldScheme);
     const { name, label, componentScheme, options, ...rest } = fieldScheme;
@@ -27,14 +38,17 @@ class FormBuilder {
 
     const { props } = componentScheme;
 
+    // console.log("props: ", props);
+
     // Remove props.defaultValue then assign to options.initialValue.
     // The way Ant Design's field decorator works.
-    if (props.hasOwnProperty("defaultValue")) {
-      theOptions.initialValue = props.defaultValue;
-      delete props.defaultValue;
+    if (props) {
+      // console.log("hasProps");
+      if (props.hasOwnProperty("defaultValue")) {
+        theOptions.initialValue = props.defaultValue;
+        delete props.defaultValue;
+      }
     }
-
-    // ('form.componentScheme: ', componentScheme);
 
     const theChild = FormBuilder.makeChildOfField(componentScheme);
 
@@ -119,7 +133,7 @@ const makeAntdFieldDecorator = scheme => {
     : {};
   const decorator = {
     id: name,
-    options: scheme.options || {},
+    options: scheme.options || {}
   };
   let selectOptions = null,
     TheInput;

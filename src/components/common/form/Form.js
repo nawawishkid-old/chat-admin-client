@@ -8,11 +8,11 @@ class UnwrappedCommonForm extends React.Component {
 
     form.validateFields((err, values) => {
       if (err) {
-        console.log('err: ', err);
+        console.log("err: ", err);
         return;
       }
 
-			console.log('form.values: ', values);
+      console.log("form.values: ", values);
 
       handleSubmit(this.props, values);
     });
@@ -23,9 +23,14 @@ class UnwrappedCommonForm extends React.Component {
 
     return (
       <Form {...rest}>
-        {React.Children.map(children, (child, index) =>
-          React.cloneElement(child, { form, key: index })
-        )}
+        {React.Children.map(children, (child, index) => {
+          console.log("child: ", child);
+          if (child === null) {
+            return null;
+          }
+
+          return React.cloneElement(child, { form, key: index });
+        })}
         <Form.Item>
           <Button onClick={this.handleSubmit}>Submit</Button>
         </Form.Item>
