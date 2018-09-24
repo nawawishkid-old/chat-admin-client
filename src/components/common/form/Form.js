@@ -24,7 +24,7 @@ class UnwrappedCommonForm extends React.Component {
     return (
       <Form {...rest}>
         {React.Children.map(children, (child, index) => {
-          console.log("child: ", child);
+          // console.log("child: ", child);
           if (child === null) {
             return null;
           }

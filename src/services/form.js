@@ -27,6 +27,7 @@ class FormBuilder {
    * @returns {React.Component} <CommonFiled>
    */
   static makeField = (fieldScheme, form) => {
+    console.log("FormBuilder.makeField()");
     // console.log("fieldScheme: ", fieldScheme);
     const { name, label, componentScheme, options, ...rest } = fieldScheme;
     const theOptions = options || {};
@@ -47,6 +48,11 @@ class FormBuilder {
       if (props.hasOwnProperty("defaultValue")) {
         theOptions.initialValue = props.defaultValue;
         delete props.defaultValue;
+      }
+
+      if (props.hasOwnProperty("value")) {
+        theOptions.setFieldsValue = props.value;
+        delete props.value;
       }
     }
 
