@@ -108,7 +108,7 @@ class APICaller extends EventEmitter {
       const { data, status } = err.response;
       const args = [err.response, null, status];
 
-      callback(args);
+      callback(...args);
       this.emit(status, ...args).emit("all", ...args);
     } else if (err.request) {
       console.error(err.request);
