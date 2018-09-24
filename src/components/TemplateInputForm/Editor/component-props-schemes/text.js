@@ -1,4 +1,4 @@
-const prefixId = "input_componentScheme_props_";
+const prefixId = "props_";
 
 const defaultValueScheme = {
   label: "Default value",
@@ -6,9 +6,9 @@ const defaultValueScheme = {
   componentScheme: {
     type: "text",
     props: {
-      placeholder: "Default Value"
-    }
-  }
+      placeholder: "Default Value",
+    },
+  },
 };
 
 export { defaultValueScheme };

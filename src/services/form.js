@@ -16,8 +16,15 @@ class FormBuilder {
   };
 
   static makeField = (fieldScheme, form) => {
+    // console.log("fieldScheme: ", fieldScheme);
     const { name, label, componentScheme, options, ...rest } = fieldScheme;
     const theOptions = options || {};
+
+    if (!componentScheme) {
+      console.warn("componentScheme should not be null");
+      return <b key="error">No template's input available</b>;
+    }
+
     const { props } = componentScheme;
 
     // Remove props.defaultValue then assign to options.initialValue.

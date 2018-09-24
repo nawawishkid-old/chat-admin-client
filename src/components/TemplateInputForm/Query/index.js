@@ -35,7 +35,9 @@ const TemplateInputFormQuery = ({ input, ...rest }) =>
       <h3>{input.label}</h3>
       <p>{"name: " + input.name}</p>
       {input.options ? <Options input={input} /> : <NoOptions />}
-      <ComponentScheme scheme={input.componentScheme} />
+      {input.componentScheme ? (
+        <ComponentScheme scheme={input.componentScheme} />
+      ) : null}
     </Card>
   );
 

@@ -9,7 +9,7 @@ templateInputApi.add("update", "post", "/update", options);
 
 templateInputApi.on("all", (err, res, status) => {
   if (err) {
-    console.error(`${status}: ${err.msg}`);
+    console.error(`${status}: ${err.statusText} (${err.data.msg})`);
     return;
   }
 

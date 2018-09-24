@@ -85,12 +85,53 @@ class TemplateInputFormEditorView extends React.Component {
     componentType: "text",
   };
 
+  getComponentScheme = values => {
+    const scheme = {};
+    const schemeProps = {};
+
+    for (let key in values) {
+      if (typeof values[key] === "undefined") {
+        continue;
+      }
+
+      const splittedKey = key.split("_");
+
+      // Assign top level properties
+      if (splittedKey[0] === "componentScheme") {
+        scheme[splittedKey[1]] = values[key];
+        continue;
+      }
+
+      // Assign scheme.props
+      if (splittedKey[0] === "props") {
+        schemeProps[splittedKey[1]] = values[key];
+      }
+    }
+
+    if (Object.keys(schemeProps).length > 0) {
+      scheme.props = schemeProps;
+    }
+
+    return scheme;
+  };
+
   handleSubmit = (formProps, values) => {
     const { templateInputId } = this.props.match.params;
+    const { name, label, componentScheme_type } = values;
+    const componentScheme = this.getComponentScheme(values);
+    const data = {
+      name,
+      label,
+      // componentScheme,
+    };
     const options = {
       path: templateInputId,
-      data: values,
+      data,
     };
+
+    // console.log("data: ", data);
+
+    // return;
 
     templateInputApi.get("update").call(options, (err, res) => {
       if (res) {
@@ -98,7 +139,7 @@ class TemplateInputFormEditorView extends React.Component {
         return;
       }
 
-      message.error(err.msg);
+      message.error(`${err.statusText} (${err.data.msg})`);
     });
   };
 
