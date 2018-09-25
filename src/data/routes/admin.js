@@ -11,7 +11,7 @@ import {
   PageTemplateInputEdit
 } from "~/src/pages/TemplateInput";
 import { PageUserProfile, PageUserProfileEdit } from "~/src/pages/UserProfile";
-
+import { PageSettingsAccount } from "~/src/pages/Settings";
 import { Page404, PageAdmin } from "../../pages";
 import { Redirect } from "react-router-dom";
 
@@ -49,9 +49,12 @@ adminRouter.add(
   options
 );
 
+// Profile
 adminRouter.add("/profile", PageUserProfile, optionsExact);
 adminRouter.add("/profile/edit", PageUserProfileEdit, options);
 
+// Settings
+adminRouter.add("/settings/account", PageSettingsAccount, optionsExact);
 
 // Could not set 404 page for /admin route group
 // If set, the <Router> always switch to 404 page.
