@@ -25,21 +25,42 @@ const ComponentScheme = ({ scheme }) => (
     </p>
   </div>
 );
-const TemplateInputFormQuery = ({ input, ...rest }) =>
-  console.log("input: ", input.componentScheme) || (
-    <Card
-      actions={[
-        <ActionEdit templateInputId={input._id} />,
-        <ActionDelete templateInputId={input._id} />,
-      ]}>
-      <h3>{input.label}</h3>
-      <p>{"name: " + input.name}</p>
-      {input.options ? <Options input={input} /> : <NoOptions />}
-      {input.componentScheme ? (
-        <ComponentScheme scheme={input.componentScheme} />
-      ) : null}
-    </Card>
-  );
+class TemplateInputFormQuery extends React.Component {
+  state = {
+    deleted: false
+  };
+
+  /**
+   * Handle after delete operation
+   */
+  handleDeleted = () => this.setState({ deleted: true });
+
+  render() {
+    if (this.state.deleted) {
+      return null;
+    }
+
+    const { input, ...rest } = this.props;
+
+    return (
+      <Card
+        actions={[
+          <ActionEdit templateInputId={input._id} />,
+          <ActionDelete
+            templateInputId={input._id}
+            handleDeleted={this.handleDeleted}
+          />
+        ]}>
+        <h3>{input.label}</h3>
+        <p>{"name: " + input.name}</p>
+        {input.options ? <Options input={input} /> : <NoOptions />}
+        {input.componentScheme ? (
+          <ComponentScheme scheme={input.componentScheme} />
+        ) : null}
+      </Card>
+    );
+  }
+}
 
 const LoadableTemplateInputFormQuery = loadable(({ data }) => (
   <div>
