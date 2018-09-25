@@ -6,10 +6,9 @@ import { withForm, FormBuilder } from "~/src/services/form";
 import templateFormBuilderScheme from "~/src/data/form-schemes/template-form/builder";
 import TemplateInputSelector from "../TemplateInputSelector";
 
-const TheForm = FormBuilder.build(templateFormBuilderScheme);
 class TemplateFormBuilder extends React.Component {
   state = {
-    created: undefined,
+    created: undefined
   };
 
   handleSubmit = () => {
@@ -41,9 +40,8 @@ class TemplateFormBuilder extends React.Component {
     return (
       <Card>
         <Form>
-          {fields.map((scheme, bndex) => FormBuilder.makeField(scheme, form))}
+          {fields.map(scheme => FormBuilder.makeField(scheme, form))}
           <TemplateInputSelector form={form} key="inputs" />
-          {/*<TheForm handleSubmit={this.handleSubmit} />*/}
           <Button onClick={this.handleSubmit}>Create</Button>
         </Form>
       </Card>
