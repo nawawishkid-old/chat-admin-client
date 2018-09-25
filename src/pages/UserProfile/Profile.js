@@ -2,13 +2,13 @@ import React from "react";
 import Page from "~/src/components/Page";
 import UserProfile from "~/src/components/UserProfile";
 
-const PageProfile = () => (
+const PageUserProfile = () => (
   <Page>
     <h1>Profile</h1>
     <UserProfile />
   </Page>
 );
 
-export { PageProfile };
+export { PageUserProfile };
 
-export default PageProfile;
+export default PageUserProfile;

@@ -10,7 +10,7 @@ import {
   PageTemplateInputNew,
   PageTemplateInputEdit
 } from "~/src/pages/TemplateInput";
-import { PageProfile } from "~/src/pages/Profile";
+import { PageUserProfile, PageUserProfileEdit } from "~/src/pages/UserProfile";
 
 import { Page404, PageAdmin } from "../../pages";
 import { Redirect } from "react-router-dom";
@@ -20,20 +20,20 @@ const options = {
   auth: true,
   permission: "write"
 };
-const optionsForNew = {
+const optionsExact = {
   ...options,
   exact: true
 };
 const optionsPermRead = {
-  ...optionsForNew,
+  ...optionsExact,
   permission: "read"
 };
 
-adminRouter.add("/", () => <Redirect to="/admin/templates" />, optionsForNew);
+adminRouter.add("/", () => <Redirect to="/admin/templates" />, optionsExact);
 
 // Template
 adminRouter.add("/templates", PageTemplateAll, optionsPermRead);
-adminRouter.add("/templates/new", PageTemplateNew, optionsForNew);
+adminRouter.add("/templates/new", PageTemplateNew, optionsExact);
 adminRouter.add(
   "/templates/:templateId([a-f0-9]{24})/edit",
   PageTemplateEdit,
@@ -42,14 +42,16 @@ adminRouter.add(
 
 // TemplateInput
 adminRouter.add("/template-inputs", PageTemplateInputAll, optionsPermRead);
-adminRouter.add("/template-inputs/new", PageTemplateInputNew, optionsForNew);
+adminRouter.add("/template-inputs/new", PageTemplateInputNew, optionsExact);
 adminRouter.add(
   "/template-inputs/:templateInputId([a-f0-9]{24})/edit",
   PageTemplateInputEdit,
   options
 );
 
-adminRouter.add("/profile", PageProfile, options);
+adminRouter.add("/profile", PageUserProfile, optionsExact);
+adminRouter.add("/profile/edit", PageUserProfileEdit, options);
+
 
 // Could not set 404 page for /admin route group
 // If set, the <Router> always switch to 404 page.

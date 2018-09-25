@@ -1,18 +1,36 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import UserProfileView from './View';
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import UserProfileView from "./View";
 
-const UserProfileContainer = ({ user }) => {
-  const { name, username, email, imageSrc } = user;
+class UserProfileContainer extends React.Component {
+  state = {
+    mode: false
+  };
 
-  return (
-    <UserProfileView
-      name={name}
-      username={username}
-      email={email}
-      imageSrc={imageSrc}
-    />
-  );
+  handleEdit = () => this.setState({ mode: true });
+
+  render() {
+    if (this.state.mode) {
+      return <Redirect to="/admin/profile/edit" />;
+    }
+
+    const { name, username, email, imageSrc } = this.props.user;
+
+    return (
+      <UserProfileView
+        name={name}
+        username={username}
+        email={email}
+        imageSrc={imageSrc}
+        handleEdit={this.handleEdit}
+      />
+    );
+  }
+}
+
+UserProfileContainer.propTypes = {
+  user: PropTypes.object.isRequired
 };
 
 export { UserProfileContainer };
