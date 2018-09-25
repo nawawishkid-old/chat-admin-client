@@ -4,7 +4,7 @@ import { message } from "antd";
 import loadable from "~/src/components/Loadable";
 import { withRouter } from "react-router-dom";
 import { templateInputApi } from "~/src/api/templateInput";
-import TemplateInputFormCommonBuilderContainer from "../components/Builder/Container";
+import TemplateInputFormCommonBuilderContainer from "./components/Builder/Container";
 
 const Loadable = loadable(({ data, ...rest }) => (
   <TemplateInputFormCommonBuilderContainer
