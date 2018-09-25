@@ -60,17 +60,32 @@ const OptionValueField = ({ id, ...rest }) => (
   />
 );
 
-const OptionDefaultField = ({ form, id, checked, ...rest }) => (
+const OptionDefaultField = ({
+  form,
+  id,
+  defaultChecked,
+  onChange,
+  ...rest
+}) => (
   <Form.Item label="default">
     {form.getFieldDecorator(OPTION_DEFAULT_NAME_PREFIX + id, {
-      initialValue: checked,
-      valuePropName: "checked",
-      setFieldsValue: checked
-    })(<Checkbox {...rest} />)}
+      initialValue: defaultChecked,
+      valuePropName: "checked"
+    })(<Checkbox onChange={onChange} {...rest} />)}
   </Form.Item>
 );
 
+OptionDefaultField.propTypes = {
+  form: PropTypes.object.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  defaultChecked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired
+};
+
 export {
+  OPTION_LABEL_NAME_PREFIX,
+  OPTION_VALUE_NAME_PREFIX,
+  OPTION_DEFAULT_NAME_PREFIX,
   OptionCommonField,
   OptionLabelField,
   OptionValueField,

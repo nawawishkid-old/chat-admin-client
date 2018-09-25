@@ -1,37 +1,45 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Option from "./Option";
+import { OPTION_DEFAULT_NAME_PREFIX } from "./fields";
 
 class OptionAdder extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.options = props.options;
-  }
-
   state = {
-    amount: 1,
-    defaultOptionId: null
+    options: this.props.options
   };
 
   getHandleRemove = key => () => {
-    this.options.splice(key, 1);
-    this.setState({ amount: this.options.length });
+    const options = [...this.state.options];
+
+    options.splice(key, 1);
+    this.setState({ options });
   };
 
   handleAdd = () => {
-    this.options.push({ lable: "", value: "" });
-    this.setState({ amount: this.options.length });
+    const options = [...this.state.options, { lable: "", value: "" }];
+
+    this.setState({ options });
   };
 
-  getHandleDefaultChange = id => ev => this.setState({ defaultOptionId: id });
+  /**
+   * Unchecked all unrelated checkbox
+   */
+  getHandleDefaultChange = id => ev => {
+    const uncheckedFields = {};
+
+    this.state.options.forEach((option, index) => {
+      if (id !== index) {
+        uncheckedFields[OPTION_DEFAULT_NAME_PREFIX + index] = false;
+      }
+    });
+
+    this.props.form.setFieldsValue(uncheckedFields);
+  };
 
   getOptionMaker = form => (option, index) => {
-    const { length } = this.options;
+    const { length } = this.state.options;
     const isLast = index === length - 1;
     const isNotAlone = length > 1;
-    const isDefault = this.state.defaultOptionId === index;
-		const isDefaultable = this.state.defaultOptionId === null;
 
     return (
       <Option
@@ -39,8 +47,7 @@ class OptionAdder extends React.Component {
         id={index}
         value={option.value}
         label={option.label}
-        isDefault={isDefault}
-        isDefaultable={isDefaultable}
+        isDefault={option.isDefault}
         isAddable={isLast}
         isRemovable={isNotAlone}
         handleDefaultChange={this.getHandleDefaultChange(index)}
@@ -55,7 +62,7 @@ class OptionAdder extends React.Component {
     const { form } = this.props;
     const optionMaker = this.getOptionMaker(form);
 
-    return <div>{this.options.map(optionMaker)}</div>;
+    return <div>{this.state.options.map(optionMaker)}</div>;
   }
 }
 

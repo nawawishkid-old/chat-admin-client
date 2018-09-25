@@ -17,7 +17,6 @@ const Option = props => {
     handleRemove,
     handleDefaultChange,
     isDefault,
-    isDefaultable,
     id,
     form
   } = props;
@@ -40,8 +39,7 @@ const Option = props => {
         <OptionDefaultField
           form={form}
           id={id}
-          disabled={!isDefaultable}
-          checked={isDefault}
+          defaultChecked={isDefault}
           onChange={handleDefaultChange}
         />
       </div>
@@ -58,10 +56,13 @@ Option.defaultProps = {
 };
 
 Option.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  form: PropTypes.object.isRequired,
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   isRemovable: PropTypes.bool,
   isAddable: PropTypes.bool,
+  isDefault: PropTypes.bool,
   handleAdd: PropTypes.func.isRequired,
   handleRemove: PropTypes.func.isRequired
 };
