@@ -6,6 +6,7 @@ const options = { auth: true };
 templateInputApi.add("get", "get", "/", options);
 templateInputApi.add("create", "post", "/", options);
 templateInputApi.add("update", "post", "/update", options);
+templateInputApi.add("delete", "post", "/delete", options);
 
 templateInputApi.on("all", (err, res, status) => {
   if (err) {
