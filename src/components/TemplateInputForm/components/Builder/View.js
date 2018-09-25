@@ -8,12 +8,12 @@ import {
   ComponentPropsPanel
 } from "./ComponentTypeField";
 
-const TemplateInputFormEditorView = props => {
+const TemplateInputFormBuilderView = props => {
   const {
     children,
     fieldSchemes,
     componentType,
-    initialValues,
+    initialInputProps,
     handleSubmit,
     onComponentTypeChange
   } = props;
@@ -29,19 +29,19 @@ const TemplateInputFormEditorView = props => {
         />
         <ComponentPropsPanel
           componentType={componentType}
-          initialValues={initialValues}
+          initialValues={initialInputProps}
         />
       </CommonForm>
     </Card>
   );
 };
 
-TemplateInputFormEditorView.defaultProps = {
+TemplateInputFormBuilderView.defaultProps = {
   fieldSchemes: [],
   componentTypes: "text"
 };
 
-TemplateInputFormEditorView.propTypes = {
+TemplateInputFormBuilderView.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   componentType: PropTypes.string.isRequired,
   onComponentTypeChange: PropTypes.func.isRequired,
@@ -50,6 +50,6 @@ TemplateInputFormEditorView.propTypes = {
   children: PropTypes.element
 };
 
-export { TemplateInputFormEditorView };
+export { TemplateInputFormBuilderView };
 
-export default TemplateInputFormEditorView;
+export default TemplateInputFormBuilderView;

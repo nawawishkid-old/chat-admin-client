@@ -1,20 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { message } from "antd";
 import { FormBuilder } from "~/src/services/form";
-import { templateInputApi } from "~/src/api/templateInput";
 import { nameFieldScheme, labelFieldScheme } from "./field-schemes";
 import TemplateInputFormBuilderView from "./View";
 
-const fieldSchemes = [nameFieldScheme, labelFieldScheme];
+const defaultFieldSchemes = [nameFieldScheme, labelFieldScheme];
 
 /**
  * - withApi
- * - withInitialValue 
+ * - withInitialValue
  */
-class TemplateInputFormBuilderContainer extends React.Component {
-  state = {
-    componentType: "text" // this.props.data.componentScheme.type
+class TemplateInputFormCommonBuilderContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      componentType: this.getInitialComponentType()
+    };
+  }
+
+  getInitialComponentType = () => {
+    const { doc } = this.props;
+
+    return doc ? doc.componentScheme.type : "text";
   };
 
   makeComponentScheme = values => {
@@ -84,7 +92,7 @@ class TemplateInputFormBuilderContainer extends React.Component {
   };
 
   handleSubmit = (formProps, values) => {
-    // const { templateInputId } = this.props.match.params;
+    const { handleSubmit } = this.props;
     const { name, label } = values;
     const componentScheme = this.makeComponentScheme(values);
     const data = {
@@ -92,28 +100,16 @@ class TemplateInputFormBuilderContainer extends React.Component {
       label,
       componentScheme
     };
-    const options = {
-      data
-    };
+    const options = { data };
 
     console.log("data: ", data);
 
-    // return;
-
-    templateInputApi.get("create").call(options, (err, res) => {
-      if (res) {
-        message.success(res.msg);
-        return;
-      }
-
-      message.error(`${err.statusText} (${err.data.msg})`);
-    });
+    handleSubmit(options, values, formProps);
   };
 
-  getFieldSchemes = () => {
-    const { data } = this.props;
-    const editedFieldSchemes = fieldSchemes.map(field => {
-      const fetchedValue = data[field.name];
+  editFieldSchemes = doc => {
+    const editedFieldSchemes = defaultFieldSchemes.map(field => {
+      const fetchedValue = doc[field.name];
 
       field.options.initialValue = fetchedValue;
 
@@ -125,20 +121,28 @@ class TemplateInputFormBuilderContainer extends React.Component {
     return editedFieldSchemes;
   };
 
+  getInitialInputProps = () => {
+    const { componentScheme } = this.props.doc;
+    const { type, options, props } = componentScheme;
+
+    return type === "select" ? options : props;
+  };
+
   render() {
     const { componentType } = this.state;
-    // const { data } = this.props;
-    // const { componentScheme } = data;
+    const { doc } = this.props;
+    const fieldSchemes = doc
+      ? this.editFieldSchemes(doc)
+      : defaultFieldSchemes;
+    const initialInputProps = doc
+      ? this.getInitialInputProps()
+      : undefined;
 
     return (
       <TemplateInputFormBuilderView
-        fieldSchemes={fieldSchemes /*this.getFieldSchemes()*/}
+        fieldSchemes={fieldSchemes}
         componentType={componentType}
-        // initialValues={
-        //   componentType === "select"
-        //     ? componentScheme.options
-        //     : componentScheme.props
-        // }
+        initialInputProps={initialInputProps}
         handleSubmit={this.handleSubmit}
         onComponentTypeChange={value => this.setState({ componentType: value })}
       />
@@ -146,10 +150,11 @@ class TemplateInputFormBuilderContainer extends React.Component {
   }
 }
 
-TemplateInputFormBuilderContainer.propTypes = {
-  data: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+TemplateInputFormCommonBuilderContainer.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  doc: PropTypes.object // Object of templateInput scheme document from database.
 };
 
-export { TemplateInputFormBuilderContainer };
+export { TemplateInputFormCommonBuilderContainer };
 
-export default TemplateInputFormBuilderContainer;
+export default TemplateInputFormCommonBuilderContainer;
