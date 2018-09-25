@@ -28,6 +28,7 @@ class FormBuilder {
    */
   static makeField = (fieldScheme, form) => {
     console.log("FormBuilder.makeField()");
+    console.log("fieldScheme: ", fieldScheme);
     // console.log("fieldScheme: ", fieldScheme);
     const { name, label, componentScheme, options, ...rest } = fieldScheme;
     const theOptions = options || {};
@@ -48,11 +49,6 @@ class FormBuilder {
       if (props.hasOwnProperty("defaultValue")) {
         theOptions.initialValue = props.defaultValue;
         delete props.defaultValue;
-      }
-
-      if (props.hasOwnProperty("value")) {
-        theOptions.setFieldsValue = props.value;
-        delete props.value;
       }
     }
 
@@ -76,11 +72,13 @@ class FormBuilder {
     const TheComponent = FormBuilder.getAntdComponent(type);
     let children = null;
 
+		// For componentScheme with 'select' type
     if (type === "select" && Array.isArray(options)) {
       const { Option } = Select;
-      children = options.map((optionScheme, index) => (
-        <Select.Option value={optionScheme._id} key={optionScheme._id}>
-          {optionScheme.label}
+
+      children = options.map((option, index) => (
+        <Select.Option value={option.value} key={option.value}>
+          {option.label}
         </Select.Option>
       ));
     }
