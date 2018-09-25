@@ -1,12 +1,12 @@
 const templateNew = {
   type: "item",
   name: "New",
-  path: "/admin/templates/new",
+  path: "/admin/templates/new"
 };
 const templateTrash = {
   type: "item",
   name: "Trash",
-  path: "/admin/templates/trash",
+  path: "/admin/templates/trash"
 };
 const templates = {
   type: "sub",
@@ -14,18 +14,18 @@ const templates = {
   path: "/templates/:templateId/edit",
   items: [templateNew, templateTrash],
   name: "All",
-  path: "/admin/templates",
+  path: "/admin/templates"
 };
 
 const templateInputNew = {
   type: "item",
   name: "New",
-  path: "/admin/template-inputs/new",
+  path: "/admin/template-inputs/new"
 };
 const templateInputTrash = {
   type: "item",
   name: "Trash",
-  path: "/admin/template-inputs/trash",
+  path: "/admin/template-inputs/trash"
 };
 const templateInputs = {
   type: "sub",
@@ -33,7 +33,13 @@ const templateInputs = {
   path: "/template-inputs/:templateInputId/edit",
   items: [templateInputNew, templateInputTrash],
   name: "All",
-  path: "/admin/template-inputs",
+  path: "/admin/template-inputs"
+};
+
+const profile = {
+  type: "item",
+  name: "Profile",
+  path: "/admin/profile"
 };
 
 export {
@@ -43,6 +49,7 @@ export {
   templateInputs,
   templateInputNew,
   templateInputTrash,
+  profile
 };
 
-export default [templates, templateInputs];
+export default [templates, templateInputs, profile];
