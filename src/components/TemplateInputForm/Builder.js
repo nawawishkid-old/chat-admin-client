@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { message } from "antd";
 import { templateInputApi } from "~/src/api/templateInput";
-import TemplateInputFormCommonBuilder from "./components/Builder/Container";
+import TemplateInputFormCommonBuilderContainer from "./commons/Builder/Container";
 
 const TemplateInputFormBuilderContainer = () => (
-  <TemplateInputFormCommonBuilder handleSubmit={handleSubmit} />
+  <TemplateInputFormCommonBuilderContainer handleSubmit={handleSubmit} />
 );
 
 const handleSubmit = apiOptions => {
