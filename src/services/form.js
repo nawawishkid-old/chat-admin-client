@@ -27,9 +27,6 @@ class FormBuilder {
    * @returns {React.Component} <CommonFiled>
    */
   static makeField = (fieldScheme, form) => {
-    console.log("FormBuilder.makeField()");
-    console.log("fieldScheme: ", fieldScheme);
-    // console.log("fieldScheme: ", fieldScheme);
     const { name, label, componentScheme, options, ...rest } = fieldScheme;
     const theOptions = options || {};
 
@@ -40,12 +37,9 @@ class FormBuilder {
 
     const { props } = componentScheme;
 
-    // console.log("props: ", props);
-
     // Remove props.defaultValue then assign to options.initialValue.
     // The way Ant Design's field decorator works.
     if (props) {
-      // console.log("hasProps");
       if (props.hasOwnProperty("defaultValue")) {
         theOptions.initialValue = props.defaultValue;
         delete props.defaultValue;
@@ -72,7 +66,7 @@ class FormBuilder {
     const TheComponent = FormBuilder.getAntdComponent(type);
     let children = null;
 
-		// For componentScheme with 'select' type
+    // For componentScheme with 'select' type
     if (type === "select" && Array.isArray(options)) {
       const { Option } = Select;
 

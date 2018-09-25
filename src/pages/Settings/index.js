@@ -1,0 +1,1 @@
+export { PageSettingsAccount } from "./Account";

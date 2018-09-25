@@ -11,7 +11,6 @@ const templateTrash = {
 const templates = {
   type: "sub",
   title: "Templates", // Title of submenu header
-  path: "/templates/:templateId/edit",
   items: [templateNew, templateTrash],
   name: "All",
   path: "/admin/templates"
@@ -30,7 +29,6 @@ const templateInputTrash = {
 const templateInputs = {
   type: "sub",
   title: "Template inputs", // Title of submenu header
-  path: "/template-inputs/:templateInputId/edit",
   items: [templateInputNew, templateInputTrash],
   name: "All",
   path: "/admin/template-inputs"
@@ -42,6 +40,14 @@ const profile = {
   path: "/admin/profile"
 };
 
+const settings = {
+  type: "sub",
+  title: "Settings",
+  path: "/admin/settings/account",
+  items: [],
+  name: "Account"
+};
+
 export {
   templates,
   templateNew,
@@ -49,7 +55,8 @@ export {
   templateInputs,
   templateInputNew,
   templateInputTrash,
-  profile
+  profile,
+  settings
 };
 
-export default [templates, templateInputs, profile];
+export default [templates, templateInputs, profile, settings];
