@@ -136,7 +136,7 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
       : defaultFieldSchemes;
     const initialInputProps = doc
       ? this.getInitialInputProps()
-      : null;
+      : undefined;
 
     return (
       <TemplateInputFormBuilderView
