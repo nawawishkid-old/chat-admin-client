@@ -7,6 +7,7 @@ const TemplateFormQueryView = props => {
   // console.log("props: ", props);
   const {
     form,
+    name,
     output,
     handleSubmit,
     handleCopy,
@@ -19,6 +20,9 @@ const TemplateFormQueryView = props => {
   return (
     <Card actions={actions}>
       <Form>
+        <div className="header">
+          <h3>{name}</h3>
+        </div>
         <div className="inputs">
           {fieldSchemes.map(scheme => FormBuilder.makeField(scheme, form))}
           {children}
@@ -38,6 +42,7 @@ const TemplateFormQueryView = props => {
 };
 
 TemplateFormQueryView.propTypes = {
+  name: PropTypes.string.isRequired,
   fieldSchemes: PropTypes.array.isRequired,
   output: PropTypes.node,
   handleSubmit: PropTypes.func.isRequired,

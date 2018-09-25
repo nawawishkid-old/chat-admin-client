@@ -5,7 +5,7 @@ import TemplateFormQuery from "~/src/components/TemplateForm/Query";
 
 const TemplateFormQueryLoadable = loadable(({ data }) =>
   data.map((doc, index) => (
-    <TemplateFormQuery key={index} fieldSchemes={doc.inputs} templateId={doc._id} />
+    <TemplateFormQuery key={index} name={doc.name} fieldSchemes={doc.inputs} templateId={doc._id} />
   ))
 );
 

@@ -9,9 +9,9 @@ import ActionEdit from "./ActionEdit";
 class NoFormTemplateFormQuery extends React.Component {
   state = { output: "" };
 
-	/**
-	 * Handle form submission
-	 */
+  /**
+   * Handle form submission
+   */
   handleSubmit = () => {
     console.log("handleSubmit()");
     const { form, templateId } = this.props;
@@ -26,7 +26,7 @@ class NoFormTemplateFormQuery extends React.Component {
 
       const options = {
         path: templateId,
-        params: values,
+        params: values
       };
 
       templateParserApi.get("get").call(options, (err, res, status) => {
@@ -49,14 +49,14 @@ class NoFormTemplateFormQuery extends React.Component {
     textArea.remove();
   };
 
-	/**
-	 * Handle output component (textarea of the form) on change
-	 */
+  /**
+   * Handle output component (textarea of the form) on change
+   */
   handleOutputChange = e => this.setState({ output: e.target.value });
 
-	/**
-	 * Handle after delete operation
-	 */
+  /**
+   * Handle after delete operation
+   */
   handleDeleted = () => this.setState({ deleted: true });
 
   render() {
@@ -64,14 +64,15 @@ class NoFormTemplateFormQuery extends React.Component {
       return null;
     }
 
-    const { form, fieldSchemes, templateId, ...rest } = this.props;
+    const { form, name, fieldSchemes, templateId, ...rest } = this.props;
 
-		console.log('output: ', this.state.output);
+    console.log("output: ", this.state.output);
 
     return (
       <TemplateFormQueryView
         form={form}
         output={this.state.output}
+        name={name}
         fieldSchemes={fieldSchemes}
         handleSubmit={this.handleSubmit}
         handleCopy={this.handleCopy}
@@ -81,7 +82,7 @@ class NoFormTemplateFormQuery extends React.Component {
           <ActionDelete
             templateId={templateId}
             handleDeleted={this.handleDeleted}
-          />,
+          />
         ]}
         {...rest}
       />
@@ -93,7 +94,7 @@ NoFormTemplateFormQuery.propTypes = {
   form: PropTypes.object.isRequired,
   fieldSchemes: PropTypes.array.isRequired,
   templateId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
+    .isRequired
 };
 
 const TemplateFormQuery = withForm(NoFormTemplateFormQuery);
