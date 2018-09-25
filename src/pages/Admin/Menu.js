@@ -13,52 +13,46 @@ const MenuItem = ({ page, ...rest }) => (
     <Link to={page.path}>{page.name}</Link>
   </Menu.Item>
 );
+
+const getKey = page => [page.type, page.name].join("_");
+
 const SubMenuWithItems = props => {
-  const { page, menuItemKey, subMenuKey, ...rest } = props;
+  const { page, ...rest } = props;
+  const items = [{ name: page.name, path: page.path }, ...page.items];
 
   return (
-    <SubMenu
-      title={page.title || "untitled"}
-      key={"sub" + subMenuKey}
-      {...rest}>
-      {<MenuItem page={page} key={menuItemKey} />}
-      {page.items.map((item, index) => (
-        <MenuItem page={item} key={menuItemKey + (index + 1)} />
+    <SubMenu title={page.title || "untitled"} key={getKey(page)} {...rest}>
+      {items.map((item, index) => (
+        <MenuItem page={item} key={getKey(item)} />
       ))}
     </SubMenu>
   );
 };
 
-const AdminMenu = ({ match, ...rest }) => {
-  let menuItemKey = 0;
-  let subMenuKey = 0;
+const menuMaker = (page, index) => {
+  const key = getKey(page);
 
-  return (
-    <Menu
-      onClick={() => console.log("onClickMenu()")}
-      // defaultSelectedKeys={["1"]}
-      // defaultOpenKeys={["sub1"]}
-      mode="inline"
-      theme="dark"
-      {...rest}>
-      {pages.map((page, index) => {
-        return page.type === "sub" ? (
-          <SubMenuWithItems
-            page={page}
-            menuItemKey={++menuItemKey}
-            subMenuKey={++subMenuKey}
-            key={index}
-          />
-        ) : (
-          <MenuItem page={page} key={++menuItemKey} />
-        );
-      })}
-    </Menu>
-  );
+  if (page.type === "item") {
+    return <MenuItem page={page} key={key} />;
+  }
+
+  return <SubMenuWithItems page={page} />;
 };
 
+const AdminMenu = ({ match, ...rest }) => (
+  <Menu
+    onClick={() => console.log("onClickMenu()")}
+    // defaultSelectedKeys={["1"]}
+    // defaultOpenKeys={["sub1"]}
+    mode="inline"
+    theme="dark"
+    {...rest}>
+    {pages.map(menuMaker)}
+  </Menu>
+);
+
 AdminMenu.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.object),
+  pages: PropTypes.arrayOf(PropTypes.object)
 };
 
 export { AdminMenu };
