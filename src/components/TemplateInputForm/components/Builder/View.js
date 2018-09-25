@@ -13,7 +13,7 @@ const TemplateInputFormBuilderView = props => {
     children,
     fieldSchemes,
     componentType,
-    initialValues,
+    initialInputProps,
     handleSubmit,
     onComponentTypeChange
   } = props;
@@ -29,7 +29,7 @@ const TemplateInputFormBuilderView = props => {
         />
         <ComponentPropsPanel
           componentType={componentType}
-          initialValues={initialValues}
+          initialValues={initialInputProps}
         />
       </CommonForm>
     </Card>

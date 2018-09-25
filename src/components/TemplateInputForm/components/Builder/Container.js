@@ -11,8 +11,18 @@ const defaultFieldSchemes = [nameFieldScheme, labelFieldScheme];
  * - withInitialValue
  */
 class TemplateInputFormCommonBuilderContainer extends React.Component {
-  state = {
-    componentType: "text" // this.props.data.componentScheme.type
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      componentType: this.getInitialComponentType()
+    };
+  }
+
+  getInitialComponentType = () => {
+    const { doc } = this.props;
+
+    return doc ? doc.componentScheme.type : "text";
   };
 
   makeComponentScheme = values => {
@@ -82,7 +92,6 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
   };
 
   handleSubmit = (formProps, values) => {
-    // const { templateInputId } = this.props.match.params;
     const { handleSubmit } = this.props;
     const { name, label } = values;
     const componentScheme = this.makeComponentScheme(values);
@@ -98,10 +107,9 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
     handleSubmit(options, values, formProps);
   };
 
-  editFieldSchemes = () => {
-    const { data } = this.props;
-    const editedFieldSchemes = fieldSchemes.map(field => {
-      const fetchedValue = data[field.name];
+  editFieldSchemes = doc => {
+    const editedFieldSchemes = defaultFieldSchemes.map(field => {
+      const fetchedValue = doc[field.name];
 
       field.options.initialValue = fetchedValue;
 
@@ -113,24 +121,28 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
     return editedFieldSchemes;
   };
 
+  getInitialInputProps = () => {
+    const { componentScheme } = this.props.doc;
+    const { type, options, props } = componentScheme;
+
+    return type === "select" ? options : props;
+  };
+
   render() {
     const { componentType } = this.state;
-    const { initialValues } = this.props;
-    const fieldSchemes = initialValues
-      ? this.editFieldSchemes(initialValues)
+    const { doc } = this.props;
+    const fieldSchemes = doc
+      ? this.editFieldSchemes(doc)
       : defaultFieldSchemes;
-    // const { data } = this.props;
-    // const { componentScheme } = data;
+    const initialInputProps = doc
+      ? this.getInitialInputProps()
+      : null;
 
     return (
       <TemplateInputFormBuilderView
-        fieldSchemes={fieldSchemes /*this.getFieldSchemes()*/}
+        fieldSchemes={fieldSchemes}
         componentType={componentType}
-        // initialValues={
-        //   componentType === "select"
-        //     ? componentScheme.options
-        //     : componentScheme.props
-        // }
+        initialInputProps={initialInputProps}
         handleSubmit={this.handleSubmit}
         onComponentTypeChange={value => this.setState({ componentType: value })}
       />
@@ -140,7 +152,7 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
 
 TemplateInputFormCommonBuilderContainer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  initialValues: PropTypes.arrayOf(PropTypes.object) // Array of templateInput scheme document
+  doc: PropTypes.object // Object of templateInput scheme document from database.
 };
 
 export { TemplateInputFormCommonBuilderContainer };
