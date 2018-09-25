@@ -1,7 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Page from "~/src/components/Page";
-import SettingsAccount from "~/src/components/Settings/Account";
+import SettingsAccountLoadable from "~/src/components/Settings/Account/Loadable";
+import { jwtAuth } from "~/src/services/auth";
+import userApi from "~/src/api/user";
+
+const handleSubmit = apiOptions => {
+  userApi.get("update").call(options, (err, res) => {
+    if (res) {
+      message.success(res.msg);
+      return;
+    }
+
+    message.error(`${err.statusText} (${err.data.msg})`);
+  });
+};
+
+const handleLoad = (load, props) => {
+  const userId = jwtAuth.getParsedTokenPayload().sub;
+  const options = { path: userId };
+
+  userApi.get("get").call(options, (err, res) => {
+    if (res) {
+      load(res.data.user);
+    }
+  });
+};
+
+const SettingsAccount = () => (
+  <SettingsAccountLoadable
+    handleLoad={handleLoad}
+    handleSubmit={handleSubmit}
+  />
+);
 
 const PageSettingsAccount = () => (
   <Page>

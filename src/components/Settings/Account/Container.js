@@ -1,62 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
+import defaultFieldSchemes from "~/src/data/form-schemes/settings-account";
 import SettingsAccountView from "./View";
-
-const commonOptions = {
-  options: {
-    rules: [{ required: true, message: "This field is required." }]
-  }
-};
-
-const nameFieldScheme = {
-  ...commonOptions,
-  name: "name",
-  componentScheme: {
-    type: "text",
-    props: {
-      placeholder: "Name"
-    },
-    icon: "user"
-  }
-};
-
-const usernameFieldScheme = {
-  ...commonOptions,
-  name: "username",
-  componentScheme: {
-    type: "text",
-    props: {
-      placeholder: "Username"
-    },
-    icon: "user"
-  }
-};
-
-const emailFieldScheme = {
-  ...commonOptions,
-  name: "email",
-  componentScheme: {
-    type: "text",
-    props: {
-      placeholder: "Email"
-    },
-    icon: "mail"
-  }
-};
-
-const defaultFieldScheme = [
-  nameFieldScheme,
-  usernameFieldScheme,
-  emailFieldScheme
-];
 
 class SettingsAccountContainer extends React.Component {
   state = {
     isCancel: false
   };
 
-  handleSubmit = values => {};
+  handleSubmit = (err, values) => {
+    if (err) {
+      return;
+    }
+
+    console.log("values: ", values);
+
+    handleSubmit(values);
+  };
 
   handleCancel = () => this.setState({ isCancel: true });
 
@@ -69,8 +30,6 @@ class SettingsAccountContainer extends React.Component {
       return field;
     });
 
-    console.log("editedFieldSchemes: ", editedFieldSchemes);
-
     return editedFieldSchemes;
   };
 
@@ -80,20 +39,21 @@ class SettingsAccountContainer extends React.Component {
     }
 
     const { doc } = this.props;
-    const fieldSchemes = doc ? this.editFieldSchemes(doc) : defaultFieldScheme;
+    const fieldSchemes = doc ? this.editFieldSchemes(doc) : defaultFieldSchemes;
 
     return (
       <SettingsAccountView
         fieldSchemes={fieldSchemes}
         handleSubmit={this.handleSubmit}
         handleCancel={this.handleCancel}
+        submitText="Save"
       />
     );
   }
 }
 
 SettingsAccountContainer.propTypes = {
-  // handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   doc: PropTypes.object // Object of templateInput scheme document from database.
 };
 
