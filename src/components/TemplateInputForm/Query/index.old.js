@@ -5,7 +5,7 @@ import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/ut
 import {
   nameFieldScheme,
   labelFieldScheme,
-  componentSchemeTypeFieldScheme
+  componentSchemeTypeFieldScheme,
 } from "./field-schemes";
 import numberPropsScheme from "./component-props-schemes/number";
 import textPropsScheme from "./component-props-schemes/text";
@@ -136,7 +136,7 @@ class TemplateInputBuilder extends React.Component {
           return (
             <Form.Item key={index} label={scheme.label}>
               {form.getFieldDecorator(decorator.id, decorator.options)(
-                decorator.component
+                decorator.component,
               )}
             </Form.Item>
           );
@@ -160,7 +160,7 @@ class TemplateInputBuilder extends React.Component {
 
 TemplateInputBuilder.propTypes = {
   form: PropTypes.object,
-  api: PropTypes.object
+  api: PropTypes.object,
 };
 
 export default Form.create()(withApi("templateInput")(TemplateInputBuilder));

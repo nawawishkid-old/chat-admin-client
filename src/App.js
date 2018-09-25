@@ -1,21 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { AuthRoute } from "./components/index";
-import { Home, Admin, Signup, Login, NotFound } from "./scenes/index";
-import { AuthProvider } from "./components/contexts/Auth";
+import { BrowserRouter, Switch } from "react-router-dom";
+import { AuthProvider } from "./services/auth/context";
+import { renderRoutes } from "./services/route";
+import rootRouteGroup from "~/src/data/routes/root";
 
 const App = () => (
-  <Router>
+  <BrowserRouter>
     <AuthProvider>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/login" component={Login} />
-        <AuthRoute path="/admin" component={Admin} />
-        <Route component={NotFound} />
-      </Switch>
+      <Switch>{renderRoutes(rootRouteGroup.routes)}</Switch>
     </AuthProvider>
-  </Router>
+  </BrowserRouter>
 );
 
 export default App;
