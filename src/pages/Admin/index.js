@@ -6,11 +6,11 @@ import PageAdminHeader from "./Header";
 import PageAdminSidebar from "./Sidebar";
 import PageAdminMenu from "./Menu";
 
-const PageAdmin = ({ match }) => (
+const PageAdmin = () => (
   <Page title="Admin">
     <Layout>
       <PageAdminSidebar>
-        <PageAdminMenu match={match} />
+        <PageAdminMenu />
       </PageAdminSidebar>
       <Layout>
         <PageAdminHeader />
