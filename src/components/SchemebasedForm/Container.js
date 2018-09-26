@@ -1,21 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SchemebasedFormView from "./View";
+import { SchemebasedFormProvider } from "./Context";
 
 class SchemebasedFormContainer extends React.Component {
-  handleSubmit = (formProps, values) => {
-    const props = { ...this.props, ...formProps };
-
-    // This is inconsistency of parameters order, should be fixed.
-    this.props.handleSubmit(values, props);
-  };
-
-  handleCancel = formProps => {
-    const props = { ...this.props, ...formProps };
-
-    this.props.handleCancel(props);
-  };
-
   editFieldSchemes = doc => {
     const { defaultFieldSchemes } = this.props;
     const editedFieldSchemes = defaultFieldSchemes.map(field => {
@@ -35,19 +23,33 @@ class SchemebasedFormContainer extends React.Component {
       defaultFieldSchemes,
       handleCancel,
       handleSubmit,
+      submitText,
+      cancelText,
+      before,
+      after,
       view,
+      children,
       ...rest
     } = this.props;
     const fieldSchemes = doc ? this.editFieldSchemes(doc) : defaultFieldSchemes;
     const View = view ? view : SchemebasedFormView;
+    const providedData = {
+      handleSubmit,
+      handleCancel,
+      submitText,
+      cancelText,
+      doc,
+      ...rest
+    };
 
     return (
-      <View
-        fieldSchemes={fieldSchemes}
-        handleSubmit={this.handleSubmit}
-        handleCancel={handleCancel ? this.handleCancel : undefined}
-        {...rest}
-      />
+      <SchemebasedFormProvider value={providedData}>
+        {children ? (
+          React.cloneElement(children, { fieldSchemes })
+        ) : (
+          <View fieldSchemes={fieldSchemes} before={before} after={after} />
+        )}
+      </SchemebasedFormProvider>
     );
   }
 }
@@ -55,12 +57,15 @@ class SchemebasedFormContainer extends React.Component {
 SchemebasedFormContainer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleCancel: PropTypes.func,
+  submitText: PropTypes.string,
+  cancelText: PropTypes.string,
   defaultFieldSchemes: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),
     PropTypes.object
   ]).isRequired,
   doc: PropTypes.object, // Object of templateInput scheme document from database.
-  view: PropTypes.func // Alternative React component uses instead of SchemebasedFormView
+  view: PropTypes.func, // Alternative React component uses instead of SchemebasedFormView
+  children: PropTypes.element
 };
 
 export { SchemebasedFormContainer };
