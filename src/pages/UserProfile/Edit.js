@@ -1,6 +1,6 @@
 import React from "react";
 import Page from "~/src/components/Page";
-import UserProfileEditor from "~/src/components/UserProfile/Editor";
+import UserProfileEditor from "~/src/components/UserProfile/Editor/Loadable";
 
 const PageUserProfileEdit = () => (
   <Page>

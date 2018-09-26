@@ -1,14 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
-import loadable from "~/src/components/Loadable";
-import { withRouter } from "react-router-dom";
+import loadable from "~/src/components/SchemebasedForm/utils";
 import SettingsAccountContainer from "./Container";
 
-let SettingsAccountLoadable = ({ data, handleSubmit, ...rest }) => (
-  <SettingsAccountContainer doc={data} handleSubmit={handleSubmit} {...rest} />
-);
-
-SettingsAccountLoadable = loadable(SettingsAccountLoadable);
+const SettingsAccountLoadable = loadable(SettingsAccountContainer);
 
 export { SettingsAccountLoadable };
 

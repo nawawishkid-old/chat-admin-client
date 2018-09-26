@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { message } from "antd";
 import Page from "~/src/components/Page";
 import SettingsAccountLoadable from "~/src/components/Settings/Account/Loadable";
 import { jwtAuth } from "~/src/services/auth";
 import userApi from "~/src/api/user";
 
-const handleSubmit = apiOptions => {
+const handleSubmit = values => {
+  const path = jwtAuth.getParsedTokenPayload().sub;
+  const options = { data: values, path };
+
   userApi.get("update").call(options, (err, res) => {
     if (res) {
       message.success(res.msg);

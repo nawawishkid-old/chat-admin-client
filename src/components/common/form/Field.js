@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "antd";
 
 const CommonField = props => {
-  console.log("new CommonField(): ", props.name);
   const { form, name, children, label, options, ...rest } = props;
-
-  // console.log("Field.children: ", children);
 
   return (
     <Form.Item label={label} {...rest}>
