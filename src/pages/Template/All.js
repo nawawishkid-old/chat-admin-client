@@ -9,7 +9,7 @@ const TemplateFormQueryLoadable = loadable(({ data }) =>
     <TemplateFormQuery
       key={index}
       name={doc.name}
-      fieldSchemes={doc.inputs}
+      fieldSchemes={doc.inputs || []} // Temporary
       templateId={doc._id}
     />
   ))

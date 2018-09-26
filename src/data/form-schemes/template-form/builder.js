@@ -56,37 +56,31 @@ export const closingTagFieldScheme = {
   }
 };
 
-// export const inputsFieldScheme = {
-//   label: "Inputs",
-//   name: "inputs",
-//   options: {
-//     rules: [required]
-//   },
-//   componentScheme: {
-//     type: "select",
-//     props: {
-// 			placeholder: "Inputs",
-// 			mode: 'multiple' // Allow to select multiple item
-//     },
-//     options: [
-//       { label: "Choose me1!", _id: "1" }, // label = option.textContent, _id = option.value
-//       { label: "Choose me2!", _id: "2" }
-//     ]
-//   }
-// };
+export const inputsFieldScheme = {
+  label: "Inputs",
+  name: "inputs",
+  options: {
+    rules: [required]
+  },
+  componentScheme: {
+    type: "select",
+    props: {
+      placeholder: "Inputs",
+      mode: "multiple" // Allow to select multiple item
+    },
+    options: [
+      { label: "Choose me1!", value: "1" }, // label = option.textContent, name = option.value
+      { label: "Choose me2!", value: "2" }
+    ]
+  }
+};
 
 const fieldSchemes = [
   nameFieldScheme,
   contentFieldScheme,
   openTagFieldScheme,
-  closingTagFieldScheme,
+  closingTagFieldScheme
   // inputsFieldScheme
 ];
 
-const templateFormBuilderScheme = {
-  fields: fieldSchemes
-};
-
-export { templateFormBuilderScheme };
-
-export default templateFormBuilderScheme;
+export default fieldSchemes;

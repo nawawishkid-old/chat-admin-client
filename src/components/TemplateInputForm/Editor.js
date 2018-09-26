@@ -4,14 +4,14 @@ import { message } from "antd";
 import { loadable } from "~/src/components/SchemebasedForm/utils";
 import { withRouter } from "react-router-dom";
 import { templateInputApi } from "~/src/api/templateInput";
-import TemplateInputFormCommonBuilderContainer from "./Base/Container";
+import TemplateInputFormBase from "./Base";
 
 /**
  * === Components ===
  */
-const Loadable = loadable(TemplateInputFormCommonBuilderContainer);
+const Loadable = loadable(TemplateInputFormBase);
 
-const TemplateInputFormEditorLoadable = withRouter(({ match, history }) => (
+const TemplateInputFormEditor = withRouter(({ match, history }) => (
   <Loadable
     handleCancel={handleCancel}
     handleLoad={handleLoad}
@@ -24,7 +24,7 @@ const TemplateInputFormEditorLoadable = withRouter(({ match, history }) => (
 /**
  * === Handlers ===
  */
-const handleSubmit = (apiOptions, values, { match }) => {
+const handleSubmit = (apiOptions, values, { match, history }) => {
   const options = {
     ...apiOptions,
     path: match.params.templateInputId
@@ -34,6 +34,9 @@ const handleSubmit = (apiOptions, values, { match }) => {
   templateInputApi.get("update").call(options, (err, res) => {
     if (res) {
       message.success(res.msg);
+
+      setTimeout(() => history.goBack(), 1500);
+
       return;
     }
 
@@ -56,6 +59,6 @@ const handleLoad = (load, props) => {
   });
 };
 
-export { TemplateInputFormEditorLoadable };
+export { TemplateInputFormEditor };
 
-export default TemplateInputFormEditorLoadable;
+export default TemplateInputFormEditor;
