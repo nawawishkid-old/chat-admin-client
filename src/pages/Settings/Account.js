@@ -39,7 +39,7 @@ const SettingsAccount = () => (
 );
 
 const PageSettingsAccount = () => (
-  <Page>
+  <Page title="Settings > Account">
     <h1>Account settings</h1>
     <SettingsAccount />
   </Page>

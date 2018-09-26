@@ -3,7 +3,7 @@ import Page from "~/src/components/Page";
 import UserProfileEditor from "~/src/components/UserProfile/Editor/Loadable";
 
 const PageUserProfileEdit = () => (
-  <Page>
+  <Page title="Edit your profile">
     <h1>Edit your profile</h1>
     <UserProfileEditor />
   </Page>
