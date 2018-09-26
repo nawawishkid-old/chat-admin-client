@@ -17,7 +17,7 @@ const MenuItem = ({ page, ...rest }) => (
 const getKey = page => [page.type, page.name].join("_");
 
 const SubMenuWithItems = props => {
-  const { page, ...rest } = props;
+  const { page, key, ...rest } = props;
   const items = [{ name: page.name, path: page.path }, ...page.items];
 
   return (
@@ -36,7 +36,7 @@ const menuMaker = (page, index) => {
     return <MenuItem page={page} key={key} />;
   }
 
-  return <SubMenuWithItems page={page} />;
+  return <SubMenuWithItems page={page} key={key + index} />;
 };
 
 const AdminMenu = ({ match, ...rest }) => (

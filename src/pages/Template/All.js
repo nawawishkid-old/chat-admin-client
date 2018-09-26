@@ -1,11 +1,17 @@
 import React from "react";
+import Page from "~/src/components/Page";
 import templateApi from "~/src/api/template";
 import loadable from "~/src/components/Loadable";
 import TemplateFormQuery from "~/src/components/TemplateForm/Query";
 
 const TemplateFormQueryLoadable = loadable(({ data }) =>
   data.map((doc, index) => (
-    <TemplateFormQuery key={index} name={doc.name} fieldSchemes={doc.inputs} templateId={doc._id} />
+    <TemplateFormQuery
+      key={index}
+      name={doc.name}
+      fieldSchemes={doc.inputs}
+      templateId={doc._id}
+    />
   ))
 );
 
@@ -20,16 +26,14 @@ const handleLoad = load =>
     load(data.data.doc);
   });
 const AllTemplateFormQueries = () => (
-  <TemplateFormQueryLoadable
-    handleLoad={handleLoad}
-  />
+  <TemplateFormQueryLoadable handleLoad={handleLoad} />
 );
 
 const PageTemplateAll = () => (
-  <div>
+  <Page title="All templates">
     <h1>All template</h1>
     <AllTemplateFormQueries />
-  </div>
+  </Page>
 );
 
 export { PageTemplateAll };

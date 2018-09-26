@@ -2,51 +2,25 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import defaultFieldSchemes from "~/src/data/form-schemes/settings-account";
-import SettingsAccountView from "./View";
+import SchemebasedForm from "~/src/components/SchemebasedForm";
 
 class SettingsAccountContainer extends React.Component {
   state = {
     isCancel: false
   };
 
-  handleSubmit = (err, values) => {
-    if (err) {
-      return;
-    }
-
-    console.log("values: ", values);
-
-    handleSubmit(values);
-  };
-
   handleCancel = () => this.setState({ isCancel: true });
-
-  editFieldSchemes = doc => {
-    const editedFieldSchemes = defaultFieldSchemes.map(field => {
-      const fetchedValue = doc[field.name];
-
-      field.options.initialValue = fetchedValue;
-
-      return field;
-    });
-
-    return editedFieldSchemes;
-  };
 
   render() {
     if (this.state.isCancel) {
-      return <Redirect to="/admin/profile" />;
+      return <Redirect to="/admin/templates" />;
     }
 
-    const { doc } = this.props;
-    const fieldSchemes = doc ? this.editFieldSchemes(doc) : defaultFieldSchemes;
-
     return (
-      <SettingsAccountView
-        fieldSchemes={fieldSchemes}
-        handleSubmit={this.handleSubmit}
+      <SchemebasedForm
         handleCancel={this.handleCancel}
-        submitText="Save"
+        defaultFieldSchemes={defaultFieldSchemes}
+        {...this.props}
       />
     );
   }

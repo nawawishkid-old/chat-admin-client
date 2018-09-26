@@ -13,12 +13,10 @@ class NoFormTemplateFormQuery extends React.Component {
    * Handle form submission
    */
   handleSubmit = () => {
-    console.log("handleSubmit()");
     const { form, templateId } = this.props;
 
     form.validateFields((err, values) => {
       if (err) {
-        console.log("validateFields.err: ", err);
         return;
       }
 
@@ -65,8 +63,6 @@ class NoFormTemplateFormQuery extends React.Component {
     }
 
     const { form, name, fieldSchemes, templateId, ...rest } = this.props;
-
-    console.log("output: ", this.state.output);
 
     return (
       <TemplateFormQueryView
