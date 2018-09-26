@@ -5,25 +5,13 @@ class Loadable extends React.Component {
   state = {
     loaded: false,
     data: undefined,
-    timeout: false,
+    timeout: false
   };
 
   load = (data = {}) =>
     this.state.timeout
       ? null
       : this.setState({ loaded: true, timeout: false, data });
-
-  getWaitComponent = () => {
-    const Wait = this.props.wait;
-
-    return <Wait />;
-  };
-
-  getTimeoutComponent = () => {
-    const Timeout = this.props.timeout;
-
-    return <Timeout />;
-  };
 
   componentDidMount() {
     const { limit, handleLoad } = this.props;
@@ -35,15 +23,22 @@ class Loadable extends React.Component {
 
       this.setState({ timeout: true });
     }, limit);
+
     handleLoad(this.load, this.props);
   }
 
   render() {
     const { loaded, timeout, data } = this.state;
-    const { component: Component, ...rest } = this.props;
+    const {
+      component: Component,
+      handleLoad,
+      wait: Wait,
+      timeout: Timeout,
+      ...rest
+    } = this.props;
 
     if (!loaded) {
-      return timeout ? this.getTimeoutComponent() : this.getWaitComponent();
+      return timeout ? <Timeout /> : <Wait />;
     }
 
     return <Component data={data} {...rest} />;
@@ -55,13 +50,13 @@ Loadable.propTypes = {
   // wait: PropTypes.element,
   // timeout: PropTypes.element,
   limit: PropTypes.number,
-  handleLoad: PropTypes.func.isRequired,
+  handleLoad: PropTypes.func.isRequired
 };
 
 Loadable.defaultProps = {
   limit: 10000,
   wait: () => <h1>Loading...</h1>,
-  timeout: () => <h1>...wait timeout!</h1>,
+  timeout: () => <h1>...wait timeout!</h1>
 };
 
 const loadable = Component => props => (
