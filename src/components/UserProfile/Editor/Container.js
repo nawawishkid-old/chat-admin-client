@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import defaultFieldSchemes from "~/src/data/form-schemes/profile";
+import UserProfileEditorView from "./View";
 import SchemebasedForm from "~/src/components/SchemebasedForm";
 
 class UserProfileEditorContainer extends React.Component {
@@ -18,6 +19,7 @@ class UserProfileEditorContainer extends React.Component {
 
     return (
       <SchemebasedForm
+        view={UserProfileEditorView}
         handleCancel={this.handleCancel}
         defaultFieldSchemes={defaultFieldSchemes}
         {...this.props}

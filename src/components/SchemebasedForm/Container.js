@@ -30,12 +30,14 @@ class SchemebasedFormContainer extends React.Component {
       defaultFieldSchemes,
       handleCancel,
       handleSubmit,
+      view,
       ...rest
     } = this.props;
     const fieldSchemes = doc ? this.editFieldSchemes(doc) : defaultFieldSchemes;
+    const View = view ? view : SchemebasedFormView;
 
     return (
-      <SchemebasedFormView
+      <View
         fieldSchemes={fieldSchemes}
         handleSubmit={this.handleSubmit}
         handleCancel={handleCancel ? this.handleCancel : undefined}
@@ -52,7 +54,8 @@ SchemebasedFormContainer.propTypes = {
     PropTypes.arrayOf(PropTypes.object),
     PropTypes.object
   ]).isRequired,
-  doc: PropTypes.object // Object of templateInput scheme document from database.
+  doc: PropTypes.object, // Object of templateInput scheme document from database.
+  view: PropTypes.func // Alternative React component uses instead of SchemebasedFormView
 };
 
 export { SchemebasedFormContainer };
