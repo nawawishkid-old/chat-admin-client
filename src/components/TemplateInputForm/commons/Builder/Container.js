@@ -104,7 +104,7 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
 
     console.log("data: ", data);
 
-    handleSubmit(options, values, formProps);
+    handleSubmit(options, values, this.props);
   };
 
   editFieldSchemes = doc => {

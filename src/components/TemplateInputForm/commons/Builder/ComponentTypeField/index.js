@@ -49,6 +49,7 @@ const ComponentTypeSelector = ({ form, type, onChange, ...rest }) => {
  * Display component's properties panel based on type of component
  */
 const ComponentPropsPanel = ({ form, componentType, initialValues }) => {
+	console.log('initialValues: ', initialValues);
   if (componentType === "select") {
     return <OptionAdder form={form} options={initialValues} />;
   }

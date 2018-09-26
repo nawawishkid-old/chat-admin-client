@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 import { templateInputApi } from "~/src/api/templateInput";
 import TemplateInputFormCommonBuilderContainer from "./commons/Builder/Container";
 
-const Loadable = loadable(({ data, ...rest }) => (
+const Loadable = loadable(({ data, handleSubmit, ...rest }) => (
   <TemplateInputFormCommonBuilderContainer
     doc={data}
     handleSubmit={handleSubmit}
@@ -14,7 +14,14 @@ const Loadable = loadable(({ data, ...rest }) => (
   />
 ));
 
-const handleSubmit = apiOptions => {
+const handleSubmit = (apiOptions, values, { match }) => {
+	console.log('apiOptions: ', apiOptions);
+	const options = {
+		...apiOptions,
+		path: match.params.templateInputId
+	};
+	console.log('options: ', options);
+
   templateInputApi.get("update").call(options, (err, res) => {
     if (res) {
       message.success(res.msg);
@@ -38,7 +45,7 @@ const handleLoad = (load, props) => {
 
 // Supply 'match' props to the component
 const TemplateInputFormEditorLoadable = withRouter(({ match }) => (
-  <Loadable match={match} handleLoad={handleLoad} />
+  <Loadable match={match} handleLoad={handleLoad} handleSubmit={handleSubmit} />
 ));
 
 export { TemplateInputFormEditorLoadable };
