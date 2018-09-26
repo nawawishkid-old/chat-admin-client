@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Input, Upload, Avatar, Button } from "antd";
+import { Upload, Avatar, Button } from "antd";
 import styled from "styled-components";
-import { CommonForm } from "~/src/components/common/form";
-import { FormBuilder } from "~/src/services/form";
+import SchemebasedFormView from "~/src/components/SchemebasedForm/View";
 
 const ProfileImageUploader = styled(props => (
   <Upload name="profile-image">
@@ -19,37 +18,9 @@ const ProfileImageUploader = styled(props => (
   border: 1px dashed pink;
 `;
 
-class UserProfileEditorView extends React.Component {
-  handleSubmit = (err, values) => {
-    if (err) {
-      return;
-    }
-
-    console.log("values: ", values);
-
-    handleSubmit(values);
-  };
-
-  render() {
-    const {
-      form,
-      fieldSchemes,
-      handleSubmit,
-      handleCancel,
-      ...rest
-    } = this.props;
-
-    return (
-      <CommonForm
-        handleSubmit={handleSubmit}
-        handleCancel={handleCancel}
-        submitText="Save">
-        <ProfileImageUploader />
-        {fieldSchemes.map(scheme => FormBuilder.makeField(scheme))}
-      </CommonForm>
-    );
-  }
-}
+const UserProfileEditorView = props => (
+  <SchemebasedFormView before={<ProfileImageUploader />} {...props} />
+);
 
 export { UserProfileEditorView };
 
