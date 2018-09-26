@@ -46,6 +46,15 @@ class JWTAuth {
    * @param {Boolean} isPersisted Remember user or not.
    */
   saveToken = token => {
+    /**
+     * Avoid storing `undefined` value into WebStorage
+     * because it will store as a string with value 'undefined'
+     * which leads to misbehaviour of the program and hard to debug
+     */
+    if (typeof token === "undefined") {
+      throw new Error("Token is undefined!");
+    }
+
     this.clearStorage();
 
     // this.settings.storageType = isPersisted ? "local" : "session";
@@ -67,7 +76,9 @@ class JWTAuth {
     const payload1 = JSON.parse(
       this.getStorage().getItem(this.settings.storagePayloadKey)
     );
-    const payload2 = this.parseTokenPayload(this.getToken());
+    const token = this.getToken();
+
+    const payload2 = this.parseTokenPayload(token);
     const payload = payload1 || payload2;
 
     return payload;
@@ -80,7 +91,7 @@ class JWTAuth {
    * @returns {Object} Token's payload object.
    */
   parseTokenPayload = token => {
-    if (!token) {
+    if (!token || typeof token === "undefined") {
       return null;
     }
 
@@ -107,8 +118,9 @@ class JWTAuth {
     const { storageTokenKey, storagePayloadKey } = this.settings;
     const storage = this.getStorage();
 
-    storage.removeItem(storageTokenKey);
-    storage.removeItem(storagePayloadKey);
+    this.clearStorage();
+    // storage.removeItem(storageTokenKey);
+    // storage.removeItem(storagePayloadKey);
   };
 
   /**
@@ -214,7 +226,10 @@ class JWTAuth {
           return false;
         }
 
-        this.saveToken(data.token);
+        // Avoid saving `undefined` to WebStorage
+        if (typeof data.token !== "undefined") {
+          this.saveToken(data.token);
+        }
 
         callback(null, data);
 
