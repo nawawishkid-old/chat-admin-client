@@ -19,11 +19,19 @@ class UnwrappedCommonForm extends React.Component {
   };
 
   handleCancel = () => {
-    this.props.handleCancel();
+    this.props.handleCancel(this.props);
   };
 
   render() {
-    const { children, form, handleSubmit, handleCancel, submitText, cancelText, ...rest } = this.props;
+    const {
+      children,
+      form,
+      handleSubmit,
+      handleCancel,
+      submitText,
+      cancelText,
+      ...rest
+    } = this.props;
 
     return (
       <Form {...rest}>
@@ -38,7 +46,9 @@ class UnwrappedCommonForm extends React.Component {
         <Form.Item>
           <Button onClick={this.handleSubmit}>{submitText || "Submit"}</Button>
           {handleCancel ? (
-            <Button onClick={this.handleCancel}>{cancelText || "Cancel"}</Button>
+            <Button onClick={this.handleCancel}>
+              {cancelText || "Cancel"}
+            </Button>
           ) : null}
         </Form.Item>
       </Form>

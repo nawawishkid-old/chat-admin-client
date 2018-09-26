@@ -4,11 +4,16 @@ import SchemebasedFormView from "./View";
 
 class SchemebasedFormContainer extends React.Component {
   handleSubmit = (formProps, values) => {
-    this.props.handleSubmit(values);
+    const props = { ...this.props, ...formProps };
+
+    // This is inconsistency of parameters order, should be fixed.
+    this.props.handleSubmit(values, props);
   };
 
-  handleCancel = () => {
-    this.props.handleCancel();
+  handleCancel = formProps => {
+    const props = { ...this.props, ...formProps };
+
+    this.props.handleCancel(props);
   };
 
   editFieldSchemes = doc => {

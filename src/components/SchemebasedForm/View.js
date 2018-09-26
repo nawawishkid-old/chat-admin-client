@@ -9,7 +9,6 @@ const renderChildren = children =>
   );
 
 const SchemebasedFormView = ({
-  form,
   fieldSchemes,
   before,
   after,
