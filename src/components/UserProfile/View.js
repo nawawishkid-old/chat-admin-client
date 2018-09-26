@@ -2,9 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Avatar, Button } from "antd";
 
-const dummyImgSrc =
-  "https://cresscap.com/wp-content/uploads/bfi_thumb/dummy-profile-pic-353fq072wibz1xp0b9j75s.png";
-
 /**
  * Info:
  * - Name
