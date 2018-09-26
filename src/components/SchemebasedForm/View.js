@@ -24,8 +24,14 @@ const SchemebasedFormView = ({
 
 SchemebasedFormView.propTypes = {
   fieldSchemes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  before: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  after: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+  before: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  after: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 export { SchemebasedFormView };

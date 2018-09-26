@@ -1,26 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { message } from "antd";
-import loadable from "~/src/components/Loadable";
+import { loadable } from "~/src/components/SchemebasedForm/utils";
 import { withRouter } from "react-router-dom";
 import { templateInputApi } from "~/src/api/templateInput";
-import TemplateInputFormCommonBuilderContainer from "./commons/Builder/Container";
+import TemplateInputFormCommonBuilderContainer from "./Base/Container";
 
-const Loadable = loadable(({ data, handleSubmit, ...rest }) => (
-  <TemplateInputFormCommonBuilderContainer
-    doc={data}
+/**
+ * === Components ===
+ */
+const Loadable = loadable(TemplateInputFormCommonBuilderContainer);
+
+const TemplateInputFormEditorLoadable = withRouter(({ match, history }) => (
+  <Loadable
+    handleCancel={handleCancel}
+    handleLoad={handleLoad}
     handleSubmit={handleSubmit}
-    {...rest}
+    match={match}
+    history={history}
   />
 ));
 
+/**
+ * === Handlers ===
+ */
 const handleSubmit = (apiOptions, values, { match }) => {
-	console.log('apiOptions: ', apiOptions);
-	const options = {
-		...apiOptions,
-		path: match.params.templateInputId
-	};
-	console.log('options: ', options);
+  const options = {
+    ...apiOptions,
+    path: match.params.templateInputId
+  };
+  console.log("options: ", options);
 
   templateInputApi.get("update").call(options, (err, res) => {
     if (res) {
@@ -30,6 +39,10 @@ const handleSubmit = (apiOptions, values, { match }) => {
 
     message.error(`${err.statusText} (${err.data.msg})`);
   });
+};
+
+const handleCancel = ({ history }) => {
+  history.goBack();
 };
 
 const handleLoad = (load, props) => {
@@ -42,11 +55,6 @@ const handleLoad = (load, props) => {
     }
   });
 };
-
-// Supply 'match' props to the component
-const TemplateInputFormEditorLoadable = withRouter(({ match }) => (
-  <Loadable match={match} handleLoad={handleLoad} handleSubmit={handleSubmit} />
-));
 
 export { TemplateInputFormEditorLoadable };
 

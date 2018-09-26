@@ -34,6 +34,7 @@ class Loadable extends React.Component {
       handleLoad,
       wait: Wait,
       timeout: Timeout,
+      limit,
       ...rest
     } = this.props;
 
@@ -46,9 +47,9 @@ class Loadable extends React.Component {
 }
 
 Loadable.propTypes = {
-  // component: PropTypes.node.isRequired,
-  // wait: PropTypes.element,
-  // timeout: PropTypes.element,
+  component: PropTypes.func.isRequired,
+  wait: PropTypes.func,
+  timeout: PropTypes.func,
   limit: PropTypes.number,
   handleLoad: PropTypes.func.isRequired
 };

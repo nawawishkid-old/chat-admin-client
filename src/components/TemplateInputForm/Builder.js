@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { message } from "antd";
 import { templateInputApi } from "~/src/api/templateInput";
-import TemplateInputFormCommonBuilderContainer from "./commons/Builder/Container";
+import TemplateInputFormCommonBuilderContainer from "./Base/Container";
 
 const TemplateInputFormBuilderContainer = () => (
   <TemplateInputFormCommonBuilderContainer handleSubmit={handleSubmit} />
@@ -14,6 +14,7 @@ const handleSubmit = apiOptions => {
       message.success(res.msg);
       return;
     }
+
     message.error(`${err.statusText} (${err.data.msg})`);
   });
 };

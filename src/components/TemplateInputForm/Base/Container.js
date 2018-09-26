@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FormBuilder } from "~/src/services/form";
-import { nameFieldScheme, labelFieldScheme } from "./field-schemes";
+import { withRouter } from "react-router-dom";
+import {
+  nameFieldScheme,
+  labelFieldScheme
+} from "~/src/data/form-schemes/template-input";
 import TemplateInputFormBuilderView from "./View";
+import SchemebasedFormContainer from "~/src/components/SchemebasedForm/Container";
 
 const defaultFieldSchemes = [nameFieldScheme, labelFieldScheme];
 
@@ -91,7 +95,7 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
     return scheme;
   };
 
-  handleSubmit = (formProps, values) => {
+  handleSubmit = values => {
     const { handleSubmit } = this.props;
     const { name, label } = values;
     const componentScheme = this.makeComponentScheme(values);
@@ -102,23 +106,11 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
     };
     const options = { data };
 
-    console.log("data: ", data);
-
     handleSubmit(options, values, this.props);
   };
 
-  editFieldSchemes = doc => {
-    const editedFieldSchemes = defaultFieldSchemes.map(field => {
-      const fetchedValue = doc[field.name];
-
-      field.options.initialValue = fetchedValue;
-
-      return field;
-    });
-
-    console.log("editedFieldSchemes: ", editedFieldSchemes);
-
-    return editedFieldSchemes;
+  handleCancel = () => {
+    this.props.handleCancel(this.props);
   };
 
   getInitialInputProps = () => {
@@ -130,20 +122,19 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
 
   render() {
     const { componentType } = this.state;
-    const { doc } = this.props;
-    const fieldSchemes = doc
-      ? this.editFieldSchemes(doc)
-      : defaultFieldSchemes;
-    const initialInputProps = doc
-      ? this.getInitialInputProps()
-      : undefined;
+    const { doc, handleSubmit, handleCancel } = this.props;
+    const initialInputProps = doc ? this.getInitialInputProps() : undefined;
 
     return (
-      <TemplateInputFormBuilderView
-        fieldSchemes={fieldSchemes}
+      <SchemebasedFormContainer
+        view={TemplateInputFormBuilderView}
+        defaultFieldSchemes={defaultFieldSchemes}
+        handleSubmit={this.handleSubmit}
+        cancelText="Cancel"
+        handleCancel={handleCancel ? this.handleCancel : undefined}
         componentType={componentType}
         initialInputProps={initialInputProps}
-        handleSubmit={this.handleSubmit}
+        doc={doc}
         onComponentTypeChange={value => this.setState({ componentType: value })}
       />
     );
@@ -152,6 +143,7 @@ class TemplateInputFormCommonBuilderContainer extends React.Component {
 
 TemplateInputFormCommonBuilderContainer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func,
   doc: PropTypes.object // Object of templateInput scheme document from database.
 };
 
