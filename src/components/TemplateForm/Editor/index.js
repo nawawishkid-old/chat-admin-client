@@ -6,7 +6,8 @@ import defaultFieldSchemes from "~/src/data/form-schemes/template-form/builder";
 import templateApi from "~/src/api/template";
 import TemplateInputSelector from "../TemplateInputSelector";
 import SchemebasedFormContainer, {
-  loadable
+  loadable,
+  withProps
 } from "~/src/components/SchemebasedForm";
 
 const TemplateFormEditorView = props => (
@@ -25,9 +26,17 @@ const TemplateFormEditor = withRouter(({ match, history }) => (
   <Loadable handleLoad={handleLoad} match={match} history={history} />
 ));
 
-const after = [<TemplateInputSelector />];
+const TemplateInputSelectorWithDoc = withProps(({ doc, form }) => (
+  <TemplateInputSelector
+    form={form}
+    inputs={doc.inputs}
+    initialValues={doc.inputs.map(input => input._id)}
+  />
+));
 
-const handleSubmit = (values, { match }) => {
+const after = [<TemplateInputSelectorWithDoc />];
+
+const handleSubmit = (values, { match, history }) => {
   const { templateId } = match.params;
   const options = { path: templateId, data: values };
 
@@ -36,6 +45,8 @@ const handleSubmit = (values, { match }) => {
       console.log("UPDATED!");
 
       message.success(res.msg);
+
+      setTimeout(() => history.goBack(), 1500);
 
       return;
     }

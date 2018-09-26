@@ -9,21 +9,22 @@ import loadable from "~/src/components/Loadable";
 const { Option } = Select;
 const getFieldOptions = initValue => ({
   initialValue: initValue,
-  rules: [{ required: true, message: "This field is required" }],
+  rules: [{ required: true, message: "This field is required" }]
 });
-const HTMLSelect = ({ data, form, initialValue, ...rest }) => {
+
+const HTMLSelect = ({ data, form, initialValues, ...rest }) => {
   const inputs = Array.isArray(data) ? data : [data];
 
   return (
     <Form.Item label="Inputs" key="inputs">
-      {form.getFieldDecorator("inputs", getFieldOptions(initialValue))(
+      {form.getFieldDecorator("inputs", getFieldOptions(initialValues))(
         <Select mode="multiple" placeholder="Inputs" {...rest}>
           {inputs.map((item, index) => (
             <Option value={item._id} key={item._id}>
               {item.label}
             </Option>
           ))}
-        </Select>,
+        </Select>
       )}
     </Form.Item>
   );
@@ -31,7 +32,7 @@ const HTMLSelect = ({ data, form, initialValue, ...rest }) => {
 
 HTMLSelect.propTypes = {
   data: PropTypes.any.isRequired,
-  form: PropTypes.object.isRequired,
+  form: PropTypes.object.isRequired
   // initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
