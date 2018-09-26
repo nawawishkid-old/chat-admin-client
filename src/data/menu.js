@@ -40,12 +40,16 @@ const profile = {
   path: "/admin/profile"
 };
 
+const settingsAccount = {
+  type: "item",
+  path: "/admin/settings/account",
+  name: "Account"
+};
 const settings = {
   type: "sub",
   title: "Settings",
-  path: "/admin/settings/account",
-  items: [],
-  name: "Account"
+  items: [settingsAccount]
+	// This menu doesn't have its own page
 };
 
 export {
@@ -56,7 +60,8 @@ export {
   templateInputNew,
   templateInputTrash,
   profile,
-  settings
+  settings,
+	settingsAccount
 };
 
 export default [templates, templateInputs, profile, settings];
