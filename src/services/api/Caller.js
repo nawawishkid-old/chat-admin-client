@@ -55,7 +55,7 @@ class APICaller extends EventEmitter {
       headers: {}
     };
 
-    // console.log("axiosOptions: ", axiosOptions);
+    console.log("axiosOptions: ", axiosOptions);
 
     if (auth) {
       this.setAxiosAuthHeader(axiosOptions);
