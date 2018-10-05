@@ -1,102 +1,67 @@
 import React from "react";
+import { Card, message } from "antd";
 import styled from "styled-components";
-import { Form as AntdForm, Icon, Input, Button, Checkbox } from "antd";
+import defaultFieldSchemes from "~/src/data/form-schemes/signup";
+import SchemebasedForm from "~/src/components/SchemebasedForm";
+import userApi from "~/src/api/user";
 
-const FormItem = AntdForm.Item;
-const Form = styled(AntdForm)`
-  && {
-    padding: 1em;
-    border: 0.5px solid #ccc;
-  }
+const StyledCard = styled(Card)`
+  min-width: 300px;
 `;
 
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
+class SignupForm extends React.Component {
+  state = {
+    loading: false,
+    hasRegistered: false
+  };
 
-class Signup extends React.Component {
-  componentDidMount() {
-    // To disabled submit button at the beginning.
-    this.props.form.validateFields();
-  }
+  handleSubmit = (values, allProps) => {
+    console.log("values: ", values);
+    const options = {
+      data: values
+    };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      console.log("handleSubmit!");
-      if (!err) {
-        console.log("Received values of form: ", values);
-        // Signup mechanism here!
+    userApi.get("create").call(options, (err, res) => {
+      if (err) {
+        console.log(err);
+        let msg;
+
+        if (err.data.err.code === 11000) {
+          msg = "Username or email already exists";
+        } else {
+          msg = "Unauthenticated";
+        }
+
+        message.error(msg);
+
+        this.setState({ loading: false });
+
+        return;
       }
+
+      message.success("Registered!");
+
+      this.setState({ loading: false, hasRegistered: true });
     });
   };
 
   render() {
-    const {
-      getFieldDecorator,
-      getFieldsError,
-      getFieldError,
-      isFieldTouched
-    } = this.props.form;
-
-    // Only show error after a field is touched.
-    const emailError = isFieldTouched("email") && getFieldError("email");
-    const passwordError =
-      isFieldTouched("password") && getFieldError("password");
-
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormItem
-          validateStatus={emailError ? "error" : ""}
-          help={emailError || ""}
-        >
-          {getFieldDecorator("email", {
-            rules: [
-              {
-                required: true,
-                message: "Please input your email!"
-              },
-              {
-                type: "email",
-                message: "Invalid email address."
-              }
-            ]
-          })(
-            <Input
-              prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
-              placeholder="Email"
-            />
-          )}
-        </FormItem>
-        <FormItem
-          validateStatus={passwordError ? "error" : ""}
-          help={passwordError || ""}
-        >
-          {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-              type="password"
-              placeholder="Password"
-            />
-          )}
-        </FormItem>
-        <FormItem>
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={hasErrors(getFieldsError())}
-          >
-            Sign up
-          </Button>
-        </FormItem>
-      </Form>
+    return this.state.hasRegistered ? (
+      <Redirect to="/login" />
+    ) : (
+      <StyledCard>
+        <SchemebasedForm
+          handleSubmit={this.handleSubmit}
+          defaultFieldSchemes={defaultFieldSchemes}
+          submitText="Signup"
+          submitButtonProps={{
+            loading: this.state.loading
+          }}
+        />
+      </StyledCard>
     );
   }
 }
-
-const SignupForm = AntdForm.create()(Signup);
 
 export { SignupForm };
 

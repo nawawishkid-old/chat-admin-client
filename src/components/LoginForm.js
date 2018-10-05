@@ -7,13 +7,16 @@ import SchemebasedForm from "~/src/components/SchemebasedForm";
 import { FormBuilder } from "~/src/services/form";
 import { withAuth } from "~/src/services/auth";
 
+const StyledCard = styled(Card)`
+  min-width: 300px;
+`;
+
 class LoginForm extends React.Component {
   state = {
     loading: false
   };
 
   handleSubmit = (values, allProps) => {
-    // console.log(this.props.loginCallback);
     this.props.loginCallback(
       { username: values.username, password: values.password },
       (err, res) => {
@@ -34,29 +37,21 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <SchemebasedForm
-        handleSubmit={this.handleSubmit}
-        defaultFieldSchemes={loginFormScheme}
-        submitText="Login"
-        submitButtonProps={{
-          loading: this.state.loading
-        }}
-      />
+      <StyledCard>
+        <SchemebasedForm
+          handleSubmit={this.handleSubmit}
+          defaultFieldSchemes={loginFormScheme}
+          submitText="Login"
+          submitButtonProps={{
+            loading: this.state.loading
+          }}
+        />
+      </StyledCard>
     );
   }
 }
-const NoAuthLoginForm = FormBuilder.build(loginFormScheme);
-const StyledCard = styled(Card)`
-  padding: 1em;
-  min-width: 250px;
-`;
+
 const NeedAuthLoginForm = ({ isAuth, login }) =>
-  isAuth ? (
-    <Redirect to="/" />
-  ) : (
-    <StyledCard>
-      <LoginForm loginCallback={login} />
-    </StyledCard>
-  );
+  isAuth ? <Redirect to="/" /> : <LoginForm loginCallback={login} />;
 
 export default withAuth(NeedAuthLoginForm);
