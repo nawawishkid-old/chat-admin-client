@@ -7,12 +7,10 @@ import { Switch } from "react-router-dom";
 
 const { Content } = Layout;
 const StyledContent = styled(Content)`
-  padding: 2em 1em;
+  padding: 2em 5em;
 `;
 const PageAdminContent = () => (
-  <StyledContent>
-   {renderRoutes(adminRouter.routes)}
-  </StyledContent>
+  <StyledContent>{renderRoutes(adminRouter.routes)}</StyledContent>
 );
 
 export { PageAdminContent };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "antd";
+import { Col, Card } from "antd";
 import loadable from "~/src/components/Loadable";
 import templateInputApi from "~/src/api/templateInput";
 import ActionEdit from "./ActionEdit";
@@ -65,7 +65,14 @@ class TemplateInputFormQuery extends React.Component {
 const LoadableTemplateInputFormQuery = loadable(({ data }) => (
   <div>
     {data.map((item, index) => (
-      <TemplateInputFormQuery input={item} key={index} />
+      <Col
+        xs={24}
+        md={12}
+        lg={8}
+        key={index}
+        style={{ padding: "0 1em", marginBottom: "1em" }}>
+        <TemplateInputFormQuery input={item} key={index} />
+      </Col>
     ))}
   </div>
 ));

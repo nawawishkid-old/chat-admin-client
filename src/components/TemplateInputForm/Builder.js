@@ -1,23 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { message } from "antd";
+import { withRouter } from "react-router-dom";
 import { templateInputApi } from "~/src/api/templateInput";
-import TemplateInputFormCommonBuilderContainer from "./commons/Builder/Container";
+import TemplateInputFormBase from "./Base";
 
-const TemplateInputFormBuilderContainer = () => (
-  <TemplateInputFormCommonBuilderContainer handleSubmit={handleSubmit} />
-);
+const TemplateInputFormBuilder = withRouter(({ history }) => (
+  <TemplateInputFormBase handleSubmit={handleSubmit} history={history} />
+));
 
-const handleSubmit = apiOptions => {
+const handleSubmit = (apiOptions, values, { history }) => {
   templateInputApi.get("create").call(apiOptions, (err, res) => {
     if (res) {
       message.success(res.msg);
+
+      setTimeout(() => history.goBack(), 1500);
+
       return;
     }
+
     message.error(`${err.statusText} (${err.data.msg})`);
   });
 };
 
-export { TemplateInputFormBuilderContainer };
+export { TemplateInputFormBuilder };
 
-export default TemplateInputFormBuilderContainer;
+export default TemplateInputFormBuilder;

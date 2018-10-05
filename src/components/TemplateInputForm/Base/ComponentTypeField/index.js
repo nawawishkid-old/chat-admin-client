@@ -28,8 +28,9 @@ const getComponentPropsFieldSchemes = type => {
   return schemes;
 };
 
-const ComponentTypeSelector = ({ form, type, onChange, ...rest }) => {
+const ComponentTypeSelector = ({ form, type, onChange }) => {
   componentSchemeTypeFieldScheme.options.initialValue = type;
+  // return FormBuilder.makeField(componentSchemeTypeFieldScheme, form);
 
   const decorator = makeAntdFieldDecorator(componentSchemeTypeFieldScheme);
   const component = React.cloneElement(decorator.component, { onChange });
@@ -38,17 +39,24 @@ const ComponentTypeSelector = ({ form, type, onChange, ...rest }) => {
 
   return (
     <div>
-      <Form.Item {...rest}>
+      <Form.Item>
         {form.getFieldDecorator(decorator.id, decorator.options)(component)}
       </Form.Item>
     </div>
   );
 };
 
+ComponentTypeSelector.propTypes = {
+  form: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
+};
+
 /**
  * Display component's properties panel based on type of component
  */
 const ComponentPropsPanel = ({ form, componentType, initialValues }) => {
+  console.log("initialValues: ", initialValues);
   if (componentType === "select") {
     return <OptionAdder form={form} options={initialValues} />;
   }

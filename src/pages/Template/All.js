@@ -1,11 +1,30 @@
 import React from "react";
+import Page from "~/src/components/Page";
+import { Row, Col } from "antd";
+import styled from "styled-components";
 import templateApi from "~/src/api/template";
 import loadable from "~/src/components/Loadable";
 import TemplateFormQuery from "~/src/components/TemplateForm/Query";
 
+const StyledTemplateFormQuery = styled(TemplateFormQuery)`
+  margin-bottom: 2em;
+`;
+
 const TemplateFormQueryLoadable = loadable(({ data }) =>
   data.map((doc, index) => (
-    <TemplateFormQuery key={index} name={doc.name} fieldSchemes={doc.inputs} templateId={doc._id} />
+    <Col
+      xs={24}
+      md={12}
+      lg={8}
+      key={index}
+      style={{ padding: "0 1em", marginBottom: "1em" }}>
+      <StyledTemplateFormQuery
+        key={index}
+        name={doc.name}
+        fieldSchemes={doc.inputs || []} // Temporary
+        templateId={doc._id}
+      />
+    </Col>
   ))
 );
 
@@ -20,16 +39,19 @@ const handleLoad = load =>
     load(data.data.doc);
   });
 const AllTemplateFormQueries = () => (
-  <TemplateFormQueryLoadable
-    handleLoad={handleLoad}
-  />
+  <TemplateFormQueryLoadable handleLoad={handleLoad} />
 );
 
 const PageTemplateAll = () => (
-  <div>
+  <Page title="All templates">
     <h1>All template</h1>
-    <AllTemplateFormQueries />
-  </div>
+    <Row
+      type="flex"
+      justify="space-between"
+      gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+      <AllTemplateFormQueries />
+    </Row>
+  </Page>
 );
 
 export { PageTemplateAll };

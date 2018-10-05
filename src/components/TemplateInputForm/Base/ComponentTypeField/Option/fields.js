@@ -75,6 +75,10 @@ const OptionDefaultField = ({
   </Form.Item>
 );
 
+OptionDefaultField.defaultProps = {
+  defaultChecked: false
+};
+
 OptionDefaultField.propTypes = {
   form: PropTypes.object.isRequired,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,

@@ -1,7 +1,11 @@
 import React from "react";
 import { Layout } from "antd";
+import styled from 'styled-components';
 
 const { Sider } = Layout;
+const StyledSider = styled(Sider)`
+	z-index: 100;
+`;
 
 class PageAdminSidebar extends React.Component {
   state = {
@@ -15,7 +19,7 @@ class PageAdminSidebar extends React.Component {
     const { children, ...rest } = this.props;
 
     return (
-      <Sider
+      <StyledSider
         {...rest}
         breakpoint="lg"
         collapsedWidth={0}
@@ -23,10 +27,9 @@ class PageAdminSidebar extends React.Component {
         onCollapse={this.onCollapse}
         // onBreakpoint={onBreakpoint || (broken => console.log("broken: ", broken))}
         collapsed={isCollapsed}
-        style={{ height: "100vh" }}
       >
         {children}
-      </Sider>
+      </StyledSider>
     );
   }
 }

@@ -3,10 +3,20 @@ import PropTypes from "prop-types";
 import Option from "./Option";
 import { OPTION_DEFAULT_NAME_PREFIX } from "./fields";
 
+const defaultOptions = [{ label: "", value: "", isDefault: false }];
+
 class OptionAdder extends React.Component {
-  state = {
-    options: this.props.options
-  };
+  constructor(props) {
+		super(props);
+
+    const options = Array.isArray(props.options)
+      ? props.options
+      : defaultOptions;
+
+    this.state = {
+      options
+    };
+  }
 
   getHandleRemove = key => () => {
     const options = [...this.state.options];
@@ -38,6 +48,7 @@ class OptionAdder extends React.Component {
 
   getOptionMaker = form => (option, index) => {
     const { length } = this.state.options;
+		const { value, label, isDefault } = option;
     const isLast = index === length - 1;
     const isNotAlone = length > 1;
 
@@ -45,9 +56,9 @@ class OptionAdder extends React.Component {
       <Option
         key={index}
         id={index}
-        value={option.value}
-        label={option.label}
-        isDefault={option.isDefault}
+        value={value}
+        label={label}
+        isDefault={isDefault}
         isAddable={isLast}
         isRemovable={isNotAlone}
         handleDefaultChange={this.getHandleDefaultChange(index)}
@@ -67,7 +78,7 @@ class OptionAdder extends React.Component {
 }
 
 OptionAdder.defaultProps = {
-  options: [{ label: "", value: "", isDefault: false }]
+  options: defaultOptions
 };
 
 OptionAdder.propTypes = {

@@ -52,7 +52,7 @@ class APICaller extends EventEmitter {
     const axiosOptions = {
       method,
       url: this.makeUrl(path, params),
-      headers: {},
+      headers: {}
     };
 
     console.log("axiosOptions: ", axiosOptions);
@@ -89,8 +89,8 @@ class APICaller extends EventEmitter {
     const { status, data } = res;
     const args = [null, data, status];
 
-    callback(...args);
     this.emit(status, ...args).emit("all", ...args);
+    callback(...args);
   };
 
   /**
@@ -108,8 +108,8 @@ class APICaller extends EventEmitter {
       const { data, status } = err.response;
       const args = [err.response, null, status];
 
-      callback(...args);
       this.emit(status, ...args).emit("all", ...args);
+      callback(...args);
     } else if (err.request) {
       console.error(err.request);
     } else {
@@ -151,7 +151,7 @@ class APICaller extends EventEmitter {
       callback = arg1;
     } else {
       throw new Error(
-        "Invalid argument supplied to APICaller.prototype.call()",
+        "Invalid argument supplied to APICaller.prototype.call()"
       );
     }
 
@@ -171,9 +171,9 @@ class APICaller extends EventEmitter {
     const queryString = params ? "?" + this.makeQueryString(params) : "";
     const url = this.uri + thePath + queryString;
 
-    console.log("this.uri: ", this.uri);
-    console.log("path: ", path);
-    console.log("request url: ", url);
+    // console.log("this.uri: ", this.uri);
+    // console.log("path: ", path);
+    // console.log("request url: ", url);
 
     return url;
   };

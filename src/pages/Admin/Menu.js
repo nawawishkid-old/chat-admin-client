@@ -1,65 +1,72 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Menu } from "antd";
-// import pages from "~/src/scenes/Admin/pages";
 import pages from "~/src/data/menu.js";
 
-const SubMenu = ({ children, ...rest }) => (
-  <Menu.SubMenu {...rest}>{children}</Menu.SubMenu>
-);
-const MenuItem = ({ page, ...rest }) => (
-  <Menu.Item {...rest}>
-    <Link to={page.path}>{page.name}</Link>
-  </Menu.Item>
-);
-const SubMenuWithItems = props => {
-  const { page, menuItemKey, subMenuKey, ...rest } = props;
+const menuMaker = (page, index) => {
+  if (page.type === "item") {
+    // console.log("key: ", page.path);
+    return (
+      <Menu.Item key={page.path}>
+        <Link to={page.path}>{page.name}</Link>
+      </Menu.Item>
+    );
+
+    return <MenuItem page={page} key={page.path} itemKey={page.path} />;
+  }
+
+  // If submenu has its own path (page), add it to the first of its children.
+  const items = page.path
+    ? [{ name: page.name, path: page.path }, ...page.items]
+    : page.items;
+  const key = "sub_" + (page.path ? page.path : page.items[0].path);
+  // console.log("subKey: ", key);
 
   return (
-    <SubMenu
-      title={page.title || "untitled"}
-      key={"sub" + subMenuKey}
-      {...rest}>
-      {<MenuItem page={page} key={menuItemKey} />}
-      {page.items.map((item, index) => (
-        <MenuItem page={item} key={menuItemKey + (index + 1)} />
+    <Menu.SubMenu title={page.title || "untitled"} key={key}>
+      {items.map(item => (
+        <Menu.Item key={item.path}>
+          <Link to={item.path}>{item.name}</Link>
+        </Menu.Item>
       ))}
-    </SubMenu>
+    </Menu.SubMenu>
   );
+
+  return <SubMenuWithItems page={page} key={"sub_" + index} />;
 };
 
-const AdminMenu = ({ match, ...rest }) => {
-  let menuItemKey = 0;
-  let subMenuKey = 0;
+/**
+ * Currently unavailable to automatically open submenu when URL changed
+ */
+class AdminMenuWithoutRouter extends React.Component {
+  render() {
+    const { pathname } = this.props.location;
+    const selectedKeys = [pathname];
+    const openKeys = ["sub_" + pathname];
 
-  return (
-    <Menu
-      onClick={() => console.log("onClickMenu()")}
-      // defaultSelectedKeys={["1"]}
-      // defaultOpenKeys={["sub1"]}
-      mode="inline"
-      theme="dark"
-      {...rest}>
-      {pages.map((page, index) => {
-        return page.type === "sub" ? (
-          <SubMenuWithItems
-            page={page}
-            menuItemKey={++menuItemKey}
-            subMenuKey={++subMenuKey}
-            key={index}
-          />
-        ) : (
-          <MenuItem page={page} key={++menuItemKey} />
-        );
-      })}
-    </Menu>
-  );
+    return (
+      <Menu
+        onClick={() => console.log("onClickMenu()")}
+        defaultSelectedKeys={selectedKeys}
+        defaultOpenKeys={openKeys}
+        selectedKeys={selectedKeys}
+        // openKeys={openKeys}
+        // onOpenChange={this.handleOpenChange}
+        // onSelect={this.handleSelect}
+        mode="inline"
+        theme="dark">
+        {pages.map(menuMaker)}
+      </Menu>
+    );
+  }
+}
+
+AdminMenuWithoutRouter.propTypes = {
+  pages: PropTypes.arrayOf(PropTypes.object)
 };
 
-AdminMenu.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.object),
-};
+const AdminMenu = withRouter(AdminMenuWithoutRouter);
 
 export { AdminMenu };
 

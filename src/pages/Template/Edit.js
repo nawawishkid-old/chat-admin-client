@@ -1,11 +1,12 @@
 import React from "react";
-import TemplateFormEditor from '~/src/components/TemplateForm/Editor';
+import Page from "~/src/components/Page";
+import TemplateFormEditor from "~/src/components/TemplateForm/Editor";
 
 export const PageTemplateEdit = () => (
-  <div>
+  <Page title="Edit template">
     <h1>Edit template</h1>
     <TemplateFormEditor />
-  </div>
+  </Page>
 );
 
 export default PageTemplateEdit;
