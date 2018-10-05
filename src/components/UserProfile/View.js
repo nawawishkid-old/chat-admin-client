@@ -21,9 +21,9 @@ const UserProfileView = ({ name, username, email, imageSrc, handleEdit }) => (
       <h3 className="user-profile__name">{name}</h3>
       <p className="user-profile__username">@{username}</p>
       <p className="user-profile__email">Email: {email}</p>
-      <button className="user-profile__edit-button" onClick={handleEdit}>
+      <Button className="user-profile__edit-button" onClick={handleEdit}>
         Edit profile
-      </button>
+      </Button>
     </div>
   </div>
 );

@@ -30,8 +30,5 @@ export const passwordFieldScheme = {
   }
 };
 
-const loginFormScheme = {
-  fields: [usernameFieldScheme, passwordFieldScheme]
-};
+export default [usernameFieldScheme, passwordFieldScheme];
 
-export default loginFormScheme;

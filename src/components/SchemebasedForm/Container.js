@@ -23,6 +23,7 @@ class SchemebasedFormContainer extends React.Component {
       defaultFieldSchemes,
       handleCancel,
       handleSubmit,
+			submitButtonProps,
       submitText,
       cancelText,
       before,
@@ -34,6 +35,7 @@ class SchemebasedFormContainer extends React.Component {
     const fieldSchemes = doc ? this.editFieldSchemes(doc) : defaultFieldSchemes;
     const View = view ? view : SchemebasedFormView;
     const providedData = {
+			submitButtonProps,
       handleSubmit,
       handleCancel,
       submitText,
@@ -57,6 +59,7 @@ class SchemebasedFormContainer extends React.Component {
 SchemebasedFormContainer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleCancel: PropTypes.func,
+	submitButtonProps: PropTypes.object,
   submitText: PropTypes.string,
   cancelText: PropTypes.string,
   defaultFieldSchemes: PropTypes.oneOfType([

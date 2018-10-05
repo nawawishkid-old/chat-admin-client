@@ -26,7 +26,6 @@ class RouteGroup {
    * @param {Object} options Additional options of route.
    */
   add = (path, component, options = {}) =>
-    console.log(this.basePath + path, component.constructor.name) ||
     this.routes.push({ path: this.basePath + path, component, options });
 
   /**

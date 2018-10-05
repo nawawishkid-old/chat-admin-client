@@ -11,9 +11,9 @@ const renderChildren = children =>
 
 const SchemebasedFormView = ({ fieldSchemes, before, after }) => (
   <Form>
-    {renderChildren(before)}
+    {before ? renderChildren(before) : null}
     {fieldSchemes.map(scheme => FormBuilder.makeField(scheme))}
-    {renderChildren(after)}
+    {after ? renderChildren(after) : null}
   </Form>
 );
 

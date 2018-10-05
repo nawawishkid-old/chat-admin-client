@@ -12,7 +12,6 @@ class UnwrappedCommonForm extends React.Component {
         return;
       }
 
-      console.log("form.values: ", values);
 
       handleSubmit(this.props, values);
     });
@@ -30,13 +29,15 @@ class UnwrappedCommonForm extends React.Component {
       handleCancel,
       submitText,
       cancelText,
+			submitButtonProps,
       ...rest
     } = this.props;
+
+		const submitBtnProps = submitButtonProps || {};
 
     return (
       <Form {...rest}>
         {React.Children.map(children, (child, index) => {
-          // console.log("child: ", child);
           if (child === null) {
             return null;
           }
@@ -44,7 +45,7 @@ class UnwrappedCommonForm extends React.Component {
           return React.cloneElement(child, { form, key: index });
         })}
         <Form.Item>
-          <Button onClick={this.handleSubmit}>{submitText || "Submit"}</Button>
+          <Button onClick={this.handleSubmit} {...submitBtnProps}>{submitText || "Submit"}</Button>
           {handleCancel ? (
             <Button onClick={this.handleCancel}>
               {cancelText || "Cancel"}

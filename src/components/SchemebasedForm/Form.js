@@ -22,12 +22,14 @@ class Form extends React.Component {
 
     return (
       <SchemebasedFormConsumer>
-        {({ handleSubmit, handleCancel, submitText, cancelText, ...rest }) => (
+        {({ handleSubmit, handleCancel, submitButtonProps, submitText, cancelText, ...rest }) => (
           <CommonForm
             handleSubmit={this.getHandleSubmit(handleSubmit, rest)}
-            handleCancel={this.getHandleCancel(handleCancel, rest)}
+            handleCancel={handleCancel ? this.getHandleCancel(handleCancel, rest) : undefined}
             submitText={submitText}
-            cancelText={cancelText}>
+            cancelText={cancelText}
+						submitButtonProps={submitButtonProps}
+					>
             {children}
           </CommonForm>
         )}
@@ -37,10 +39,7 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element
-  ]).isRequired
+  children: PropTypes.node.isRequired
 };
 
 export { Form };

@@ -206,11 +206,14 @@ class JWTAuth {
     const { username, password, remember } = credential;
 
     if (!username || !password) {
-      return false;
+     	console.warn('Username and password is required');
+			
+			return;
     }
 
     // If user has already been authenticated.
     if (this.auth()) {
+			console.log('already logged in!');
       return true;
     }
 

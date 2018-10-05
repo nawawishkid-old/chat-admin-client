@@ -8,9 +8,9 @@ class Page extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, ...rest } = this.props;
 
-    return <div>{children}</div>;
+    return <div {...rest}>{children}</div>;
   }
 }
 

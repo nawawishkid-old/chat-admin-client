@@ -46,7 +46,7 @@ class FormBuilder {
       }
     }
 
-    const theChild = FormBuilder.makeChildOfField(componentScheme);
+    const TheChild = FormBuilder.makeChildOfField(componentScheme);
 
     return (
       <CommonField
@@ -56,7 +56,7 @@ class FormBuilder {
         form={form}
         options={theOptions}
         {...rest}>
-        {theChild}
+        <TheChild />
       </CommonField>
     );
   };
@@ -81,7 +81,7 @@ class FormBuilder {
       props.prefix = <Icon type={icon} />;
     }
 
-    return <TheComponent {...props}>{children}</TheComponent>;
+    return newProps => <TheComponent {...props} {...newProps}>{children}</TheComponent>;
   };
 
   static getAntdComponent = type => {
