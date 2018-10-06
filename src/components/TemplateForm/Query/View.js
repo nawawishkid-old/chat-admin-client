@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form, Card, Input, Button } from "antd";
 import { FormBuilder } from "~/src/services/form";
+import Field from "~/src/components/SchemebasedForm/Field";
 
 const TemplateFormQueryView = props => {
   // console.log("props: ", props);
@@ -24,7 +25,9 @@ const TemplateFormQueryView = props => {
           <h3>{name}</h3>
         </div>
         <div className="inputs">
-          {fieldSchemes.map(scheme => FormBuilder.makeField(scheme, form))}
+          {fieldSchemes.map((scheme, index) => (
+            <Field fieldScheme={scheme} form={form} key={index} />
+          ))}
           {children}
         </div>
         <div className="output">
