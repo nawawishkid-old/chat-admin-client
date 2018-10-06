@@ -23,8 +23,6 @@ const getAntdComponent = type => {
       break;
   }
 
-  // console.log('theComponent: ', theComponent);
-
   return theComponent;
 };
 

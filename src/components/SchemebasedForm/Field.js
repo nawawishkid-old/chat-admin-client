@@ -6,7 +6,7 @@ import CommonField from "~/src/components/common/form/Field";
 /**
  * Edit fieldScheme before calling this component to add additional properties
  */
-const Field = ({ fieldScheme, ...rest }) => {
+const Field = ({ fieldScheme, form, ...rest }) => {
   const { componentScheme, options, ...restScheme } = fieldScheme;
   const theOptions = options ? { ...options } : {};
 
@@ -31,10 +31,8 @@ const Field = ({ fieldScheme, ...rest }) => {
 
   clonedComponentScheme.props = clonedProps;
 
-	console.log('cloned: ', clonedComponentScheme);
-
   return (
-    <CommonField options={theOptions} {...restScheme} {...rest}>
+    <CommonField options={theOptions} form={form} {...restScheme} {...rest}>
       <FieldInput componentScheme={clonedComponentScheme} />
     </CommonField>
   );

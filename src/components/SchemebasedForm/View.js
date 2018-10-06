@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { CommonForm } from "~/src/components/common/form";
 import { FormBuilder } from "~/src/services/form";
 import Form from "./Form";
+import Field from "./Field";
 
 const renderChildren = children =>
   React.Children.map(children, (child, index) =>
@@ -12,7 +13,9 @@ const renderChildren = children =>
 const SchemebasedFormView = ({ fieldSchemes, before, after }) => (
   <Form>
     {before ? renderChildren(before) : null}
-    {fieldSchemes.map(scheme => FormBuilder.makeField(scheme))}
+    {fieldSchemes.map((scheme, index) => (
+      <Field fieldScheme={scheme} key={index} form={{}} />
+    ))}
     {after ? renderChildren(after) : null}
   </Form>
 );
