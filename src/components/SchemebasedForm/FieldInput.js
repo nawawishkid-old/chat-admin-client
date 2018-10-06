@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Input, InputNumber, Select } from "antd";
+import { Input, InputNumber, Select, Icon } from "antd";
 
 const getAntdComponent = type => {
   let theComponent;
@@ -18,14 +18,12 @@ const getAntdComponent = type => {
       theComponent = Select;
       break;
 
-    case "password":
-      theComponent = makePasswordInput();
-      break;
-
-    default:
+		default:
       theComponent = Input;
       break;
   }
+
+  // console.log('theComponent: ', theComponent);
 
   return theComponent;
 };
@@ -50,11 +48,20 @@ const FieldInput = ({ componentScheme, ...rest }) => {
     props.prefix = <Icon type={icon} />;
   }
 
-  return (
-    <TheComponent {...props} {...restScheme} {...rest}>
-      {children}
-    </TheComponent>
-  );
+	/**
+	 * For componentScheme with 'password' type
+	 */
+  if (type === "password") {
+    props.type = "password";
+  }
+
+  const allProps = {
+    ...props,
+    ...restScheme,
+    ...rest
+  };
+
+  return <TheComponent {...allProps}>{children}</TheComponent>;
 };
 
 FieldInput.propTypes = {
