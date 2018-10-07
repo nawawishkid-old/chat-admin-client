@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form, Card, Input, Button } from "antd";
 import styled from "styled-components";
-import { FormBuilder } from "~/src/services/form";
 import Field from "~/src/components/SchemebasedForm/Field";
 
 const StyledCard = styled(Card)`

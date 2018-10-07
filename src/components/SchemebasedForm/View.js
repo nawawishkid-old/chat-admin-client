@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CommonForm } from "~/src/components/common/form";
-import { FormBuilder } from "~/src/services/form";
 import Form from "./Form";
 import Field from "./Field";
 

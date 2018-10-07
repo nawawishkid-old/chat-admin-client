@@ -9,7 +9,7 @@ class OptionAdder extends React.Component {
   constructor(props) {
 		super(props);
 
-    const options = Array.isArray(props.options)
+    const options = props.options.length > 0 
       ? props.options
       : defaultOptions;
 

@@ -35,9 +35,9 @@ const componentSchemeTypeFieldScheme = {
   componentScheme: {
     type: "select",
     options: [
-      { name: "Select", value: "select" },
-      { name: "Text", value: "text" },
-      { name: "Number", value: "number" },
+      { label: "Select", value: "select" },
+      { label: "Text", value: "text" },
+      { label: "Number", value: "number" },
     ],
     props: {
       placeholder: "Input's component type",

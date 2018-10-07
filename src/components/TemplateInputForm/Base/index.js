@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 import {
   nameFieldScheme,
   labelFieldScheme
@@ -88,7 +87,7 @@ const TypeSelector = withProps(
   ({ componentType, onComponentTypeChange, form }) => (
     <ComponentTypeSelector
       type={componentType}
-      onChange={value => onComponentTypeChange(value)}
+      onChange={onComponentTypeChange}
       form={form}
     />
   )

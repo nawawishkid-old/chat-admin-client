@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import templateParserApi from "~/src/api/templateParser";
-import { withForm } from "~/src/services/form";
+import { Form } from "antd";
 import TemplateFormQueryView from "./View";
 import ActionDelete from "./ActionDelete";
 import ActionEdit from "./ActionEdit";
@@ -89,6 +89,6 @@ NoFormTemplateFormQuery.propTypes = {
   template: PropTypes.object.isRequired
 };
 
-const TemplateFormQuery = withForm(NoFormTemplateFormQuery);
+const TemplateFormQuery = Form.create()(NoFormTemplateFormQuery);
 
 export default TemplateFormQuery;
