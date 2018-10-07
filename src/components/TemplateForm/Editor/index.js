@@ -62,11 +62,8 @@ const handleLoad = (load, { match }) => {
   const options = { path: templateId };
 
   templateApi.get("get").call(options, (err, res) => {
-    if (res) {
-      load(res.data.doc);
-    }
+    load(res.data.templates[0]);
   });
 };
 
 export default TemplateFormEditor;
-
