@@ -24,15 +24,8 @@ class SignupForm extends React.Component {
     userApi.get("create").call(options, (err, res) => {
       if (err) {
         console.log(err);
-        let msg;
 
-        if (err.data.err.code === 11000) {
-          msg = "Username or email already exists";
-        } else {
-          msg = "Unauthenticated";
-        }
-
-        message.error(msg);
+        message.error(err.data.msg);
 
         this.setState({ loading: false });
 
