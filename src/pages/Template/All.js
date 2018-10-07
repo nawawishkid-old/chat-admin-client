@@ -4,7 +4,6 @@ import TemplateFormQueryBoard from "~/src/components/TemplateForm/Query/Board";
 
 const PageTemplateAll = () => (
   <Page title="All templates">
-    <h1>All templates</h1>
     <TemplateFormQueryBoard />
   </Page>
 );
