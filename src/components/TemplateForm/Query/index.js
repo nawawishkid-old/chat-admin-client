@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import templateParserApi from "~/src/api/templateParser";
-import { withForm } from "~/src/services/form";
+import { Form } from "antd";
 import TemplateFormQueryView from "./View";
 import ActionDelete from "./ActionDelete";
 import ActionEdit from "./ActionEdit";
@@ -13,7 +13,7 @@ class NoFormTemplateFormQuery extends React.Component {
    * Handle form submission
    */
   handleSubmit = () => {
-    const { form, templateId } = this.props;
+    const { form, template } = this.props;
 
     form.validateFields((err, values) => {
       if (err) {
@@ -21,9 +21,9 @@ class NoFormTemplateFormQuery extends React.Component {
       }
 
       console.log("values: ", values);
-
+      const { _id } = template;
       const options = {
-        path: templateId,
+        path: _id,
         params: values
       };
 
@@ -62,23 +62,21 @@ class NoFormTemplateFormQuery extends React.Component {
       return null;
     }
 
-    const { form, name, fieldSchemes, templateId, ...rest } = this.props;
+    const { form, template, ...rest } = this.props;
+    const { inputs, _id, name } = template;
 
     return (
       <TemplateFormQueryView
         form={form}
         output={this.state.output}
         name={name}
-        fieldSchemes={fieldSchemes}
+        templateInputs={inputs}
         handleSubmit={this.handleSubmit}
         handleCopy={this.handleCopy}
         handleOutputChange={this.handleOutputChange}
         actions={[
-          <ActionEdit templateId={templateId} />,
-          <ActionDelete
-            templateId={templateId}
-            handleDeleted={this.handleDeleted}
-          />
+          <ActionEdit templateId={_id} />,
+          <ActionDelete templateId={_id} handleDeleted={this.handleDeleted} />
         ]}
         {...rest}
       />
@@ -88,11 +86,9 @@ class NoFormTemplateFormQuery extends React.Component {
 
 NoFormTemplateFormQuery.propTypes = {
   form: PropTypes.object.isRequired,
-  fieldSchemes: PropTypes.array.isRequired,
-  templateId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired
+  template: PropTypes.object.isRequired
 };
 
-const TemplateFormQuery = withForm(NoFormTemplateFormQuery);
+const TemplateFormQuery = Form.create()(NoFormTemplateFormQuery);
 
 export default TemplateFormQuery;

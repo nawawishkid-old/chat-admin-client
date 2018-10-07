@@ -4,7 +4,6 @@ import { Card, message } from "antd";
 import styled from "styled-components";
 import loginFormScheme from "~/src/data/form-schemes/login";
 import SchemebasedForm from "~/src/components/SchemebasedForm";
-import { FormBuilder } from "~/src/services/form";
 import { withAuth } from "~/src/services/auth";
 
 const StyledCard = styled(Card)`

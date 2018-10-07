@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Form, Card, Input, Button } from "antd";
-import { FormBuilder } from "~/src/services/form";
+import styled from "styled-components";
+import Field from "~/src/components/SchemebasedForm/Field";
+
+const StyledCard = styled(Card)`
+  margin-bottom: 2em;
+`;
 
 const TemplateFormQueryView = props => {
   // console.log("props: ", props);
@@ -12,19 +17,21 @@ const TemplateFormQueryView = props => {
     handleSubmit,
     handleCopy,
     handleOutputChange,
-    fieldSchemes,
+    templateInputs,
     actions,
     children
   } = props;
 
   return (
-    <Card actions={actions}>
+    <StyledCard actions={actions}>
       <Form>
         <div className="header">
           <h3>{name}</h3>
         </div>
         <div className="inputs">
-          {fieldSchemes.map(scheme => FormBuilder.makeField(scheme, form))}
+          {templateInputs.map((input, index) => (
+            <Field fieldScheme={input} form={form} key={index} />
+          ))}
           {children}
         </div>
         <div className="output">
@@ -37,13 +44,13 @@ const TemplateFormQueryView = props => {
           </p>
         </div>
       </Form>
-    </Card>
+    </StyledCard>
   );
 };
 
 TemplateFormQueryView.propTypes = {
   name: PropTypes.string.isRequired,
-  fieldSchemes: PropTypes.array.isRequired,
+  templateInputs: PropTypes.array.isRequired,
   output: PropTypes.node,
   handleSubmit: PropTypes.func.isRequired,
   handleCopy: PropTypes.func.isRequired,

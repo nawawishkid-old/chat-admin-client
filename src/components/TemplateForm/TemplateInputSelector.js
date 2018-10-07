@@ -1,50 +1,55 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Select, Form } from "antd";
 import { templateInputApi } from "~/src/api";
 import loadable from "~/src/components/Loadable";
+import Field from "~/src/components/SchemebasedForm/Field";
 
-// Special component for displaying templates' inputs
+const selectFieldScheme = {
+  name: "inputs",
+  options: {
+    rules: [{ required: true, message: "This field is required" }]
+  },
+  componentScheme: {
+    type: "select",
+    props: {
+      placeholder: "Inputs",
+      mode: "multiple"
+    }
+  }
+};
 
-const { Option } = Select;
-const getFieldOptions = initValue => ({
-  initialValue: initValue,
-  rules: [{ required: true, message: "This field is required" }]
-});
+const HTMLSelect = ({ templateInputs, form, initialValues, ...rest }) => {
+  const inputs = Array.isArray(templateInputs)
+    ? templateInputs
+    : [templateInputs];
 
-const HTMLSelect = ({ data, form, initialValues, ...rest }) => {
-  const inputs = Array.isArray(data) ? data : [data];
+  const clonedFieldScheme = { ...selectFieldScheme };
 
-  return (
-    <Form.Item label="Inputs" key="inputs">
-      {form.getFieldDecorator("inputs", getFieldOptions(initialValues))(
-        <Select mode="multiple" placeholder="Inputs" {...rest}>
-          {inputs.map((item, index) => (
-            <Option value={item._id} key={item._id}>
-              {item.label}
-            </Option>
-          ))}
-        </Select>
-      )}
-    </Form.Item>
-  );
+  clonedFieldScheme.options.initialValue = initialValues;
+  clonedFieldScheme.componentScheme.options = inputs.map(input => ({
+    value: input._id,
+    label: input.label
+  }));
+
+  return <Field fieldScheme={clonedFieldScheme} form={form} />;
 };
 
 HTMLSelect.propTypes = {
-  data: PropTypes.any.isRequired,
+  templateInputs: PropTypes.any.isRequired,
   form: PropTypes.object.isRequired
   // initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-const LoadableHTMLSelect = loadable(HTMLSelect);
+const LoadableHTMLSelect = loadable(({ data, ...rest }) => (
+  <HTMLSelect templateInputs={data} {...rest} />
+));
 
 // Load all template inputs
 const handleHTMLSelectLoad = load => {
-  templateInputApi.get("get").call((err, res) => {
-    if (res) {
-      console.log("res: ", res);
-      load(res.data.templateInput);
-    }
+  templateInputApi.get("get").call((err, res, status) => {
+    const templateInputs = status === 404 ? [] : res.data.templateInputs;
+
+    load(templateInputs);
   });
 };
 const WrappedLoadableHTMLSelect = props => (

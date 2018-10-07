@@ -14,6 +14,7 @@ const CommonField = props => {
 
 CommonField.propTypes = {
   children: PropTypes.element.isRequired,
+  form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   options: PropTypes.shape({

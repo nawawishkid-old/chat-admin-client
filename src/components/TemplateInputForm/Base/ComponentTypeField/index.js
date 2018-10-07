@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "antd";
-import { FormBuilder, makeAntdFieldDecorator } from "~/src/services/form";
 import { componentSchemeTypeFieldScheme } from "../field-schemes";
 import numberPropsScheme from "./props-schemes/number";
 import textPropsScheme from "./props-schemes/text";
+import Field from "~/src/components/SchemebasedForm/Field";
+import FieldInput from "~/src/components/SchemebasedForm/FieldInput";
 import OptionAdder from "./Option/Adder";
 
 const getComponentPropsFieldSchemes = type => {
@@ -30,19 +31,13 @@ const getComponentPropsFieldSchemes = type => {
 
 const ComponentTypeSelector = ({ form, type, onChange }) => {
   componentSchemeTypeFieldScheme.options.initialValue = type;
-  // return FormBuilder.makeField(componentSchemeTypeFieldScheme, form);
 
-  const decorator = makeAntdFieldDecorator(componentSchemeTypeFieldScheme);
-  const component = React.cloneElement(decorator.component, { onChange });
-
-  // console.log("decorator: ", decorator);
+  const { componentScheme } = componentSchemeTypeFieldScheme;
 
   return (
-    <div>
-      <Form.Item>
-        {form.getFieldDecorator(decorator.id, decorator.options)(component)}
-      </Form.Item>
-    </div>
+    <Field fieldScheme={componentSchemeTypeFieldScheme} form={form}>
+      <FieldInput componentScheme={componentScheme} onChange={onChange} />
+    </Field>
   );
 };
 
@@ -58,7 +53,9 @@ ComponentTypeSelector.propTypes = {
 const ComponentPropsPanel = ({ form, componentType, initialValues }) => {
   console.log("initialValues: ", initialValues);
   if (componentType === "select") {
-    return <OptionAdder form={form} options={initialValues} />;
+    const initValues = Array.isArray(initialValues) ? initialValues : [];
+
+    return <OptionAdder form={form} options={initValues} />;
   }
 
   const schemes = getComponentPropsFieldSchemes(componentType);
@@ -85,7 +82,7 @@ const ComponentPropsPanel = ({ form, componentType, initialValues }) => {
             componentScheme.props.defaultValue = initValue;
           }
 
-          return FormBuilder.makeField(scheme, form);
+          return <Field fieldScheme={scheme} form={form} key={index} />;
         })}
       </div>
     </div>
