@@ -42,7 +42,9 @@ class UnwrappedCommonForm extends React.Component {
             return null;
           }
 
-          return React.cloneElement(child, { form, key: index });
+          const ClonedElement = React.cloneElement(child, { form, key: index });
+
+					return ClonedElement;
         })}
         <Form.Item>
           <Button onClick={this.handleSubmit} {...submitBtnProps}>{submitText || "Submit"}</Button>

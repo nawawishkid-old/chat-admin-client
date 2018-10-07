@@ -14,6 +14,9 @@ import {
   ComponentPropsPanel
 } from "./ComponentTypeField";
 
+/**
+ * A based form for creating and editing new template input
+ */
 class TemplateInputFormBase extends React.Component {
   constructor(props) {
     super(props);

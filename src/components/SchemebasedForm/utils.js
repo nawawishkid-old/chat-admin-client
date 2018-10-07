@@ -2,17 +2,32 @@ import React from "react";
 import makeLoadable from "~/src/components/Loadable";
 import { SchemebasedFormConsumer } from "./Context";
 
+/**
+ * Make given component loadable using loadable() HOC
+ *
+ * @param {function} Component React functional component to be loadable.
+ * @return {Function} React loadable functional component.
+ */
 const loadable = Component =>
   makeLoadable(({ data, handleSubmit, ...rest }) => (
     <Component doc={data} handleSubmit={handleSubmit} {...rest} />
   ));
 
+/**
+ * HOC React.Context to get all unused props from SchemebasedFormContainer (a main component)
+ * 
+ * @param {function} Component React functional component to be injected with props.
+ * @returns {function} React functional component.
+ */
 const withProps = Component => outerProps => (
   <SchemebasedFormConsumer>
     {props => <Component {...outerProps} {...props} />}
   </SchemebasedFormConsumer>
 );
 
+/**
+ * Create a valid componentScheme from form's values for sending to web service.
+ */
 const makeComponentScheme = values => {
   const scheme = {};
   const schemeProps = {};
