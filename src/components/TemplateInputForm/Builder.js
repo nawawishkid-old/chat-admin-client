@@ -6,7 +6,11 @@ import { templateInputApi } from "~/src/api/templateInput";
 import TemplateInputFormBase from "./Base";
 
 const TemplateInputFormBuilder = withRouter(({ history }) => (
-  <TemplateInputFormBase handleSubmit={handleSubmit} history={history} />
+  <TemplateInputFormBase
+    handleSubmit={handleSubmit}
+    handleCancel={handleCancel}
+    history={history}
+  />
 ));
 
 const handleSubmit = (apiOptions, values, { history }) => {
@@ -21,6 +25,10 @@ const handleSubmit = (apiOptions, values, { history }) => {
 
     message.error(`${err.statusText} (${err.data.msg})`);
   });
+};
+
+const handleCancel = ({ history }) => {
+  history.goBack();
 };
 
 export { TemplateInputFormBuilder };
