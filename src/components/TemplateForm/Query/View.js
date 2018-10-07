@@ -18,7 +18,7 @@ const TemplateFormQueryView = props => {
     handleSubmit,
     handleCopy,
     handleOutputChange,
-    fieldSchemes,
+    templateInputs,
     actions,
     children
   } = props;
@@ -30,8 +30,8 @@ const TemplateFormQueryView = props => {
           <h3>{name}</h3>
         </div>
         <div className="inputs">
-          {fieldSchemes.map((scheme, index) => (
-            <Field fieldScheme={scheme} form={form} key={index} />
+          {templateInputs.map((input, index) => (
+            <Field fieldScheme={input} form={form} key={index} />
           ))}
           {children}
         </div>
@@ -51,7 +51,7 @@ const TemplateFormQueryView = props => {
 
 TemplateFormQueryView.propTypes = {
   name: PropTypes.string.isRequired,
-  fieldSchemes: PropTypes.array.isRequired,
+  templateInputs: PropTypes.array.isRequired,
   output: PropTypes.node,
   handleSubmit: PropTypes.func.isRequired,
   handleCopy: PropTypes.func.isRequired,
