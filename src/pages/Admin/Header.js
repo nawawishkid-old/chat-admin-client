@@ -7,7 +7,9 @@ const { Header } = Layout;
 
 const HeaderContent = withAuth(({ user }) => (
   <div>
-    <span style={{ color: "white" }}>Hello, {user.name}!</span>
+    <span style={{ color: "white" }}>
+      {user ? "Hello, " + user.name + "!" : ""}
+    </span>
     <div style={{ float: "right" }}>
       <ButtonLogout />
     </div>
