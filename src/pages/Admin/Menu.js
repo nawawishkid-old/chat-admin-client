@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
 import { Menu } from "antd";
-import pages from "~/src/data/menu.js";
+import { withAdminContext } from "./context";
+import pages from "~/src/data/menu";
 
 const menuMaker = (page, index) => {
   if (page.type === "item") {
@@ -41,21 +42,18 @@ const menuMaker = (page, index) => {
  */
 class AdminMenuWithoutRouter extends React.Component {
   render() {
-    const { pathname } = this.props.location;
+    const { sidebar, location } = this.props;
+    const { pathname } = location;
     const selectedKeys = [pathname];
     const openKeys = ["sub_" + pathname];
 
     return (
       <Menu
-        onClick={() => console.log("onClickMenu()")}
+        onClick={() => sidebar.handleClose()}
         defaultSelectedKeys={selectedKeys}
         defaultOpenKeys={openKeys}
         selectedKeys={selectedKeys}
-        // openKeys={openKeys}
-        // onOpenChange={this.handleOpenChange}
-        // onSelect={this.handleSelect}
-        mode="inline"
-        theme="dark">
+        mode="inline">
         {pages.map(menuMaker)}
       </Menu>
     );
@@ -66,7 +64,7 @@ AdminMenuWithoutRouter.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.object)
 };
 
-const AdminMenu = withRouter(AdminMenuWithoutRouter);
+const AdminMenu = withAdminContext(withRouter(AdminMenuWithoutRouter));
 
 export { AdminMenu };
 
