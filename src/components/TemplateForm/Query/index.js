@@ -7,7 +7,11 @@ import ActionDelete from "./ActionDelete";
 import ActionEdit from "./ActionEdit";
 
 class NoFormTemplateFormQuery extends React.Component {
-  state = { output: "" };
+  state = {
+    output: "",
+    isCopied: false,
+    isLoading: false
+  };
 
   /**
    * Handle form submission
@@ -30,9 +34,11 @@ class NoFormTemplateFormQuery extends React.Component {
       templateParserApi.get("get").call(options, (err, res, status) => {
         if (res) {
           console.log("res: ", res);
-          this.setState({ output: res.data });
+          this.setState({ output: res.data, isLoading: false });
         }
       });
+
+      this.setState({ isLoading: true });
     });
   };
 
@@ -45,6 +51,8 @@ class NoFormTemplateFormQuery extends React.Component {
     textArea.select();
     document.execCommand("copy");
     textArea.remove();
+
+    this.setState({ isCopied: true });
   };
 
   /**
@@ -57,11 +65,18 @@ class NoFormTemplateFormQuery extends React.Component {
    */
   handleDeleted = () => this.setState({ deleted: true });
 
+  componentDidUpdate() {
+    if (this.state.isCopied) {
+      setTimeout(() => this.setState({ isCopied: false }), 2000);
+    }
+  }
+
   render() {
     if (this.state.deleted) {
       return null;
     }
 
+    const { isCopied, isLoading } = this.state;
     const { form, template, ...rest } = this.props;
     const { inputs, _id, name } = template;
 
@@ -70,6 +85,8 @@ class NoFormTemplateFormQuery extends React.Component {
         form={form}
         output={this.state.output}
         name={name}
+        isCopied={isCopied}
+        isLoading={isLoading}
         templateInputs={inputs}
         handleSubmit={this.handleSubmit}
         handleCopy={this.handleCopy}

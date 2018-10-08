@@ -21,9 +21,10 @@ export const contentFieldScheme = {
     rules: [required]
   },
   componentScheme: {
-    type: "text",
+    type: "textarea",
     props: {
-      placeholder: "Content"
+      placeholder: "Content",
+			rows: 5 
     }
   }
 };

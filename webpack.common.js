@@ -1,22 +1,16 @@
 const path = require("path");
-const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+//   .BundleAnalyzerPlugin;
 
 module.exports = {
-  mode: "development",
   entry: ["@babel/polyfill", "./src/index.js"],
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
     filename: "index.js"
   },
-  devtool: "inline-source-map",
-  devServer: {
-    contentBase: "./dist",
-    historyApiFallback: true,
-    hot: true
-  },
+  devtool: "cheap-module-source-map",
   resolve: {
     alias: { "~": path.resolve(__dirname) }
   },
@@ -52,7 +46,12 @@ module.exports = {
     new CleanWebpackPlugin(["dist"]),
     new HtmlWebpackPlugin({
       template: "./src/index.html"
-    }),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    })
+    // new BundleAnalyzerPlugin()
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: "all"
+    }
+  }
 };

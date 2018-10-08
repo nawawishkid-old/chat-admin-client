@@ -5,13 +5,13 @@ import UserProfileView from "./View";
 
 class UserProfileContainer extends React.Component {
   state = {
-    mode: false
+    isEditMode: false
   };
 
-  handleEdit = () => this.setState({ mode: true });
+  handleEdit = () => this.setState({ isEditMode: true });
 
   render() {
-    if (this.state.mode) {
+    if (this.state.isEditMode) {
       return <Redirect to="/admin/profile/edit" />;
     }
 

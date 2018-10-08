@@ -19,6 +19,8 @@ const TemplateFormQueryView = props => {
     handleOutputChange,
     templateInputs,
     actions,
+    isCopied,
+    isLoading,
     children
   } = props;
 
@@ -39,8 +41,14 @@ const TemplateFormQueryView = props => {
         </div>
         <div className="controller">
           <p>
-            <Button onClick={handleSubmit}>Get</Button>
-            <Button onClick={handleCopy}>Copy</Button>
+            <Button onClick={handleSubmit} type="primary" loading={isLoading}>
+              Get
+            </Button>
+            {output ? (
+              <Button onClick={handleCopy}>
+                {isCopied ? "Copied!" : "Copy"}
+              </Button>
+            ) : null}
           </p>
         </div>
       </Form>

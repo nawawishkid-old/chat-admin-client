@@ -18,7 +18,11 @@ const getAntdComponent = type => {
       theComponent = Select;
       break;
 
-		default:
+    case "textarea":
+      theComponent = Input.TextArea;
+      break;
+
+    default:
       theComponent = Input;
       break;
   }
@@ -46,9 +50,9 @@ const FieldInput = ({ componentScheme, ...rest }) => {
     props.prefix = <Icon type={icon} />;
   }
 
-	/**
-	 * For componentScheme with 'password' type
-	 */
+  /**
+   * For componentScheme with 'password' type
+   */
   if (type === "password") {
     props.type = "password";
   }
