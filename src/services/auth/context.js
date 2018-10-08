@@ -9,7 +9,13 @@ class AuthProvider extends React.Component {
   state = { isAuth: undefined, user: undefined };
 
   _fetchUserData = () => {
-    const userId = jwtAuth.getParsedTokenPayload().sub;
+    const payload = jwtAuth.getParsedTokenPayload();
+
+    if (!payload) {
+      return;
+    }
+
+    const userId = payload.sub;
     const options = { path: userId };
 
     userApi.get("get").call(options, (err, res) => {
@@ -20,7 +26,7 @@ class AuthProvider extends React.Component {
 
   /**
    * For client to update user data, in case of the user data has been updated,
-	 * call this method to update user data.
+   * call this method to update user data.
    */
   updateUserData = () => this._fetchUserData();
 
