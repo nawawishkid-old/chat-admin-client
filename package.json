@@ -1,6 +1,7 @@
 {
   "name": "chat-admin",
   "version": "1.0.0",
+	"sideEffects": false,
   "description": "",
   "keywords": [],
   "private": true,
@@ -21,6 +22,10 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^4.0.0-alpha.21",
+    "@storybook/addon-links": "^4.0.0-alpha.21",
+    "@storybook/addons": "^4.0.0-alpha.21",
+    "@storybook/react": "^4.0.0-alpha.21",
     "babel-loader": "^8.0.2",
     "babel-plugin-import": "^1.8.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -31,16 +36,15 @@
     "less-loader": "^4.1.0",
     "style-loader": "^0.23.0",
     "webpack": "^4.17.2",
+    "webpack-bundle-analyzer": "^3.0.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8",
-    "@storybook/react": "^4.0.0-alpha.21",
-    "@storybook/addon-actions": "^4.0.0-alpha.21",
-    "@storybook/addon-links": "^4.0.0-alpha.21",
-    "@storybook/addons": "^4.0.0-alpha.21"
+    "webpack-merge": "^4.1.4"
   },
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack-dev-server",
+    "build": "webpack --config webpack.prod.js",
+    "try-build": "webpack-dev-server --port 9090 --config webpack.dev.js --mode production",
+    "dev": "webpack-dev-server --port 8080 --config webpack.dev.js",
     "watch": "webpack --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
