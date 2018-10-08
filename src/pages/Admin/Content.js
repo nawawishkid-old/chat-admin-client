@@ -7,7 +7,12 @@ import { Switch } from "react-router-dom";
 
 const { Content } = Layout;
 const StyledContent = styled(Content)`
-  padding: 2em 5em;
+  padding: 2em 1em;
+  overflow-y: auto;
+
+  @media only screen and (min-width: 992px) {
+    padding: 2em 5em;
+  }
 `;
 const PageAdminContent = () => (
   <StyledContent>{renderRoutes(adminRouter.routes)}</StyledContent>

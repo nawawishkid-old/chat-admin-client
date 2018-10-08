@@ -46,11 +46,18 @@ const BoardEmpty = styled(props => (
   text-align: center;
 `;
 
-const ItemWrapper = ({ children }) => (
-  <Col xs={24} md={12} lg={8} style={{ padding: "0 1em", marginBottom: "1em" }}>
+const ItemWrapper = styled(({ children, ...rest }) => (
+  <Col xs={24} md={12} lg={8} {...rest}>
     {children}
   </Col>
-);
+))`
+  margin-bottom: 1em;
+	transition: width .4s;
+
+  @media only screen and (min-width: 768px) {
+    padding: 0 1em;
+  }
+`;
 
 export { TemplateBoard };
 

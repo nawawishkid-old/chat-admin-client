@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
 import { Menu } from "antd";
-import pages from "~/src/data/menu.js";
+import { withAuth } from "~/src/services/auth";
+import { withAdminContext } from "./context";
+import pages from "~/src/data/menu";
 
 const menuMaker = (page, index) => {
   if (page.type === "item") {
@@ -36,27 +38,31 @@ const menuMaker = (page, index) => {
   return <SubMenuWithItems page={page} key={"sub_" + index} />;
 };
 
+const LogoutMenu = withAuth(({ logout, ...rest }) => (
+  <Menu.Item {...rest} onClick={() => logout()}>
+    Logout
+  </Menu.Item>
+));
+
 /**
  * Currently unavailable to automatically open submenu when URL changed
  */
 class AdminMenuWithoutRouter extends React.Component {
   render() {
-    const { pathname } = this.props.location;
+    const { sidebar, location, logout } = this.props;
+    const { pathname } = location;
     const selectedKeys = [pathname];
     const openKeys = ["sub_" + pathname];
 
     return (
       <Menu
-        onClick={() => console.log("onClickMenu()")}
+        onClick={() => sidebar.handleClose()}
         defaultSelectedKeys={selectedKeys}
         defaultOpenKeys={openKeys}
         selectedKeys={selectedKeys}
-        // openKeys={openKeys}
-        // onOpenChange={this.handleOpenChange}
-        // onSelect={this.handleSelect}
-        mode="inline"
-        theme="dark">
+        mode="inline">
         {pages.map(menuMaker)}
+        <LogoutMenu />
       </Menu>
     );
   }
@@ -66,7 +72,7 @@ AdminMenuWithoutRouter.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.object)
 };
 
-const AdminMenu = withRouter(AdminMenuWithoutRouter);
+const AdminMenu = withAdminContext(withRouter(AdminMenuWithoutRouter));
 
 export { AdminMenu };
 
