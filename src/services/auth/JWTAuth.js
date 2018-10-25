@@ -232,7 +232,7 @@ class JWTAuth {
 
         // Avoid saving `undefined` to WebStorage
         if (typeof data.accessToken !== "undefined") {
-          this.saveToken(data.token);
+          this.saveToken(data.accessToken);
         }
 
         callback(null, data);
