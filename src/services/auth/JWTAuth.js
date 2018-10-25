@@ -206,19 +206,20 @@ class JWTAuth {
     const { username, password, remember } = credential;
 
     if (!username || !password) {
-     	console.warn('Username and password is required');
-			
-			return;
+      console.warn("Username and password is required");
+
+      return;
     }
 
     // If user has already been authenticated.
     if (this.auth()) {
-			console.log('already logged in!');
+      console.log("already logged in!");
       return true;
     }
 
     axios
       .post(authApi.endpoints.getToken.uri, {
+        grantType: "password",
         username: username,
         password: password
       })
@@ -230,8 +231,8 @@ class JWTAuth {
         }
 
         // Avoid saving `undefined` to WebStorage
-        if (typeof data.token !== "undefined") {
-          this.saveToken(data.token);
+        if (typeof data.accessToken !== "undefined") {
+          this.saveToken(data.accessToken);
         }
 
         callback(null, data);
