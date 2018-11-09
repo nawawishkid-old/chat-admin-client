@@ -1,8 +1,8 @@
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
 const webpack = require("webpack");
-const variables = {
-	WEBPACK_API_SERVER_PORT: 11112
+const env = {
+  WEBPACK_API_SERVER_PORT: 11112
 };
 
 module.exports = merge(common, {
@@ -17,6 +17,6 @@ module.exports = merge(common, {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin(variables)
+    new webpack.DefinePlugin(env)
   ]
 });
