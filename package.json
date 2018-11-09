@@ -1,8 +1,8 @@
 {
   "name": "chat-admin",
   "version": "1.0.0",
-	"sideEffects": false,
-  "description": "",
+  "sideEffects": false,
+  "description": "``` ComponentA   - Pure // presentational     - index.js   - index.js // container with presentational exported ```",
   "keywords": [],
   "private": true,
   "main": "src/index.js",
@@ -48,5 +48,7 @@
     "watch": "webpack --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
-  }
+  },
+  "author": "",
+  "license": "ISC"
 }
