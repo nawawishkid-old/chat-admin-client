@@ -1,15 +1,18 @@
 const merge = require("webpack-merge");
 const webpack = require("webpack");
 const common = require("./webpack.common.js");
-const constants = {
-  WEBPACK_APP_BASE_PATH: JSON.stringify("/chat-admin")
-};
+// const env = {
+//   WEBPACK_APP_BASE_PATH: "/chat-admin/"
+// };
 
 module.exports = merge(common, {
   mode: "production",
-  output: {
-    publicPath: "/chat-admin/"
-  },
+	output: {
+		publicPath: '/'
+	},
+  // output: {
+  //   publicPath: env.WEBPACK_APP_BASE_PATH
+  // },
   devtool: "cheap-module-source-map",
-  plugins: [new webpack.DefinePlugin(constants)]
+  // plugins: [new webpack.DefinePlugin(env)]
 });

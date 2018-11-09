@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, message } from "antd";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import defaultFieldSchemes from "~/src/data/form-schemes/signup";
 import SchemebasedForm from "~/src/components/SchemebasedForm";

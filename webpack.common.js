@@ -1,8 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-//   .BundleAnalyzerPlugin;
 
 module.exports = {
   entry: ["@babel/polyfill", "./src/index.js"],
@@ -18,12 +16,10 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        // exclude: /node_modules/,
         use: ["style-loader", "css-loader"]
       },
       {
         test: /\.less$/,
-        // exclude: /node_modules/,
         use: [
           "style-loader",
           "css-loader",
@@ -47,7 +43,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html"
     })
-    // new BundleAnalyzerPlugin()
   ],
   optimization: {
     splitChunks: {

@@ -1,8 +1,8 @@
 {
   "name": "chat-admin",
   "version": "1.0.0",
-	"sideEffects": false,
-  "description": "",
+  "sideEffects": false,
+  "description": "``` ComponentA   - Pure // presentational     - index.js   - index.js // container with presentational exported ```",
   "keywords": [],
   "private": true,
   "main": "src/index.js",
@@ -46,7 +46,11 @@
     "try-build": "webpack-dev-server --port 9090 --config webpack.dev.js --mode production",
     "dev": "webpack-dev-server --port 8080 --config webpack.dev.js",
     "watch": "webpack --watch",
+		"docker": "docker run -d --name react -v $PWD/dist:/usr/share/nginx/html -v $PWD/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf -p 8111:80 nginx",
+		"docker-rm": "docker rm -f react",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
-  }
+  },
+  "author": "",
+  "license": "ISC"
 }

@@ -53,7 +53,7 @@ const handleLoad = (load, props) => {
   const options = { path: templateInputId };
 
   templateInputApi.get("get").call(options, (err, res) => {
-    load(res.data.templateInputs[0]);
+    load(res.data.templateInput);
   });
 };
 
