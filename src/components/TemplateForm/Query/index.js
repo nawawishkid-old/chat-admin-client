@@ -34,7 +34,7 @@ class NoFormTemplateFormQuery extends React.Component {
       templateParserApi.get("get").call(options, (err, res, status) => {
         if (res) {
           console.log("res: ", res);
-          this.setState({ output: res.data, isLoading: false });
+          this.setState({ output: res.data.parsedContent, isLoading: false });
         }
       });
 
