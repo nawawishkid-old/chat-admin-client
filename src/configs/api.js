@@ -4,7 +4,7 @@ export const API_SERVER_HOST =
     : WEBPACK_API_SERVER_HOST;
 export const API_SERVER_PORT =
   typeof WEBPACK_API_SERVER_PORT === "undefined"
-    ? "11112"
+    ? "8000"
     : WEBPACK_API_SERVER_PORT;
 export const API_SERVER_PROTOCAL =
   typeof WEBPACK_API_SERVER_PROTOCAL === "undefined"
