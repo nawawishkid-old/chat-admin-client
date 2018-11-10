@@ -24,7 +24,6 @@ class NoFormTemplateFormQuery extends React.Component {
         return;
       }
 
-      console.log("values: ", values);
       const { _id } = template;
       const options = {
         path: _id,
@@ -33,7 +32,6 @@ class NoFormTemplateFormQuery extends React.Component {
 
       templateParserApi.get("get").call(options, (err, res, status) => {
         if (res) {
-          console.log("res: ", res);
           this.setState({ output: res.data.parsedContent, isLoading: false });
         }
       });
@@ -43,7 +41,6 @@ class NoFormTemplateFormQuery extends React.Component {
   };
 
   handleCopy = () => {
-    console.log("handleCopyText()");
     const textArea = document.createElement("textarea");
 
     textArea.innerText = this.state.output;

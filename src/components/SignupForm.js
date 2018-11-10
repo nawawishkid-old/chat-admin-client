@@ -17,15 +17,12 @@ class SignupForm extends React.Component {
   };
 
   handleSubmit = (values, allProps) => {
-    console.log("values: ", values);
     const options = {
       data: values
     };
 
     userApi.get("create").call(options, (err, res) => {
       if (err) {
-        console.log(err);
-
         message.error(err.data.msg);
 
         this.setState({ loading: false });

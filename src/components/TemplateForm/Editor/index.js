@@ -42,8 +42,6 @@ const handleSubmit = (values, { match, history }) => {
 
   templateApi.get("update").call(options, (err, res) => {
     if (res) {
-      console.log("UPDATED!");
-
       message.success(res.msg);
 
       setTimeout(() => history.goBack(), 1500);

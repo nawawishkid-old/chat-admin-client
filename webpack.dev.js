@@ -2,7 +2,7 @@ const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
 const webpack = require("webpack");
 const env = {
-  WEBPACK_API_SERVER_PORT: 11112
+  WEBPACK_API_SERVER_PORT: 8000
 };
 
 module.exports = merge(common, {

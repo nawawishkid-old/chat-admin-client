@@ -29,7 +29,6 @@ const handleSubmit = (apiOptions, values, { match, history }) => {
     ...apiOptions,
     path: match.params.templateInputId
   };
-  console.log("options: ", options);
 
   templateInputApi.get("update").call(options, (err, res) => {
     if (res) {

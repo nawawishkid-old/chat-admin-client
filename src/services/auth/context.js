@@ -19,7 +19,6 @@ class AuthProvider extends React.Component {
     const options = { path: userId };
 
     userApi.get("get").call(options, (err, res) => {
-      console.log("user res: ", res);
       this.setState({ isAuth: jwtAuth.auth(), user: res.data.user });
     });
   };
@@ -31,7 +30,6 @@ class AuthProvider extends React.Component {
   updateUserData = () => this._fetchUserData();
 
   login = (data, callback = () => {}) => {
-    console.log("login()");
     jwtAuth.login(data, (err, res) => {
       callback(err, res);
 
@@ -42,7 +40,6 @@ class AuthProvider extends React.Component {
   };
 
   logout = () => {
-    console.log("logout!");
     jwtAuth.logout();
     this.setState({ isAuth: jwtAuth.auth() });
   };

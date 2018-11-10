@@ -51,7 +51,6 @@ ComponentTypeSelector.propTypes = {
  * Display component's properties panel based on type of component
  */
 const ComponentPropsPanel = ({ form, componentType, initialValues }) => {
-  console.log("initialValues: ", initialValues);
   if (componentType === "select") {
     const initValues = Array.isArray(initialValues) ? initialValues : [];
 
@@ -65,8 +64,6 @@ const ComponentPropsPanel = ({ form, componentType, initialValues }) => {
       <p>Component's properties</p>
       <div>
         {schemes.map((scheme, index) => {
-          // console.log("scheme: ", scheme);
-
           if (initialValues) {
             const { componentScheme } = scheme;
 

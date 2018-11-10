@@ -139,23 +139,15 @@ class JWTAuth {
     const payload = this.getParsedTokenPayload();
 
     if (!payload) {
-      // console.warn("Unauthenticated");
       return UNAUTHENTICATED;
     }
 
     if (typeof payload.lifespan === "undefined") {
-      // console.info("Authenticated");
       return AUTHENTICATED;
     }
 
     const tokenAge = Math.floor(Date.now() / 1000) - payload.iat;
     const result = tokenAge < payload.lifespan;
-
-    if (result) {
-      // console.info("Authenticated");
-    } else {
-      // console.warn("Unauthenticated");
-    }
 
     return result ? AUTHENTICATED : EXPIRED;
   };
@@ -206,14 +198,11 @@ class JWTAuth {
     const { username, password, remember } = credential;
 
     if (!username || !password) {
-      console.warn("Username and password is required");
-
       return;
     }
 
     // If user has already been authenticated.
     if (this.auth()) {
-      console.log("already logged in!");
       return true;
     }
 
@@ -240,7 +229,6 @@ class JWTAuth {
         return data;
       })
       .catch(err => {
-        console.error(err);
         callback(err, null);
       });
   };

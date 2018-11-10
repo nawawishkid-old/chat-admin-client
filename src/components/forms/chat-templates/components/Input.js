@@ -1,5 +1,4 @@
 import React from "react";
-// import styled from "styled-components";
 import { Form } from "antd";
 import { makeAntdFieldDecorator } from "~/src/components/forms/chat-templates/utils";
 
@@ -9,7 +8,6 @@ const Input = ({ form, label, _id, options, componentScheme, ...rest }) => {
     options,
     componentScheme
   });
-  console.log("fieldDecorator: ", fieldDecorator);
   const layout = {
     labelCol: {
       span: 24,

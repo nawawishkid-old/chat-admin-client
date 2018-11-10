@@ -55,8 +55,6 @@ class APICaller extends EventEmitter {
       headers: {}
     };
 
-    console.log("axiosOptions: ", axiosOptions);
-
     if (auth) {
       this.setAxiosAuthHeader(axiosOptions);
     }
@@ -102,8 +100,6 @@ class APICaller extends EventEmitter {
    * @returns {Function} Axios response handler
    */
   getHandleAxiosError = callback => err => {
-    console.log("Request error...");
-
     if (err.response) {
       const { data, status } = err.response;
       const args = [err.response, null, status];
@@ -170,10 +166,6 @@ class APICaller extends EventEmitter {
     const thePath = path ? "/" + path : "";
     const queryString = params ? "?" + this.makeQueryString(params) : "";
     const url = this.uri + thePath + queryString;
-
-    // console.log("this.uri: ", this.uri);
-    // console.log("path: ", path);
-    // console.log("request url: ", url);
 
     return url;
   };

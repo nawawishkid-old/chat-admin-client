@@ -9,7 +9,6 @@ const StyledCard = styled(Card)`
 `;
 
 const TemplateFormQueryView = props => {
-  // console.log("props: ", props);
   const {
     form,
     name,

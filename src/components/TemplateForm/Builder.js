@@ -25,8 +25,6 @@ const after = [<TemplateInputSelector />];
 const handleSubmit = (values, { form }) => {
   templateApi.get("create").call({ data: values }, (err, res) => {
     if (res) {
-      console.log(res.msg);
-
       form.resetFields();
       message.success(res.msg);
 

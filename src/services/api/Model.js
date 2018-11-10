@@ -46,8 +46,6 @@ class APIGroup {
     const endpoint = this.get(endpointName);
     const userOpts = userOptions || {};
 
-    // console.log('userOpts: ', userOpts);
-
     if (!endpoint) {
       throw new Error("Unknown API endpoint name: " + name);
     }
