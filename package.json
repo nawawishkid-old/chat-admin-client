@@ -9,6 +9,7 @@
   "dependencies": {
     "antd": "3.8.0",
     "axios": "0.18.0",
+    "copy-webpack-plugin": "^4.6.0",
     "keymaster": "1.6.2",
     "prop-types": "15.6.2",
     "react": "16.3.2",
@@ -46,8 +47,10 @@
     "try-build": "webpack-dev-server --port 9090 --config webpack.dev.js --mode production",
     "dev": "webpack-dev-server --port 8080 --config webpack.dev.js",
     "watch": "webpack --watch",
-		"docker": "docker run -d --name react -v $PWD/dist:/usr/share/nginx/html -v $PWD/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf -p 8111:80 nginx",
-		"docker-rm": "docker rm -f react",
+    "docker-rm": "docker rm -f chat-client",
+		"docker-build": "docker build -t nawawishkid/chat-admin-client .",
+		"docker-run": "docker run -d -p 7111:80 --name chat-client nawawishkid/chat-admin-client",
+		"build-all": "npm run build && npm run docker-build && npm run docker-run",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
