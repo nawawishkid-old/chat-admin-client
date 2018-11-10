@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { APP_NAME } from "~/src/configs";
 
 class Page extends React.Component {
   componentDidMount() {
-    document.title = this.props.title + " | " + APP_NAME;
+    document.title = this.props.title + " | " + REACT_APP_NAME;
   }
 
   render() {
@@ -15,7 +14,7 @@ class Page extends React.Component {
 }
 
 Page.defaultProps = {
-  title: APP_NAME
+  title: REACT_APP_NAME
 };
 
 Page.propTypes = {

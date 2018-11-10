@@ -1,10 +1,5 @@
 import React from "react";
 import APIGroup from "./Model";
-import {
-  API_SERVER_HOST,
-  API_SERVER_PORT,
-  API_SERVER_PROTOCAL
-} from "~/src/configs/api";
 
 /**
  * Attach API model object(s) from given API model name to the given component as a prop.
@@ -25,11 +20,11 @@ const withApi = (...name) => Component => {
 };
 
 const apiResolver = (path = "") =>
-  API_SERVER_PROTOCAL +
+  REACT_APP_API_SERVER_PROTOCAL +
   "://" +
-  API_SERVER_HOST +
+  REACT_APP_API_SERVER_HOST +
   ":" +
-  (API_SERVER_PORT || 80) +
+  (REACT_APP_API_SERVER_PORT || 80) +
   path;
 
 const api = { APIGroup, withApi, apiResolver };
