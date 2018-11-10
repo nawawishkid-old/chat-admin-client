@@ -23,7 +23,6 @@ class Signup extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      console.log("handleSubmit!");
       if (!err) {
         console.log("Received values of form: ", values);
         // Signup mechanism here!

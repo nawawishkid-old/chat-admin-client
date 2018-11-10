@@ -14,7 +14,6 @@ import {
  * @returns {Function} New React functional component with attached `api` props.
  */
 const withApi = (...name) => Component => {
-  // console.log("name: ", name);
   const theNames = name[0].constructor.name === "Array" ? [...name[0]] : name;
   const api = {};
 

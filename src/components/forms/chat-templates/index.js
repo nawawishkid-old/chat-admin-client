@@ -21,21 +21,12 @@ class ChatTemplateForm extends React.Component {
     e.preventDefault();
     const { form, templateId } = this.props;
     form.validateFields((err, values) => {
-      console.log("handleSubmit!");
       if (!err) {
-        console.log("Received values of form: ", values);
-        // Mock output value
-        // setTimeout(() => {
-        //   const output = "paresssssssssssssssssssssssssssseseses!";
-        //   console.log("Fetched!");
-        //   this.setState({ output });
-        // }, 500);
         // Fetch API and setState here!
         const query = queryString.stringify(values);
         const path = templateId + "?" + query;
-        console.log("path: ", path);
-        templateParserApi.exec("get", { path }, data => {
-          console.log("data: ", data);
+        
+				templateParserApi.exec("get", { path }, data => {
           this.setState({ output: data.content });
         });
       }
@@ -46,7 +37,6 @@ class ChatTemplateForm extends React.Component {
    * Copy output text to clipboard
    */
   handleCopyText = () => {
-    console.log("handleCopyText()");
     const textArea = document.createElement("textarea");
 
     textArea.innerText = this.state.output;
@@ -63,7 +53,6 @@ class ChatTemplateForm extends React.Component {
    */
   getInputs = () =>
     this.props.inputSchemes.map((scheme, index) => {
-      console.log("scheme: ", scheme);
       const { label, name, options, componentScheme } = scheme;
 
       return (
@@ -94,13 +83,6 @@ class ChatTemplateForm extends React.Component {
         <Form layout="horizontal" {...rest}>
           <div className="chat-template-form__sec-inputs">
             {this.getInputs()}
-            {/* {React.Children.map(children, (child, index) => {
-                // console.log("child.type: ", child.type);
-                return React.cloneElement(child, {
-                  form,
-                  key: inputSchemes.length + index
-                });
-              })} */}
           </div>
           <div className="chat-template-form__sec-output">
             <Form.Item>

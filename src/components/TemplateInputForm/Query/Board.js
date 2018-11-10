@@ -40,10 +40,7 @@ const handleLoad = load => {
   };
 
   templateInputApi.get("get").call(options, (err, res, status) => {
-    console.log("res: ", res);
     const templateInputs = status === 404 ? [] : res.data.templateInputs;
-
-    console.log("templateInputs: ", templateInputs);
 
     load(templateInputs);
   });

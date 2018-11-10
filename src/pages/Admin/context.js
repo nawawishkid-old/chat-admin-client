@@ -9,7 +9,7 @@ class AdminContextProvider extends React.Component {
   };
 
   sidebar = {
-    open: () => console.log('open!!!') || this.setState({ ...{ sidebar: { isVisible: true } } }),
+    open: () => this.setState({ ...{ sidebar: { isVisible: true } } }),
 		handleClose: () => this.setState({ ...{ sidebar: { isVisible: false } } })
   };
 

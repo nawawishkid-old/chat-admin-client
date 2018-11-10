@@ -20,7 +20,6 @@ class LoginForm extends React.Component {
       { username: values.username, password: values.password },
       (err, res) => {
         if (err) {
-          console.log(err);
           message.error("Unauthenticated");
           this.setState({ loading: false });
 

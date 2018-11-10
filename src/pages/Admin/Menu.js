@@ -8,7 +8,6 @@ import pages from "~/src/data/menu";
 
 const menuMaker = (page, index) => {
   if (page.type === "item") {
-    // console.log("key: ", page.path);
     return (
       <Menu.Item key={page.path}>
         <Link to={page.path}>{page.name}</Link>
@@ -23,7 +22,6 @@ const menuMaker = (page, index) => {
     ? [{ name: page.name, path: page.path }, ...page.items]
     : page.items;
   const key = "sub_" + (page.path ? page.path : page.items[0].path);
-  // console.log("subKey: ", key);
 
   return (
     <Menu.SubMenu title={page.title || "untitled"} key={key}>
