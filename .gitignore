@@ -1,4 +1,5 @@
 /node_modules
 /dist
+/docker/nginx/default.conf
 *.swp
 .env
