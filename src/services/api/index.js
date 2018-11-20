@@ -23,8 +23,8 @@ const apiResolver = (path = "") =>
   REACT_APP_API_SERVER_PROTOCAL +
   "://" +
   REACT_APP_API_SERVER_HOST +
-  ":" +
-  (REACT_APP_API_SERVER_PORT || 80) +
+  (REACT_APP_API_SERVER_PORT ? ":" + REACT_APP_API_SERVER_PORT : "") +
+  REACT_APP_API_SERVER_BASE_PATH +
   path;
 
 const api = { APIGroup, withApi, apiResolver };
