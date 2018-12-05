@@ -1,0 +1,34 @@
+<svg
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 169.33334 169.33333">
+  <g
+     transform="translate(-36.004229,-4.5201169)"
+     id="layer1">
+    <path
+       transform="rotate(-20.520458,75.772462,27.678804)"
+       style="opacity:0.8;fill:#2ad4ff;stroke-width:0.26458332"
+       d="M 81.249934,139.0437 41.108458,145.49517 15.450585,113.95737 29.934186,75.968094 70.075662,69.516626 95.733536,101.05443 Z"
+       id="hexagon-3" />
+    <path
+       transform="rotate(-20.520458,37.881351,-79.975038)"
+       style="opacity:0.8;fill:#ff80e5;stroke-width:0.26458332"
+       d="M 81.249934,139.0437 41.108458,145.49517 15.450585,113.95737 29.934186,75.968094 70.075662,69.516626 95.733536,101.05443 Z"
+       id="hexagon-2" />
+    <path
+       transform="rotate(-20.520458,-36.404063,6.6665469)"
+       style="opacity:0.8;fill:#80b3ff;stroke-width:0.26458332"
+       d="M 81.249934,139.0437 41.108458,145.49517 15.450585,113.95737 29.934186,75.968094 70.075662,69.516626 95.733536,101.05443 Z"
+       id="hexagon-1" />
+    <text
+       id="text"
+       y="96.919235"
+       x="66.972099"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#f2f2f2;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:bungee;-inkscape-font-specification:bungee;fill:#f2f2f2;stroke:#4d4d4d;stroke-width:0.26458332"
+         y="96.919235"
+         x="66.972099"
+         id="tspan4554">ChatAdmin</tspan></text>
+  </g>
+</svg>

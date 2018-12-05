@@ -3,9 +3,16 @@ import { Link } from "react-router-dom";
 import Page from "~/src/components/Page";
 import ButtonLogout from "../components/buttons/Logout"; // using `~/src` is not working... :(
 import { withAuth } from "~/src/services/auth";
+import Logo from "~/src/components/Logo";
+import styled from "styled-components";
+
+const StyledLogo = styled(Logo)`
+  max-width: 300px;
+`;
 
 const NoAuthPageHome = ({ isAuth }) => (
-  <Page title="Homeeeeeeeeeee">
+  <Page title="Homeeeeeeeeeee" style={{ textAlign: "center" }}>
+    <StyledLogo />
     <h1>Chat Admin</h1>
     <small>An app by Nawawish Samerpark</small>
     {isAuth ? (
